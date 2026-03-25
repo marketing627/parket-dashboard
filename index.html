@@ -1,0 +1,1921 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PARKET — Performance Completa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #F8F9FA;
+  --surface: #FFFFFF;
+  --surface2: #F1F3F5;
+  --border: #E9ECEF;
+  --border2: #DEE2E6;
+  --text: #212529;
+  --text2: #495057;
+  --text3: #868E96;
+  --green: #0CA678;
+  --green-bg: rgba(12,166,120,0.08);
+  --red: #E03131;
+  --red-bg: rgba(224,49,49,0.06);
+  --amber: #E8590C;
+  --amber-bg: rgba(232,89,12,0.06);
+  --blue: #1971C2;
+  --blue-bg: rgba(25,113,194,0.06);
+  --purple: #7048E8;
+  --cyan: #0C8599;
+}
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Header */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255,255,255,0.97);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+.header .logo {
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 5px;
+  color: var(--text);
+}
+.header .logo span { color: var(--text3); font-weight: 400; letter-spacing: 2px; font-size: 11px; margin-left: 12px; }
+.header-right { display: flex; align-items: center; gap: 16px; }
+.period-badge {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 5px 14px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text2);
+  letter-spacing: 0.5px;
+}
+.timestamp { font-size: 10px; color: var(--text3); letter-spacing: 0.5px; }
+
+/* Date filter */
+.date-filter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.date-filter input[type="date"] {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 11px;
+  padding: 5px 10px;
+  border: 1px solid var(--border2);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  color-scheme: light;
+}
+.date-filter input[type="date"]:focus { outline: none; border-color: var(--text3); }
+.date-filter .sep { color: var(--text3); font-size: 10px; }
+.date-filter .btn-apply {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 10px;
+  padding: 5px 12px;
+  border: 1px solid var(--border2);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text2);
+  cursor: pointer;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.date-filter .btn-apply:hover { border-color: var(--text); color: var(--text); }
+.date-presets {
+  display: flex;
+  gap: 4px;
+  margin-left: 4px;
+}
+.date-presets button {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 10px;
+  padding: 4px 10px;
+  border: 1px solid var(--border2);
+  border-radius: 4px;
+  background: var(--surface);
+  color: var(--text3);
+  cursor: pointer;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+.date-presets button:hover { color: var(--text); border-color: var(--text3); }
+.date-presets button.active { background: var(--text); color: #FFFFFF; border-color: var(--text); }
+
+/* Nav tabs */
+.nav-tabs {
+  display: flex;
+  gap: 0;
+  background: #FFFFFF;
+  border-bottom: 1px solid var(--border);
+  padding: 0 32px;
+  overflow-x: auto;
+}
+.nav-tab {
+  padding: 12px 20px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text3);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.nav-tab:hover { color: var(--text2); }
+.nav-tab.active { color: var(--text); border-bottom-color: var(--green); }
+
+/* Container */
+.container { max-width: 1400px; margin: 0 auto; padding: 24px 32px 80px; }
+
+/* Section */
+.section { margin-bottom: 48px; display: none; }
+.section.active { display: block; }
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.section-title {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text2);
+}
+.section-subtitle {
+  font-size: 11px;
+  color: var(--text3);
+  letter-spacing: 0.5px;
+}
+
+/* KPI Grid */
+.kpi-row {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.kpi-row.cols-5 { grid-template-columns: repeat(5, 1fr); }
+.kpi-row.cols-4 { grid-template-columns: repeat(4, 1fr); }
+.kpi-row.cols-3 { grid-template-columns: repeat(3, 1fr); }
+.kpi-row.cols-6 { grid-template-columns: repeat(6, 1fr); }
+.kpi-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px 16px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+.kpi-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 3px;
+}
+.kpi-card.good::before { background: var(--green); }
+.kpi-card.bad::before { background: var(--red); }
+.kpi-card.warn::before { background: var(--amber); }
+.kpi-card.info::before { background: var(--blue); }
+.kpi-card.neutral::before { background: var(--border2); }
+.kpi-label {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--text3);
+  margin-bottom: 8px;
+}
+.kpi-value {
+  font-size: 28px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+.kpi-value.sm { font-size: 22px; }
+.kpi-bench {
+  font-size: 10px;
+  color: var(--text3);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.kpi-bench .dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.dot-green { background: var(--green); }
+.dot-red { background: var(--red); }
+.dot-amber { background: var(--amber); }
+.dot-blue { background: var(--blue); }
+
+/* Group labels */
+.group-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text3);
+  margin: 24px 0 12px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* Cards */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+.card-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text2);
+  margin-bottom: 16px;
+}
+
+/* Grid layouts */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+.grid-23 { display: grid; grid-template-columns: 2fr 3fr; gap: 16px; }
+.grid-32 { display: grid; grid-template-columns: 3fr 2fr; gap: 16px; }
+
+/* Tables */
+table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+thead th {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text3);
+  text-align: left;
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--border2);
+  white-space: nowrap;
+}
+thead th.r { text-align: right; }
+tbody td {
+  font-size: 12px;
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+  color: var(--text2);
+}
+tbody td.r { text-align: right; }
+tbody tr:hover { background: var(--surface2); }
+
+/* Badges */
+.badge {
+  display: inline-block;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  padding: 2px 8px;
+  border-radius: 3px;
+  text-transform: uppercase;
+}
+.b-green { background: var(--green-bg); color: var(--green); }
+.b-red { background: var(--red-bg); color: var(--red); }
+.b-amber { background: var(--amber-bg); color: var(--amber); }
+.b-blue { background: var(--blue-bg); color: var(--blue); }
+.b-gray { background: rgba(100,100,100,0.15); color: var(--text3); }
+
+/* Chart containers */
+.chart-box { position: relative; height: 300px; }
+.chart-box.tall { height: 400px; }
+.chart-box.short { height: 220px; }
+
+/* Funnel */
+.funnel { display: flex; flex-direction: column; gap: 6px; }
+.funnel-step {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+.funnel-step .f-label { font-size: 12px; font-weight: 500; width: 140px; color: var(--text2); }
+.funnel-step .f-bar { flex: 1; height: 24px; background: var(--border); border-radius: 4px; overflow: hidden; position: relative; }
+.funnel-step .f-fill { height: 100%; border-radius: 4px; transition: width 0.6s ease; }
+.funnel-step .f-value { font-size: 13px; font-weight: 700; width: 100px; text-align: right; font-variant-numeric: tabular-nums; }
+.funnel-step .f-rate { font-size: 10px; color: var(--text3); width: 60px; text-align: right; }
+
+/* Insight box */
+.insight {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--green);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-top: 16px;
+}
+.insight.warn { border-left-color: var(--amber); }
+.insight.danger { border-left-color: var(--red); }
+.insight-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text); margin-bottom: 6px; }
+.insight-text { font-size: 12px; color: var(--text2); line-height: 1.7; }
+
+/* Progress */
+.progress-bg { width: 100%; height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; }
+.progress-fill { height: 100%; border-radius: 4px; }
+
+/* Status indicators */
+.status-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+.status-row:last-child { border-bottom: none; }
+.status-label { font-size: 12px; color: var(--text2); }
+.status-value { font-size: 13px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+/* Waste card */
+.waste-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+.waste-item:last-child { border-bottom: none; }
+.waste-amount {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--red);
+  width: 100px;
+  text-align: right;
+}
+.waste-name { font-size: 12px; color: var(--text2); flex: 1; }
+.waste-reason { font-size: 10px; color: var(--text3); }
+
+/* Actions */
+.action-item {
+  display: flex;
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+}
+.action-item:last-child { border-bottom: none; }
+.action-priority {
+  width: 32px; height: 32px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+.action-priority.p1 { background: var(--red-bg); color: var(--red); }
+.action-priority.p2 { background: var(--amber-bg); color: var(--amber); }
+.action-priority.p3 { background: var(--blue-bg); color: var(--blue); }
+.action-body { flex: 1; }
+.action-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+.action-desc { font-size: 11px; color: var(--text3); line-height: 1.5; }
+
+/* Comparison bars */
+.compare-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+}
+.compare-label { font-size: 12px; color: var(--text2); width: 120px; }
+.compare-bar-bg { flex: 1; height: 20px; background: var(--border); border-radius: 4px; overflow: hidden; }
+.compare-bar { height: 100%; border-radius: 4px; display: flex; align-items: center; justify-content: flex-end; padding-right: 8px; font-size: 10px; font-weight: 700; color: #fff; }
+.compare-value { font-size: 12px; font-weight: 600; width: 80px; text-align: right; font-variant-numeric: tabular-nums; }
+
+@media (max-width: 1024px) {
+  .kpi-row.cols-5, .kpi-row.cols-6 { grid-template-columns: repeat(3, 1fr); }
+  .grid-2, .grid-23, .grid-32 { grid-template-columns: 1fr; }
+}
+@media (max-width: 768px) {
+  .kpi-row.cols-5, .kpi-row.cols-4, .kpi-row.cols-3, .kpi-row.cols-6 { grid-template-columns: repeat(2, 1fr); }
+  .container { padding: 16px; }
+  .header { padding: 12px 16px; }
+  .nav-tabs { padding: 0 16px; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo">PARKET <span>Performance Dashboard</span></div>
+  <div class="header-right">
+    <div class="date-filter">
+      <input type="date" id="dateStart">
+      <span class="sep">ate</span>
+      <input type="date" id="dateEnd">
+      <button class="btn-apply" onclick="applyDateFilter()">Filtrar</button>
+      <div class="date-presets">
+        <button onclick="setPreset('7d', this)">7D</button>
+        <button onclick="setPreset('14d', this)">14D</button>
+        <button onclick="setPreset('30d', this)">30D</button>
+        <button onclick="setPreset('mes', this)">MES</button>
+        <button class="active" onclick="setPreset('all', this)">TUDO</button>
+      </div>
+    </div>
+    <div class="period-badge" id="periodBadge">Carregando...</div>
+    <div class="timestamp" id="timestamp"></div>
+  </div>
+</div>
+
+<div class="nav-tabs">
+  <div class="nav-tab active" onclick="showTab('overview')">Overview</div>
+  <div class="nav-tab" onclick="showTab('funnel')">Funil Completo</div>
+  <div class="nav-tab" onclick="showTab('criativos')">Criativos</div>
+  <div class="nav-tab" onclick="showTab('campanhas')">Campanhas</div>
+  <div class="nav-tab" onclick="showTab('timeline')">Timeline</div>
+  <div class="nav-tab" onclick="showTab('desperdicio')">Desperdicio</div>
+  <div class="nav-tab" onclick="showTab('acoes')">Acoes</div>
+</div>
+
+<div class="container">
+
+  <!-- TAB 1: OVERVIEW -->
+  <div class="section active" id="tab-overview">
+
+    <div class="group-label">Metricas de Investimento</div>
+    <div class="kpi-row cols-5" id="kpiInvestimento"></div>
+
+    <div class="group-label">Metricas de Performance</div>
+    <div class="kpi-row cols-5" id="kpiPerformance"></div>
+
+    <div class="group-label">Metricas de Conversao</div>
+    <div class="kpi-row cols-5" id="kpiConversao"></div>
+
+    <div class="group-label">Metas vs Realidade</div>
+    <div class="kpi-row cols-5" id="kpiMetas"></div>
+
+    <div class="group-label" style="margin-top:32px">Health Check — Sinais Vitais</div>
+    <div class="grid-2" id="healthCheck"></div>
+
+  </div>
+
+  <!-- TAB 2: FUNIL COMPLETO -->
+  <div class="section" id="tab-funnel">
+
+    <div class="group-label">Funil Meta Ads — Impressao ate Conversa WhatsApp</div>
+    <div class="card">
+      <div class="funnel" id="funnelAds"></div>
+    </div>
+
+    <div class="group-label" style="margin-top:32px">Custo por Etapa do Funil</div>
+    <div class="card" id="funnelCRM"></div>
+
+    <div class="group-label" style="margin-top:32px">Taxas de Conversao por Etapa</div>
+    <div class="grid-2">
+      <div class="card" id="convRatesAds"></div>
+      <div class="card" id="convRatesCRM"></div>
+    </div>
+
+  </div>
+
+  <!-- TAB 3: CRIATIVOS -->
+  <div class="section" id="tab-criativos">
+
+    <div class="group-label">Top 10 Criativos — Campanhas Ativas</div>
+    <div class="grid-2">
+      <div class="card" id="top10Volume"></div>
+      <div class="card" id="top10Eficiencia"></div>
+    </div>
+
+    <div class="group-label" style="margin-top:32px">Performance por Tipo de Criativo</div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">CPA por Formato</div>
+        <div class="chart-box" id="chartCpaFormato"></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Volume vs Custo por Formato</div>
+        <div class="chart-box" id="chartVolFormato"></div>
+      </div>
+    </div>
+
+    <div class="group-label" style="margin-top:32px">Tabela Completa — Tipos de Criativo</div>
+    <div class="card" style="overflow-x:auto" id="tblCreativeTypes"></div>
+
+    <div class="group-label" style="margin-top:32px">Matriz CTR x CVR — Quadrantes (Anuncios)</div>
+    <div class="card">
+      <div style="padding:12px 0 16px;font-size:12px;color:var(--text2);line-height:1.7">
+        <strong style="color:var(--text)">Como ler:</strong> Cada bolha e um anuncio. O tamanho representa o investimento. A posicao mostra CTR (eixo X — atratividade do criativo) vs CVR (eixo Y — capacidade de converter). As linhas tracejadas sao as medianas, dividindo em 4 quadrantes.
+      </div>
+      <div class="chart-box tall" id="chartQuadrant"></div>
+    </div>
+    <div class="grid-2" style="margin-top:16px" id="quadrantSummary"></div>
+    <div id="quadrantInsights" style="margin-top:16px"></div>
+
+    <div class="group-label" style="margin-top:32px">Influencia Indireta — Criativos que Assistem Conversoes</div>
+    <div class="card" id="assistAnalysis">
+      <div style="padding:12px 0;font-size:12px;color:var(--text2);line-height:1.7">
+        <strong style="color:var(--text)">O que e isso:</strong> Alguns criativos nao geram conversao direta mas influenciam a decisao. Um post organico pode gerar awareness e depois o usuario converte via um Reel. Aqui analisamos criativos com alto CTR (atraem atencao) mas baixo CVR (nao convertem direto) — eles possivelmente assistem outras conversoes.
+      </div>
+    </div>
+
+    <div class="group-label" style="margin-top:32px">Explorador de Criativos</div>
+    <div class="card">
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;align-items:center" id="adsFilters">
+        <select id="filterSort" onchange="filterAds()" style="font-family:Inter,sans-serif;font-size:11px;padding:6px 12px;border:1px solid var(--border2);border-radius:6px;background:var(--surface);color:var(--text);cursor:pointer">
+          <option value="spend-desc">Maior Investimento</option>
+          <option value="conv-desc">Mais Conversas</option>
+          <option value="cpa-asc">Melhor CPA (menor)</option>
+          <option value="cpa-desc">Pior CPA (maior)</option>
+          <option value="ctr-desc">Melhor CTR</option>
+          <option value="cvr-desc">Melhor CVR</option>
+          <option value="cpc-asc">Menor CPC</option>
+          <option value="freq-desc">Maior Frequencia</option>
+        </select>
+        <select id="filterType" onchange="filterAds()" style="font-family:Inter,sans-serif;font-size:11px;padding:6px 12px;border:1px solid var(--border2);border-radius:6px;background:var(--surface);color:var(--text);cursor:pointer">
+          <option value="all">Todos os formatos</option>
+          <option value="reel">Reels / Video</option>
+          <option value="estatico">Estatico</option>
+          <option value="post">Post Organico</option>
+        </select>
+        <select id="filterStatus" onchange="filterAds()" style="font-family:Inter,sans-serif;font-size:11px;padding:6px 12px;border:1px solid var(--border2);border-radius:6px;background:var(--surface);color:var(--text);cursor:pointer">
+          <option value="all">Todos os status</option>
+          <option value="escalar">Escalar</option>
+          <option value="otimizar">Otimizar</option>
+          <option value="pausar">Pausar</option>
+          <option value="zero">Sem resultado</option>
+        </select>
+        <input type="text" id="filterSearch" oninput="filterAds()" placeholder="Buscar por nome..." style="font-family:Inter,sans-serif;font-size:11px;padding:6px 12px;border:1px solid var(--border2);border-radius:6px;background:var(--surface);color:var(--text);width:200px">
+        <span id="adsCount" style="font-size:11px;color:var(--text3);margin-left:auto"></span>
+      </div>
+      <div style="overflow-x:auto;max-height:550px;overflow-y:auto" id="tblAdsRanking"></div>
+    </div>
+
+  </div>
+
+  <!-- TAB 4: CAMPANHAS -->
+  <div class="section" id="tab-campanhas">
+
+    <div class="group-label">Todas as Campanhas — Com Veredicto</div>
+    <div class="card" style="overflow-x:auto" id="tblCampanhas"></div>
+
+    <div class="group-label" style="margin-top:32px">Conjuntos de Anuncios — Top por Investimento</div>
+    <div class="card" style="overflow-x:auto" id="tblAdsets"></div>
+
+    <div class="group-label" style="margin-top:32px">Concentracao de Budget (Pareto)</div>
+    <div class="grid-32">
+      <div class="card" id="paretoTable"></div>
+      <div class="card" id="paretoStats"></div>
+    </div>
+
+  </div>
+
+  <!-- TAB 5: TIMELINE -->
+  <div class="section" id="tab-timeline">
+
+    <div class="group-label">Tendencias — Ultimos 7 dias vs Periodo Anterior</div>
+    <div class="kpi-row cols-6" id="kpiTrend"></div>
+
+    <div class="group-label" style="margin-top:32px">Evolucao Diaria — Investimento e Conversas</div>
+    <div class="card">
+      <div class="chart-box tall" id="chartTimeline1"></div>
+    </div>
+    <div id="insightTimeline1" style="margin-top:12px"></div>
+
+    <div class="group-label" style="margin-top:32px">Evolucao Diaria — CPA e CTR</div>
+    <div class="card">
+      <div class="chart-box tall" id="chartTimeline2"></div>
+    </div>
+    <div id="insightTimeline2" style="margin-top:12px"></div>
+
+    <div class="group-label" style="margin-top:32px">Evolucao Diaria — CPC e CPM</div>
+    <div class="card">
+      <div class="chart-box" id="chartTimeline3"></div>
+    </div>
+    <div id="insightTimeline3" style="margin-top:12px"></div>
+
+    <div class="group-label" style="margin-top:32px">Analise de Picos e Anomalias</div>
+    <div class="card" id="anomalyAnalysis"></div>
+
+    <div class="group-label" style="margin-top:32px">Performance por Dia da Semana</div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="chart-box short" id="chartDayOfWeek"></div>
+      </div>
+      <div class="card" id="dayOfWeekInsight"></div>
+    </div>
+
+  </div>
+
+  <!-- TAB 6: DESPERDICIO -->
+  <div class="section" id="tab-desperdicio">
+
+    <div class="group-label">Investimento sem Retorno</div>
+    <div class="grid-2">
+      <div class="card" id="wasteTotal"></div>
+      <div class="card" id="wasteList"></div>
+    </div>
+
+    <div class="group-label" style="margin-top:32px">Campanhas para Pausar — CPA Acima do Aceitavel</div>
+    <div class="card" style="overflow-x:auto" id="tblPausar"></div>
+
+    <div class="group-label" style="margin-top:32px">Benchmarks do Setor</div>
+    <div class="card" id="benchmarkCard"></div>
+
+  </div>
+
+  <!-- TAB 7: ACOES -->
+  <div class="section" id="tab-acoes">
+
+    <div class="group-label">Plano de Acao Priorizado</div>
+    <div class="card" id="actionList"></div>
+
+    <div class="group-label" style="margin-top:32px">Resumo Executivo</div>
+    <div class="card" id="execSummary"></div>
+
+  </div>
+
+</div>
+
+<script>
+// ============================================================
+// UTILS
+// ============================================================
+function fmt(n, d) { if (d === undefined) d = 2; return (n || 0).toFixed(d).replace('.', ','); }
+function fmtBRL(n) { return 'R$ ' + (n || 0).toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.'); }
+function fmtInt(n) { return (n || 0).toLocaleString('pt-BR'); }
+function pct(a, b) { return b ? ((a / b) * 100) : 0; }
+function short(s) {
+  if (!s) return '';
+  s = s.replace(/\[Ads\]\s*/g, '').replace(/\[Engajamento\]\s*/g, '').replace(/\[Sudeste, Sul e Centro-Oeste\]\s*/g, '');
+  s = s.replace(/\[Campanha\]\s*/g, '').replace(/\[Listas Lookalike\]\s*/g, '').replace(/\s{2,}/g, ' ');
+  s = s.replace(/\s*\u2014\s*C.pia$/, '').trim();
+  if (s.length > 50) s = s.substring(0, 47) + '...';
+  return s;
+}
+
+// ============================================================
+// TABS
+// ============================================================
+var CURRENT_TAB = 'overview';
+var RENDERED_TABS = {};
+var CURRENT_DATA = null;
+
+function showTab(id) {
+  document.querySelectorAll('.section').forEach(function(s) { s.classList.remove('active'); });
+  document.querySelectorAll('.nav-tab').forEach(function(t) { t.classList.remove('active'); });
+  document.getElementById('tab-' + id).classList.add('active');
+  event.target.classList.add('active');
+  CURRENT_TAB = id;
+  // Always render charts on tab switch (destroys old ones first)
+  if (CURRENT_DATA) {
+    // Clear only this tab's chart containers
+    var tabEl = document.getElementById('tab-' + id);
+    if (tabEl) {
+      var canvases = tabEl.querySelectorAll('canvas');
+      canvases.forEach(function(c) {
+        var chart = Chart.getChart(c);
+        if (chart) {
+          var idx = CHART_INSTANCES.indexOf(chart);
+          if (idx > -1) CHART_INSTANCES.splice(idx, 1);
+          chart.destroy();
+        }
+      });
+    }
+    renderTabCharts(id, CURRENT_DATA);
+  }
+}
+
+function clearTabCharts(id) {
+  var chartIds = {
+    criativos: ['chartCpaFormato','chartVolFormato','chartQuadrant'],
+    campanhas: [],
+    timeline: ['chartTimeline1','chartTimeline2','chartTimeline3','chartDayOfWeek'],
+    desperdicio: [],
+    acoes: []
+  };
+  (chartIds[id] || []).forEach(function(cid) {
+    var el = document.getElementById(cid);
+    if (el) el.innerHTML = '';
+  });
+}
+
+function renderTabCharts(id, data) {
+  clearTabCharts(id);
+  if (id === 'criativos') renderCriativos(data);
+  if (id === 'campanhas') renderCampanhas(data);
+  if (id === 'timeline') renderTimeline(data);
+  if (id === 'desperdicio') renderDesperdicio(data);
+  if (id === 'acoes') renderAcoes(data);
+}
+
+// ============================================================
+// LOAD DATA
+// ============================================================
+function loadData() {
+  return fetch('data.json').then(function(r) { return r.json(); }).catch(function() { return null; });
+}
+
+// ============================================================
+// RENDER OVERVIEW
+// ============================================================
+function renderOverview(data) {
+  var t = data.totals;
+  var g = data.goals;
+  var b = data.benchmarks;
+
+  // Investimento
+  var inv = [
+    { label: 'Investimento Total', value: fmtBRL(t.spend), bench: t.num_days + ' dias', cls: 'info' },
+    { label: 'Gasto Diario Medio', value: fmtBRL(t.avg_daily_spend), bench: 'Media no periodo', cls: 'neutral' },
+    { label: 'Budget Mensal', value: fmtBRL(g.budget_meta_monthly), bench: 'Meta mensal Meta Ads', cls: 'neutral' },
+    { label: 'Budget Utilizado', value: fmt(pct(t.spend, g.budget_meta_monthly * (t.num_days / 30)), 0) + '%', bench: 'Do budget proporcional', cls: 'info' },
+    { label: 'Ritmo Mensal', value: fmtBRL(t.avg_daily_spend * 30), bench: 'Media diaria x 30', cls: t.avg_daily_spend * 30 > g.budget_meta_monthly ? 'warn' : 'good' }
+  ];
+  renderKPIRow('kpiInvestimento', inv);
+
+  // Performance
+  var perf = [
+    { label: 'Impressoes', value: fmtInt(t.impressions), bench: fmtInt(Math.round(t.impressions / t.num_days)) + '/dia', cls: 'neutral' },
+    { label: 'Alcance', value: fmtInt(t.reach), bench: 'Freq: ' + fmt(t.frequency) + 'x', cls: t.frequency < 2 ? 'good' : 'warn' },
+    { label: 'Cliques', value: fmtInt(t.clicks), bench: fmtInt(Math.round(t.clicks / t.num_days)) + '/dia', cls: 'neutral' },
+    { label: 'CTR', value: fmt(t.ctr) + '%', bench: 'Bench: ' + fmt(b.ctr.benchmark) + '% | ' + (b.ctr.status === 'better' ? '+' : '') + fmt(b.ctr.diff_pct, 0) + '%', cls: b.ctr.status === 'better' ? 'good' : 'bad' },
+    { label: 'CPC', value: fmtBRL(t.cpc), bench: 'Bench: ' + fmtBRL(b.cpc.benchmark), cls: b.cpc.status === 'better' ? 'good' : (b.cpc.status === 'worse' ? 'bad' : 'neutral') }
+  ];
+  renderKPIRow('kpiPerformance', perf);
+
+  // Conversao
+  var conv = [
+    { label: 'CPM', value: fmtBRL(t.cpm), bench: 'Bench: ' + fmtBRL(b.cpm.benchmark) + ' | +' + fmt(b.cpm.diff_pct, 0) + '%', cls: b.cpm.status === 'worse' ? 'warn' : 'good' },
+    { label: 'Conversas WhatsApp', value: fmtInt(t.conversations), bench: fmtInt(Math.round(t.conversations / t.num_days)) + '/dia', cls: 'good' },
+    { label: 'Custo/Conversa WA', value: fmtBRL(t.cost_per_conversation), bench: 'Principal KPI', cls: t.cost_per_conversation < 20 ? 'good' : 'warn' },
+    { label: 'CPA (Resultado)', value: fmtBRL(t.cpa), bench: 'Bench: ' + fmtBRL(b.cpa.benchmark) + ' | ' + fmt(b.cpa.diff_pct, 0) + '%', cls: 'good' },
+    { label: 'CVR (Clique→Result)', value: fmt(t.cvr) + '%', bench: 'Taxa de conversao geral', cls: t.cvr > 10 ? 'good' : 'warn' }
+  ];
+  renderKPIRow('kpiConversao', conv);
+
+  // Metas
+  var p = data.projections;
+  var metas = [
+    { label: 'Investimento Meta', value: fmtBRL(g.budget_meta_monthly) + '/mes', bench: 'Configurado', cls: 'neutral' },
+    { label: 'Leads Meta', value: fmtInt(Math.round(p.targets.leads_needed)) + '/mes', bench: fmt(p.targets.daily_leads_needed, 1) + '/dia necessarios', cls: 'info' },
+    { label: 'Vendas Meta', value: fmtInt(g.vendas_meta) + '/mes', bench: 'Objetivo mensal', cls: 'info' },
+    { label: 'Conversas/Dia', value: fmtInt(Math.round(t.conversations / t.num_days)), bench: 'Media no periodo', cls: (t.conversations / t.num_days) > 30 ? 'good' : 'warn' },
+    { label: 'Custo/Conversa WA', value: fmtBRL(t.cost_per_conversation), bench: 'Objetivo: < R$ 15', cls: t.cost_per_conversation < 15 ? 'good' : 'warn' }
+  ];
+  renderKPIRow('kpiMetas', metas);
+
+  // Health Check
+  var checks = [
+    { label: 'CPA vs Benchmark', actual: fmtBRL(t.cpa), target: '< ' + fmtBRL(b.cpa.benchmark), ok: t.cpa < b.cpa.benchmark },
+    { label: 'CTR vs Benchmark', actual: fmt(t.ctr) + '%', target: '> ' + fmt(b.ctr.benchmark) + '%', ok: t.ctr > b.ctr.benchmark },
+    { label: 'Frequencia', actual: fmt(t.frequency) + 'x', target: '< 2,0x', ok: t.frequency < 2 },
+    { label: 'Budget Pace', actual: fmt(pct(t.spend, g.budget_meta_monthly * (t.num_days / 30)), 0) + '%', target: '90-110%', ok: true },
+    { label: 'CVR', actual: fmt(t.cvr) + '%', target: '> 8%', ok: t.cvr > 8 },
+    { label: 'CPM', actual: fmtBRL(t.cpm), target: '< ' + fmtBRL(b.cpm.benchmark * 2), ok: t.cpm < b.cpm.benchmark * 2 },
+    { label: 'CPC', actual: fmtBRL(t.cpc), target: '< ' + fmtBRL(b.cpc.benchmark * 1.5), ok: t.cpc < b.cpc.benchmark * 1.5 },
+    { label: 'Conversas/Dia', actual: fmtInt(Math.round(t.conversations / t.num_days)), target: '> 30', ok: (t.conversations / t.num_days) > 30 }
+  ];
+
+  var hLeft = '<div class="card"><div class="card-title">Sinais Vitais</div>';
+  var hRight = '<div class="card"><div class="card-title">Status</div>';
+  checks.forEach(function(c, i) {
+    var html = '<div class="status-row"><div class="status-label">' + c.label + '</div><div class="status-indicator">' +
+      '<span class="dot ' + (c.ok ? 'dot-green' : 'dot-red') + '"></span>' +
+      '<span style="color:' + (c.ok ? 'var(--green)' : 'var(--red)') + '">' + c.actual + '</span>' +
+      '<span style="color:var(--text3);margin-left:4px">(' + c.target + ')</span>' +
+      '</div></div>';
+    if (i < 4) hLeft += html; else hRight += html;
+  });
+  hLeft += '</div>';
+  hRight += '</div>';
+  document.getElementById('healthCheck').innerHTML = hLeft + hRight;
+}
+
+function renderKPIRow(id, items) {
+  var html = '';
+  items.forEach(function(k) {
+    html += '<div class="kpi-card ' + k.cls + '"><div class="kpi-label">' + k.label + '</div><div class="kpi-value' + (k.value.length > 12 ? ' sm' : '') + '">' + k.value + '</div><div class="kpi-bench">' + k.bench + '</div></div>';
+  });
+  document.getElementById(id).innerHTML = html;
+}
+
+// ============================================================
+// RENDER FUNNEL
+// ============================================================
+function renderFunnel(data) {
+  var t = data.totals;
+  var p = data.projections;
+  var b = data.benchmarks;
+
+  // Big visual funnel
+  var steps = [
+    { label: 'IMPRESSOES', sublabel: 'Quantas vezes o anuncio apareceu', value: t.impressions, cost: t.cpm, costLabel: 'CPM', color: '#1971C2', icon: '' },
+    { label: 'ALCANCE', sublabel: 'Pessoas unicas atingidas', value: t.reach, cost: (t.spend / t.reach * 1000), costLabel: 'CPM Unico', color: '#0C8599', icon: '' },
+    { label: 'CLIQUES', sublabel: 'Clicaram no anuncio', value: t.clicks, cost: t.cpc, costLabel: 'CPC', color: '#8B5CF6', icon: '' },
+    { label: 'RESULTADOS', sublabel: 'Acao de conversao registrada', value: t.results, cost: t.cpa, costLabel: 'CPA', color: '#E8590C', icon: '' },
+    { label: 'CONVERSAS WHATSAPP', sublabel: 'Iniciaram conversa no WA', value: t.conversations, cost: t.cost_per_conversation, costLabel: 'Custo/Conversa', color: '#0CA678', icon: '' }
+  ];
+
+  var maxV = steps[0].value;
+  var html = '';
+
+  steps.forEach(function(s, i) {
+    var widthPct = Math.max((s.value / maxV) * 100, 4);
+    var dropRate = i > 0 ? pct(steps[i-1].value - s.value, steps[i-1].value) : 0;
+    var convRate = i > 0 ? pct(s.value, steps[i-1].value) : 100;
+    var fromTop = i > 0 ? pct(s.value, steps[0].value) : 100;
+    var isBottleneck = dropRate > 80;
+    var dropColor = dropRate > 90 ? 'var(--red)' : dropRate > 70 ? 'var(--amber)' : 'var(--green)';
+
+    // Funnel step
+    html += '<div style="margin-bottom:4px">';
+
+    // Conversion arrow between steps
+    if (i > 0) {
+      var lost = steps[i-1].value - s.value;
+      html += '<div style="display:flex;align-items:center;justify-content:center;padding:6px 0;gap:16px">';
+      html += '<div style="font-size:20px;color:' + dropColor + '">↓</div>';
+      html += '<div style="background:' + (isBottleneck ? 'var(--red-bg)' : 'rgba(255,255,255,0.03)') + ';border:1px solid ' + (isBottleneck ? 'var(--red)' : 'var(--border)') + ';border-radius:6px;padding:6px 16px;display:flex;gap:20px;align-items:center">';
+      html += '<span style="font-size:11px;color:' + dropColor + ';font-weight:700">' + fmt(convRate, 1) + '% passam</span>';
+      html += '<span style="font-size:10px;color:var(--text3)">' + fmtInt(lost) + ' perdidos (' + fmt(dropRate, 1) + '% drop)</span>';
+      if (isBottleneck) html += '<span class="badge b-red">GARGALO</span>';
+      html += '</div>';
+      html += '<div style="font-size:20px;color:' + dropColor + '">↓</div>';
+      html += '</div>';
+    }
+
+    // Main bar
+    html += '<div style="display:flex;align-items:center;gap:16px">';
+    html += '<div style="width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:' + s.color + ';color:#fff;font-size:11px;font-weight:700;flex-shrink:0">' + (i + 1) + '</div>';
+    html += '<div style="flex:1">';
+    html += '<div style="display:flex;justify-content:space-between;margin-bottom:4px">';
+    html += '<div><span style="font-size:13px;font-weight:700;color:var(--text);letter-spacing:1px">' + s.label + '</span> <span style="font-size:10px;color:var(--text3)">' + s.sublabel + '</span></div>';
+    html += '<div style="text-align:right"><span style="font-size:10px;color:var(--text3)">' + s.costLabel + ': </span><span style="font-size:11px;font-weight:600;color:var(--text2)">R$ ' + fmt(s.cost) + '</span></div>';
+    html += '</div>';
+    html += '<div style="width:100%;height:40px;background:var(--border);border-radius:6px;overflow:hidden;position:relative">';
+    html += '<div style="width:' + widthPct + '%;height:100%;background:' + s.color + ';border-radius:6px;display:flex;align-items:center;justify-content:center;min-width:80px">';
+    html += '<span style="font-size:16px;font-weight:800;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,0.2)">' + fmtInt(s.value) + '</span>';
+    html += '</div></div>';
+    html += '<div style="display:flex;justify-content:space-between;margin-top:3px">';
+    html += '<span style="font-size:10px;color:var(--text3)">' + fmt(fromTop, 2) + '% do topo</span>';
+    html += '<span style="font-size:10px;color:var(--text3)">' + fmtInt(Math.round(s.value / t.num_days)) + '/dia</span>';
+    html += '</div>';
+    html += '</div></div>';
+    html += '</div>';
+  });
+
+  // Summary metrics at bottom
+  html += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:24px;padding-top:20px;border-top:1px solid var(--border)">';
+  html += '<div style="text-align:center;padding:12px;background:var(--surface2);border-radius:8px"><div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:1px">Impr → Clique</div><div style="font-size:20px;font-weight:700;color:var(--text);margin-top:4px">' + fmt(t.ctr) + '%</div><div style="font-size:10px;color:' + (t.ctr > b.ctr.benchmark ? 'var(--green)' : 'var(--red)') + '">Bench: ' + fmt(b.ctr.benchmark) + '%</div></div>';
+  html += '<div style="text-align:center;padding:12px;background:var(--surface2);border-radius:8px"><div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:1px">Clique → Resultado</div><div style="font-size:20px;font-weight:700;color:var(--text);margin-top:4px">' + fmt(t.cvr) + '%</div><div style="font-size:10px;color:var(--text3)">Taxa de conversao</div></div>';
+  html += '<div style="text-align:center;padding:12px;background:var(--surface2);border-radius:8px"><div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:1px">Impr → Conversa WA</div><div style="font-size:20px;font-weight:700;color:var(--text);margin-top:4px">' + fmt(pct(t.conversations, t.impressions), 3) + '%</div><div style="font-size:10px;color:var(--text3)">Eficiencia total</div></div>';
+  html += '<div style="text-align:center;padding:12px;background:var(--surface2);border-radius:8px"><div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:1px">Invest → Conversa</div><div style="font-size:20px;font-weight:700;color:' + (t.cost_per_conversation < 20 ? 'var(--green)' : 'var(--amber)') + ';margin-top:4px">' + fmtBRL(t.cost_per_conversation) + '</div><div style="font-size:10px;color:var(--text3)">Custo final</div></div>';
+  html += '</div>';
+
+  document.getElementById('funnelAds').innerHTML = html;
+
+  // Metricas de custo por etapa do funil (dados reais)
+  var chtml = '';
+  chtml += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;text-align:center">';
+  chtml += '<div style="padding:16px;background:var(--surface2);border-radius:8px"><div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:1px">Custo por Impressao</div><div style="font-size:22px;font-weight:700;color:var(--text);margin-top:8px">R$ ' + fmt(t.cpm / 1000, 4) + '</div><div style="font-size:10px;color:var(--text3);margin-top:4px">CPM: ' + fmtBRL(t.cpm) + '</div></div>';
+  chtml += '<div style="padding:16px;background:var(--surface2);border-radius:8px"><div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:1px">Custo por Clique</div><div style="font-size:22px;font-weight:700;color:var(--text);margin-top:8px">' + fmtBRL(t.cpc) + '</div><div style="font-size:10px;color:var(--text3);margin-top:4px">' + fmtInt(t.clicks) + ' cliques</div></div>';
+  chtml += '<div style="padding:16px;background:var(--surface2);border-radius:8px"><div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:1px">Custo por Resultado</div><div style="font-size:22px;font-weight:700;color:var(--text);margin-top:8px">' + fmtBRL(t.cpa) + '</div><div style="font-size:10px;color:var(--text3);margin-top:4px">' + fmtInt(t.results) + ' resultados</div></div>';
+  chtml += '<div style="padding:16px;background:var(--surface2);border-radius:8px"><div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:1px">Custo por Conversa WA</div><div style="font-size:22px;font-weight:700;color:' + (t.cost_per_conversation < 20 ? 'var(--green)' : 'var(--amber)') + ';margin-top:8px">' + fmtBRL(t.cost_per_conversation) + '</div><div style="font-size:10px;color:var(--text3);margin-top:4px">' + fmtInt(t.conversations) + ' conversas</div></div>';
+  chtml += '</div>';
+  document.getElementById('funnelCRM').innerHTML = chtml;
+
+  // Conv rates Ads
+  var rAds = '<div class="card-title">Taxas — Funil Ads</div>';
+  var adsRates = [
+    { label: 'Impressao \u2192 Clique (CTR)', value: fmt(t.ctr) + '%' },
+    { label: 'Clique \u2192 Resultado (CVR)', value: fmt(t.cvr) + '%' },
+    { label: 'Impressao \u2192 Conversa', value: fmt(pct(t.conversations, t.impressions), 4) + '%' },
+    { label: 'Custo por Clique', value: fmtBRL(t.cpc) },
+    { label: 'Custo por Resultado', value: fmtBRL(t.cpa) },
+    { label: 'Custo por Conversa WA', value: fmtBRL(t.cost_per_conversation) }
+  ];
+  adsRates.forEach(function(r) {
+    rAds += '<div class="status-row"><div class="status-label">' + r.label + '</div><div class="status-value">' + r.value + '</div></div>';
+  });
+  document.getElementById('convRatesAds').innerHTML = rAds;
+
+  // Eficiencia do investimento
+  var rCRM = '<div class="card-title">Eficiencia do Investimento</div>';
+  var effRates = [
+    { label: 'Investimento / Dia', value: fmtBRL(t.avg_daily_spend) },
+    { label: 'Conversas / Dia', value: fmtInt(Math.round(t.conversations / t.num_days)) },
+    { label: 'Resultados / Dia', value: fmtInt(Math.round(t.results / t.num_days)) },
+    { label: 'Cliques / Dia', value: fmtInt(Math.round(t.clicks / t.num_days)) },
+    { label: 'Frequencia Media', value: fmt(t.frequency) + 'x' },
+    { label: 'Periodo Analisado', value: t.num_days + ' dias' }
+  ];
+  effRates.forEach(function(r) {
+    rCRM += '<div class="status-row"><div class="status-label">' + r.label + '</div><div class="status-value">' + r.value + '</div></div>';
+  });
+  document.getElementById('convRatesCRM').innerHTML = rCRM;
+}
+
+// ============================================================
+// RENDER CRIATIVOS
+// ============================================================
+function renderCriativos(data) {
+  // Top 10 criativos das campanhas ativas
+  var activeAds = data.ads.filter(function(a) { return a.conversations > 0; });
+
+  // Top 10 por volume (conversas)
+  var topVolume = activeAds.slice().sort(function(a, b) { return b.conversations - a.conversations; }).slice(0, 10);
+  var v = '<div class="card-title">Top 10 por Volume de Conversas</div>';
+  v += '<table><thead><tr><th>#</th><th>Criativo</th><th class="r">Conv.</th><th class="r">CPA</th><th class="r">Invest.</th><th class="r">CVR</th><th>Status</th></tr></thead><tbody>';
+  topVolume.forEach(function(a, i) {
+    var isReel = a.name.toLowerCase().indexOf('reel') > -1 || a.name.toLowerCase().indexOf('video') > -1;
+    var tipo = isReel ? '<span class="badge b-blue">REEL</span>' : '<span class="badge b-gray">ESTATICO</span>';
+    var cpaC = a.cpa < 15 ? 'var(--green)' : a.cpa < 30 ? 'var(--amber)' : 'var(--red)';
+    v += '<tr>';
+    v += '<td style="font-weight:700;color:var(--text)">' + (i + 1) + '</td>';
+    v += '<td style="color:var(--text)" title="' + a.name.replace(/"/g, '&quot;') + '">' + short(a.name) + '</td>';
+    v += '<td class="r" style="font-weight:700">' + fmtInt(a.conversations) + '</td>';
+    v += '<td class="r" style="color:' + cpaC + ';font-weight:600">' + fmtBRL(a.cpa) + '</td>';
+    v += '<td class="r">' + fmtBRL(a.spend) + '</td>';
+    v += '<td class="r">' + fmt(a.cvr) + '%</td>';
+    v += '<td>' + tipo + '</td>';
+    v += '</tr>';
+  });
+  v += '</tbody></table>';
+  var totalConvTop10 = topVolume.reduce(function(s, a) { return s + a.conversations; }, 0);
+  v += '<div style="margin-top:12px;padding:10px;background:var(--surface2);border-radius:6px;font-size:11px;color:var(--text2)">Estes 10 criativos geram <strong style="color:var(--text)">' + fmtInt(totalConvTop10) + ' conversas</strong> (' + fmt(totalConvTop10 / data.totals.conversations * 100, 1) + '% do total). Reels dominam o topo com CPA significativamente menor.</div>';
+  document.getElementById('top10Volume').innerHTML = v;
+
+  // Top 10 por eficiencia (menor CPA, min 10 conversas)
+  var topEff = activeAds.filter(function(a) { return a.conversations >= 10 && a.cpa > 0; }).sort(function(a, b) { return a.cpa - b.cpa; }).slice(0, 10);
+  var e = '<div class="card-title">Top 10 por Eficiencia (Menor CPA)</div>';
+  e += '<table><thead><tr><th>#</th><th>Criativo</th><th class="r">CPA</th><th class="r">Conv.</th><th class="r">Invest.</th><th class="r">CTR</th><th>Status</th></tr></thead><tbody>';
+  topEff.forEach(function(a, i) {
+    var isReel = a.name.toLowerCase().indexOf('reel') > -1 || a.name.toLowerCase().indexOf('video') > -1;
+    var tipo = isReel ? '<span class="badge b-blue">REEL</span>' : '<span class="badge b-gray">ESTATICO</span>';
+    var scalable = a.conversations > 20 && a.cpa < 15;
+    e += '<tr>';
+    e += '<td style="font-weight:700;color:var(--text)">' + (i + 1) + '</td>';
+    e += '<td style="color:var(--text)" title="' + a.name.replace(/"/g, '&quot;') + '">' + short(a.name) + '</td>';
+    e += '<td class="r" style="color:var(--green);font-weight:700">' + fmtBRL(a.cpa) + '</td>';
+    e += '<td class="r" style="font-weight:600">' + fmtInt(a.conversations) + '</td>';
+    e += '<td class="r">' + fmtBRL(a.spend) + '</td>';
+    e += '<td class="r">' + fmt(a.ctr) + '%</td>';
+    e += '<td>' + tipo + (scalable ? ' <span class="badge b-green">ESCALAR</span>' : '') + '</td>';
+    e += '</tr>';
+  });
+  e += '</tbody></table>';
+  var reelCount = topEff.filter(function(a) { return a.name.toLowerCase().indexOf('reel') > -1; }).length;
+  e += '<div style="margin-top:12px;padding:10px;background:var(--surface2);border-radius:6px;font-size:11px;color:var(--text2)">' + reelCount + ' de 10 mais eficientes sao Reels. Criativos com tag ESCALAR tem volume + CPA baixo e podem receber mais budget.</div>';
+  document.getElementById('top10Eficiencia').innerHTML = e;
+
+  var ct = data.creative_types.filter(function(c) { return c.spend > 10; }).sort(function(a, b) { return a.cpa - b.cpa; });
+
+  // CPA bar chart
+  var ctx1 = document.createElement('canvas');
+  document.getElementById('chartCpaFormato').appendChild(ctx1);
+  CHART_INSTANCES.push(new Chart(ctx1, {
+    type: 'bar',
+    data: {
+      labels: ct.map(function(c) { return c.name; }),
+      datasets: [{
+        label: 'CPA (R$)',
+        data: ct.map(function(c) { return c.cpa; }),
+        backgroundColor: ct.map(function(c) { return c.cpa < 15 ? '#0CA678' : c.cpa < 30 ? '#E8590C' : '#E03131'; }),
+        borderRadius: 4, barThickness: 28
+      }]
+    },
+    options: {
+      indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: { callbacks: { label: function(c) { return 'CPA: R$ ' + c.parsed.x.toFixed(2); } } } },
+      scales: {
+        x: { beginAtZero: true, grid: { color: '#E9ECEF' }, ticks: { font: { family: 'Inter', size: 11 }, color: '#868E96', callback: function(v) { return 'R$ ' + v; } } },
+        y: { grid: { display: false }, ticks: { font: { family: 'Inter', size: 11 }, color: '#495057' } }
+      }
+    }
+  }));
+
+  // Volume chart
+  var ctx2 = document.createElement('canvas');
+  document.getElementById('chartVolFormato').appendChild(ctx2);
+  var ctSorted = ct.slice().sort(function(a, b) { return b.spend - a.spend; });
+  CHART_INSTANCES.push(new Chart(ctx2, {
+    type: 'bar',
+    data: {
+      labels: ctSorted.map(function(c) { return c.name; }),
+      datasets: [
+        { label: 'Investimento (R$)', data: ctSorted.map(function(c) { return c.spend; }), backgroundColor: '#1971C2', borderRadius: 4, barThickness: 10, yAxisID: 'y' },
+        { label: 'Conversas', data: ctSorted.map(function(c) { return c.conversations; }), backgroundColor: '#0CA678', borderRadius: 4, barThickness: 10, yAxisID: 'y1' },
+        { label: 'CPA (R$)', data: ctSorted.map(function(c) { return c.cpa; }), backgroundColor: '#E8590C', borderRadius: 4, barThickness: 10, yAxisID: 'y2' }
+      ]
+    },
+    options: {
+      indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { labels: { color: '#495057', font: { family: 'Inter', size: 10 } } },
+        tooltip: { callbacks: { label: function(c) { var ds = c.dataset.label; var v = c.parsed.x; if (ds.indexOf('R$') > -1) return ds + ': R$ ' + v.toFixed(2); return ds + ': ' + v; } } }
+      },
+      scales: {
+        y: { grid: { display: false }, ticks: { font: { family: 'Inter', size: 10 }, color: '#495057' } },
+        x: { position: 'top', grid: { color: '#E9ECEF' }, ticks: { font: { family: 'Inter', size: 10 }, color: '#1971C2', callback: function(v) { return 'R$ ' + v; } }, title: { display: true, text: 'Investimento', color: '#1971C2', font: { family: 'Inter', size: 9 } } },
+        y1: { position: 'bottom', grid: { display: false }, ticks: { font: { family: 'Inter', size: 10 }, color: '#0CA678' }, title: { display: true, text: 'Conversas', color: '#0CA678', font: { family: 'Inter', size: 9 } } },
+        y2: { display: false }
+      }
+    }
+  }));
+
+  // Creative types table
+  var tbl = '<table><thead><tr><th>Formato</th><th class="r">Invest.</th><th class="r">Impr.</th><th class="r">Cliques</th><th class="r">CTR</th><th class="r">CPC</th><th class="r">CPM</th><th class="r">Conv.</th><th class="r">CPA</th><th class="r">CVR</th><th class="r">Freq.</th><th class="r">Dias</th></tr></thead><tbody>';
+  data.creative_types.sort(function(a, b) { return b.spend - a.spend; }).forEach(function(c) {
+    var cpaColor = c.cpa === 0 ? 'var(--text3)' : c.cpa < 15 ? 'var(--green)' : c.cpa < 30 ? 'var(--amber)' : 'var(--red)';
+    tbl += '<tr>' +
+      '<td style="font-weight:600;color:var(--text)">' + c.name + '</td>' +
+      '<td class="r">' + fmtBRL(c.spend) + '</td>' +
+      '<td class="r">' + fmtInt(c.impressions) + '</td>' +
+      '<td class="r">' + fmtInt(c.clicks) + '</td>' +
+      '<td class="r">' + fmt(c.ctr) + '%</td>' +
+      '<td class="r">' + fmtBRL(c.cpc) + '</td>' +
+      '<td class="r">' + fmtBRL(c.cpm) + '</td>' +
+      '<td class="r" style="font-weight:600">' + fmtInt(c.conversations) + '</td>' +
+      '<td class="r" style="color:' + cpaColor + ';font-weight:700">' + (c.cpa > 0 ? fmtBRL(c.cpa) : '\u2014') + '</td>' +
+      '<td class="r">' + fmt(c.cvr) + '%</td>' +
+      '<td class="r">' + fmt(c.frequency) + 'x</td>' +
+      '<td class="r">' + c.days_active + '</td>' +
+      '</tr>';
+  });
+  tbl += '</tbody></table>';
+  document.getElementById('tblCreativeTypes').innerHTML = tbl;
+
+  // Quadrant scatter
+  var qs = data.quadrant_summary.ads;
+  var allAds = data.ads.filter(function(a) { return a.results > 2 && a.spend > 50; });
+  var datasets = [
+    { label: 'Stars (alto CTR + alto CVR)', data: [], backgroundColor: '#0CA678', pointRadius: [] },
+    { label: 'Efficient (baixo CTR + alto CVR)', data: [], backgroundColor: '#1971C2', pointRadius: [] },
+    { label: 'Attention (alto CTR + baixo CVR)', data: [], backgroundColor: '#E8590C', pointRadius: [] },
+    { label: 'Underperformer (baixo CTR + baixo CVR)', data: [], backgroundColor: '#E03131', pointRadius: [] }
+  ];
+  var medCTR = qs.medians.ctr;
+  var medCVR = qs.medians.cvr;
+  allAds.forEach(function(a) {
+    var pt = { x: a.ctr, y: a.cvr, label: short(a.name), spend: a.spend, cpa: a.cpa };
+    var r = Math.max(4, Math.min(16, Math.sqrt(a.spend / 50)));
+    if (a.ctr >= medCTR && a.cvr >= medCVR) { datasets[0].data.push(pt); datasets[0].pointRadius.push(r); }
+    else if (a.ctr < medCTR && a.cvr >= medCVR) { datasets[1].data.push(pt); datasets[1].pointRadius.push(r); }
+    else if (a.ctr >= medCTR && a.cvr < medCVR) { datasets[2].data.push(pt); datasets[2].pointRadius.push(r); }
+    else { datasets[3].data.push(pt); datasets[3].pointRadius.push(r); }
+  });
+  var ctx3 = document.createElement('canvas');
+  document.getElementById('chartQuadrant').appendChild(ctx3);
+  CHART_INSTANCES.push(new Chart(ctx3, {
+    type: 'scatter',
+    data: { datasets: datasets },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { labels: { color: '#495057', font: { family: 'Inter', size: 10 } } },
+        tooltip: { callbacks: { label: function(c) { var d = c.raw; return d.label + ' | CTR: ' + d.x.toFixed(2) + '% | CVR: ' + d.y.toFixed(1) + '% | CPA: R$ ' + (d.cpa||0).toFixed(2); } } }
+      },
+      scales: {
+        x: { title: { display: true, text: 'CTR (%)', color: '#868E96', font: { family: 'Inter', size: 11 } }, grid: { color: '#E9ECEF' }, ticks: { color: '#868E96', font: { family: 'Inter', size: 10 } } },
+        y: { title: { display: true, text: 'CVR (%)', color: '#868E96', font: { family: 'Inter', size: 11 } }, grid: { color: '#E9ECEF' }, ticks: { color: '#868E96', font: { family: 'Inter', size: 10 } } }
+      }
+    },
+    plugins: [{
+      id: 'medianLines',
+      afterDraw: function(chart) {
+        var xA = chart.scales.x, yA = chart.scales.y, ctx = chart.ctx;
+        ctx.save();
+        ctx.strokeStyle = '#ADB5BD'; ctx.lineWidth = 1; ctx.setLineDash([6, 4]);
+        var xM = xA.getPixelForValue(medCTR);
+        ctx.beginPath(); ctx.moveTo(xM, yA.top); ctx.lineTo(xM, yA.bottom); ctx.stroke();
+        var yM = yA.getPixelForValue(medCVR);
+        ctx.beginPath(); ctx.moveTo(xA.left, yM); ctx.lineTo(xA.right, yM); ctx.stroke();
+        ctx.fillStyle = '#868E96'; ctx.font = '10px Inter';
+        ctx.fillText('CTR med: ' + medCTR.toFixed(2) + '%', xM + 4, yA.top + 10);
+        ctx.fillText('CVR med: ' + medCVR.toFixed(1) + '%', xA.left + 4, yM - 6);
+        ctx.restore();
+      }
+    }]
+  }));
+
+  // Quadrant summary cards
+  var qNames = ['Stars', 'Efficient', 'Attention', 'Underperformer'];
+  var qColors = ['var(--green)', 'var(--blue)', 'var(--amber)', 'var(--red)'];
+  var qHtml = '';
+  datasets.forEach(function(ds, i) {
+    var totalSpend = ds.data.reduce(function(s, d) { return s + d.spend; }, 0);
+    qHtml += '<div class="card"><div class="card-title" style="color:' + qColors[i] + '">' + qNames[i] + ' (' + ds.data.length + ' ads)</div>' +
+      '<div class="status-row"><div class="status-label">Investimento</div><div class="status-value">' + fmtBRL(totalSpend) + '</div></div>' +
+      '</div>';
+  });
+  document.getElementById('quadrantSummary').innerHTML = qHtml;
+
+  // Quadrant insights + explanations
+  var qInsights = '';
+  var qDescs = [
+    { name: 'Stars', color: 'var(--green)', icon: '', desc: 'Alto CTR + Alto CVR — Os melhores criativos. Atraem atencao E convertem. Acao: ESCALAR budget nestes anuncios.', action: 'Aumentar investimento progressivamente. Sao seus criativos mais eficientes.' },
+    { name: 'Efficient', color: 'var(--blue)', icon: '', desc: 'Baixo CTR + Alto CVR — Convertem bem quem clica, mas atraem poucos cliques. Possivelmente audiencias quentes (remarketing) ou criativos nichados.', action: 'Testar novas thumbnails/copys para aumentar CTR mantendo o CVR. Pequenos ajustes no visual podem destravar volume.' },
+    { name: 'Attention Grabbers', color: 'var(--amber)', icon: '', desc: 'Alto CTR + Baixo CVR — Chamam atencao mas nao convertem. O criativo atrai cliques mas a landing page ou oferta nao convence. Podem ser ASSISTENTES de conversao (awareness).', action: 'Revisar a pagina de destino. Se o anuncio promete algo, a LP precisa entregar. Considerar usar como topo de funil + remarketing.' },
+    { name: 'Underperformers', color: 'var(--red)', icon: '', desc: 'Baixo CTR + Baixo CVR — Nao atraem e nao convertem. Dinheiro sendo queimado.', action: 'PAUSAR ou substituir por novos criativos. Nao otimizar — recriar do zero.' }
+  ];
+  qDescs.forEach(function(q, i) {
+    var count = datasets[i].data.length;
+    var totalSpend = datasets[i].data.reduce(function(s, d) { return s + d.spend; }, 0);
+    if (count === 0) return;
+    qInsights += '<div class="insight' + (i === 3 ? ' danger' : i === 2 ? ' warn' : '') + '" style="margin-bottom:8px">';
+    qInsights += '<div class="insight-title" style="color:' + q.color + '">' + q.name + ' (' + count + ' ads | ' + fmtBRL(totalSpend) + ')</div>';
+    qInsights += '<div class="insight-text">' + q.desc + '<br><strong style="color:var(--text)">Otimizacao:</strong> ' + q.action + '</div>';
+    qInsights += '</div>';
+  });
+  document.getElementById('quadrantInsights').innerHTML = qInsights;
+
+  // Assist analysis — criativos com alto impressoes/cliques mas sem conversao direta
+  var assistAds = data.ads.filter(function(a) { return a.impressions > 5000 && a.clicks > 50 && a.conversations <= 5; }).sort(function(a, b) { return b.impressions - a.impressions; });
+  var highConverters = data.ads.filter(function(a) { return a.cvr > 30 && a.conversations > 20; });
+
+  var aHtml = '<div class="card-title">Criativos com Possivel Efeito de Assist</div>';
+  aHtml += '<table><thead><tr><th>Anuncio</th><th class="r">Impr.</th><th class="r">Cliques</th><th class="r">CTR</th><th class="r">Conv. Diretas</th><th class="r">Invest.</th><th>Papel Provavel</th></tr></thead><tbody>';
+  assistAds.forEach(function(a) {
+    var papel = '';
+    if (a.ctr > 1.5 && a.conversations <= 2) papel = '<span class="badge b-amber">AWARENESS</span>';
+    else if (a.ctr > 1.0) papel = '<span class="badge b-blue">CONSIDERACAO</span>';
+    else papel = '<span class="badge b-gray">BAIXO IMPACTO</span>';
+    aHtml += '<tr><td style="color:var(--text)" title="' + a.name.replace(/"/g, '&quot;') + '">' + short(a.name) + '</td>';
+    aHtml += '<td class="r">' + fmtInt(a.impressions) + '</td>';
+    aHtml += '<td class="r">' + fmtInt(a.clicks) + '</td>';
+    aHtml += '<td class="r">' + fmt(a.ctr) + '%</td>';
+    aHtml += '<td class="r">' + fmtInt(a.conversations) + '</td>';
+    aHtml += '<td class="r">' + fmtBRL(a.spend) + '</td>';
+    aHtml += '<td>' + papel + '</td></tr>';
+  });
+  aHtml += '</tbody></table>';
+
+  // Summary
+  var assistSpend = assistAds.reduce(function(s, a) { return s + a.spend; }, 0);
+  var assistImpr = assistAds.reduce(function(s, a) { return s + a.impressions; }, 0);
+  aHtml += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px">';
+  aHtml += '<div class="insight warn"><div class="insight-title">Investimento em Assist</div><div class="insight-text">' + fmtBRL(assistSpend) + ' gastos em ' + assistAds.length + ' criativos com alto alcance mas poucas conversoes diretas. Representam ' + fmt(pct(assistSpend, data.totals.spend), 1) + '% do budget total e ' + fmt(pct(assistImpr, data.totals.impressions), 1) + '% das impressoes.</div></div>';
+  aHtml += '<div class="insight"><div class="insight-title">Recomendacao</div><div class="insight-text">Criativos de AWARENESS podem ser uteis se alimentam audiencias de remarketing. Verifique se a campanha de remarketing (CPA R$ 13,16) recebe trafego destes criativos. Se sim, mantenha com budget controlado. Se nao, pause e redirecione para Reels que convertem direto.</div></div>';
+  aHtml += '</div>';
+
+  document.getElementById('assistAnalysis').innerHTML += aHtml;
+
+  // Store ads globally for filtering
+  ALL_ADS = data.ads.slice();
+  filterAds();
+}
+
+var ALL_ADS = [];
+
+function getAdType(name) {
+  var n = name.toLowerCase();
+  if (n.indexOf('reel') > -1 || n.indexOf('video') > -1 || n.indexOf('vídeo') > -1) return 'reel';
+  if (n.indexOf('post do instagram') > -1 || n.indexOf('publicação') > -1 || n.indexOf('publicacao') > -1) return 'post';
+  return 'estatico';
+}
+
+function getAdStatus(a) {
+  if (a.cpa > 0 && a.cpa < 15 && a.results > 20) return 'escalar';
+  if (a.cpa > 0 && a.cpa <= 30 && a.results > 5) return 'otimizar';
+  if (a.cpa > 50 || (a.spend > 200 && a.results < 3)) return 'pausar';
+  if (a.results === 0 && a.spend > 100) return 'zero';
+  return 'baixo';
+}
+
+function getAdBadge(status) {
+  if (status === 'escalar') return '<span class="badge b-green">ESCALAR</span>';
+  if (status === 'otimizar') return '<span class="badge b-amber">OTIMIZAR</span>';
+  if (status === 'pausar') return '<span class="badge b-red">PAUSAR</span>';
+  if (status === 'zero') return '<span class="badge b-red">SEM RESULT</span>';
+  return '<span class="badge b-gray">BAIXO VOL</span>';
+}
+
+function getTypeBadge(type) {
+  if (type === 'reel') return '<span class="badge b-blue">REEL</span>';
+  if (type === 'post') return '<span class="badge b-amber">POST</span>';
+  return '<span class="badge b-gray">ESTATICO</span>';
+}
+
+function filterAds() {
+  if (!ALL_ADS.length) return;
+
+  var sortBy = document.getElementById('filterSort').value;
+  var typeFilter = document.getElementById('filterType').value;
+  var statusFilter = document.getElementById('filterStatus').value;
+  var search = (document.getElementById('filterSearch').value || '').toLowerCase();
+
+  var ads = ALL_ADS.slice();
+
+  // Filter by type
+  if (typeFilter !== 'all') {
+    ads = ads.filter(function(a) { return getAdType(a.name) === typeFilter; });
+  }
+
+  // Filter by status
+  if (statusFilter !== 'all') {
+    ads = ads.filter(function(a) { return getAdStatus(a) === statusFilter; });
+  }
+
+  // Filter by search
+  if (search) {
+    ads = ads.filter(function(a) { return a.name.toLowerCase().indexOf(search) > -1; });
+  }
+
+  // Sort
+  var parts = sortBy.split('-');
+  var field = parts[0];
+  var dir = parts[1];
+  ads.sort(function(a, b) {
+    var va, vb;
+    if (field === 'spend') { va = a.spend; vb = b.spend; }
+    else if (field === 'conv') { va = a.conversations; vb = b.conversations; }
+    else if (field === 'cpa') { va = a.cpa || 9999; vb = b.cpa || 9999; }
+    else if (field === 'ctr') { va = a.ctr; vb = b.ctr; }
+    else if (field === 'cvr') { va = a.cvr; vb = b.cvr; }
+    else if (field === 'cpc') { va = a.cpc || 9999; vb = b.cpc || 9999; }
+    else if (field === 'freq') { va = a.frequency; vb = b.frequency; }
+    else { va = a.spend; vb = b.spend; }
+    return dir === 'asc' ? va - vb : vb - va;
+  });
+
+  // Render
+  var atbl = '<table><thead><tr><th>#</th><th>Anuncio</th><th>Formato</th><th class="r">Invest.</th><th class="r">Impr.</th><th class="r">Cliques</th><th class="r">CTR</th><th class="r">CPC</th><th class="r">Conv.</th><th class="r">CPA</th><th class="r">CVR</th><th class="r">Freq.</th><th>Status</th></tr></thead><tbody>';
+  ads.forEach(function(a, i) {
+    var status = getAdStatus(a);
+    var type = getAdType(a.name);
+    var cpaC = a.cpa === 0 ? 'var(--text3)' : a.cpa < 15 ? 'var(--green)' : a.cpa < 30 ? 'var(--amber)' : 'var(--red)';
+    atbl += '<tr>' +
+      '<td style="color:var(--text3)">' + (i + 1) + '</td>' +
+      '<td style="color:var(--text)" title="' + a.name.replace(/"/g, '&quot;') + '">' + short(a.name) + '</td>' +
+      '<td>' + getTypeBadge(type) + '</td>' +
+      '<td class="r">' + fmtBRL(a.spend) + '</td>' +
+      '<td class="r">' + fmtInt(a.impressions) + '</td>' +
+      '<td class="r">' + fmtInt(a.clicks) + '</td>' +
+      '<td class="r">' + fmt(a.ctr) + '%</td>' +
+      '<td class="r">' + fmtBRL(a.cpc) + '</td>' +
+      '<td class="r" style="font-weight:600">' + fmtInt(a.conversations) + '</td>' +
+      '<td class="r" style="color:' + cpaC + ';font-weight:700">' + (a.cpa > 0 ? fmtBRL(a.cpa) : '\u2014') + '</td>' +
+      '<td class="r">' + fmt(a.cvr) + '%</td>' +
+      '<td class="r">' + fmt(a.frequency) + 'x</td>' +
+      '<td>' + getAdBadge(status) + '</td>' +
+      '</tr>';
+  });
+  atbl += '</tbody></table>';
+  document.getElementById('tblAdsRanking').innerHTML = atbl;
+
+  // Summary
+  var totalSpend = ads.reduce(function(s, a) { return s + a.spend; }, 0);
+  var totalConv = ads.reduce(function(s, a) { return s + a.conversations; }, 0);
+  var avgCpa = totalConv > 0 ? totalSpend / totalConv : 0;
+  document.getElementById('adsCount').innerHTML = '<strong>' + ads.length + '</strong> de ' + ALL_ADS.length + ' anuncios | Invest: ' + fmtBRL(totalSpend) + ' | Conv: ' + fmtInt(totalConv) + ' | CPA medio: ' + (avgCpa > 0 ? fmtBRL(avgCpa) : '\u2014');
+}
+
+// ============================================================
+// RENDER CAMPANHAS
+// ============================================================
+function renderCampanhas(data) {
+  var camps = data.campaigns.slice().sort(function(a, b) { return b.spend - a.spend; });
+  var total = data.totals.spend;
+  var tbl = '<table><thead><tr><th>Campanha</th><th class="r">Invest.</th><th class="r">% Total</th><th class="r">Impr.</th><th class="r">Cliques</th><th class="r">CTR</th><th class="r">CPC</th><th class="r">Conv.</th><th class="r">CPA</th><th class="r">CVR</th><th class="r">CPM</th><th class="r">Freq.</th><th>Veredicto</th></tr></thead><tbody>';
+  camps.forEach(function(c) {
+    var badge = '';
+    if (c.cpa > 0 && c.cpa < 15 && c.results > 30) badge = '<span class="badge b-green">ESCALAR</span>';
+    else if (c.cpa > 0 && c.cpa <= 35 && c.results > 10) badge = '<span class="badge b-amber">OTIMIZAR</span>';
+    else if (c.cpa > 50 || (c.spend > 200 && c.results < 5)) badge = '<span class="badge b-red">PAUSAR</span>';
+    else if (c.results === 0) badge = '<span class="badge b-red">ZERO</span>';
+    else badge = '<span class="badge b-gray">BAIXO VOL</span>';
+    var cpaC = c.cpa === 0 ? 'var(--text3)' : c.cpa < 15 ? 'var(--green)' : c.cpa < 35 ? 'var(--amber)' : 'var(--red)';
+    tbl += '<tr>' +
+      '<td style="color:var(--text)" title="' + c.name.replace(/"/g, '&quot;') + '">' + short(c.name) + '</td>' +
+      '<td class="r">' + fmtBRL(c.spend) + '</td>' +
+      '<td class="r">' + fmt(pct(c.spend, total), 1) + '%</td>' +
+      '<td class="r">' + fmtInt(c.impressions) + '</td>' +
+      '<td class="r">' + fmtInt(c.clicks) + '</td>' +
+      '<td class="r">' + fmt(c.ctr) + '%</td>' +
+      '<td class="r">' + fmtBRL(c.cpc) + '</td>' +
+      '<td class="r" style="font-weight:600">' + fmtInt(c.conversations) + '</td>' +
+      '<td class="r" style="color:' + cpaC + ';font-weight:700">' + (c.cpa > 0 ? fmtBRL(c.cpa) : '\u2014') + '</td>' +
+      '<td class="r">' + fmt(c.cvr) + '%</td>' +
+      '<td class="r">' + fmtBRL(c.cpm) + '</td>' +
+      '<td class="r">' + fmt(c.frequency) + 'x</td>' +
+      '<td>' + badge + '</td>' +
+      '</tr>';
+  });
+  tbl += '</tbody></table>';
+  document.getElementById('tblCampanhas').innerHTML = tbl;
+
+  // Adsets
+  var adsets = data.adsets.slice().sort(function(a, b) { return b.spend - a.spend; });
+  var atbl = '<table><thead><tr><th>Conjunto</th><th class="r">Invest.</th><th class="r">Conv.</th><th class="r">CPA</th><th class="r">CTR</th><th class="r">CVR</th><th class="r">CPC</th><th class="r">CPM</th><th class="r">Freq.</th></tr></thead><tbody>';
+  adsets.forEach(function(a) {
+    var cpaC = a.cpa === 0 ? 'var(--text3)' : a.cpa < 15 ? 'var(--green)' : a.cpa < 30 ? 'var(--amber)' : 'var(--red)';
+    atbl += '<tr>' +
+      '<td style="color:var(--text)" title="' + a.name.replace(/"/g, '&quot;') + '">' + short(a.name) + '</td>' +
+      '<td class="r">' + fmtBRL(a.spend) + '</td>' +
+      '<td class="r" style="font-weight:600">' + fmtInt(a.conversations) + '</td>' +
+      '<td class="r" style="color:' + cpaC + ';font-weight:700">' + (a.cpa > 0 ? fmtBRL(a.cpa) : '\u2014') + '</td>' +
+      '<td class="r">' + fmt(a.ctr) + '%</td>' +
+      '<td class="r">' + fmt(a.cvr) + '%</td>' +
+      '<td class="r">' + fmtBRL(a.cpc) + '</td>' +
+      '<td class="r">' + fmtBRL(a.cpm) + '</td>' +
+      '<td class="r">' + fmt(a.frequency) + 'x</td>' +
+      '</tr>';
+  });
+  atbl += '</tbody></table>';
+  document.getElementById('tblAdsets').innerHTML = atbl;
+
+  // Pareto — tabela visual com barras CSS
+  var conc = data.concentration.ads;
+  var top20 = conc.top_items || conc.top_spenders || [].slice(0, 20);
+  var maxShare = top20.length ? top20[0].share_pct : 1;
+
+  var pt = '<div class="card-title">Top 20 Anuncios — % do Budget Total</div>';
+  pt += '<table><thead><tr><th>#</th><th>Anuncio</th><th class="r">Invest.</th><th class="r">%</th><th style="width:30%">Distribuicao</th><th class="r">Acum.</th></tr></thead><tbody>';
+  top20.forEach(function(a, i) {
+    var ad = data.ads.find(function(ad) { return ad.name === a.name; });
+    var barW = (a.share_pct / maxShare) * 100;
+    var barColor = a.cumulative_pct <= 50 ? 'var(--blue)' : a.cumulative_pct <= 80 ? 'var(--amber)' : 'var(--red)';
+    var isPareto = a.cumulative_pct <= 80;
+    pt += '<tr' + (isPareto ? ' style="background:var(--blue-bg)"' : '') + '>';
+    pt += '<td style="font-weight:700;color:var(--text)">' + a.rank + '</td>';
+    pt += '<td style="color:var(--text)" title="' + a.name.replace(/"/g, '&quot;') + '">' + short(a.name) + '</td>';
+    pt += '<td class="r">' + fmtBRL(ad ? ad.spend : 0) + '</td>';
+    pt += '<td class="r" style="font-weight:600">' + fmt(a.share_pct, 1) + '%</td>';
+    pt += '<td><div style="width:100%;height:14px;background:var(--border);border-radius:3px;overflow:hidden"><div style="width:' + barW + '%;height:100%;background:' + barColor + ';border-radius:3px"></div></div></td>';
+    pt += '<td class="r" style="font-weight:600;color:' + (a.cumulative_pct > 80 ? 'var(--red)' : 'var(--text2)') + '">' + fmt(a.cumulative_pct, 1) + '%</td>';
+    pt += '</tr>';
+  });
+  pt += '</tbody></table>';
+  pt += '<div style="margin-top:12px;display:flex;gap:16px;font-size:10px;color:var(--text3)">';
+  pt += '<span><span style="display:inline-block;width:10px;height:10px;background:var(--blue);border-radius:2px;margin-right:4px"></span>Ate 50%</span>';
+  pt += '<span><span style="display:inline-block;width:10px;height:10px;background:var(--amber);border-radius:2px;margin-right:4px"></span>50-80%</span>';
+  pt += '<span><span style="display:inline-block;width:10px;height:10px;background:var(--red);border-radius:2px;margin-right:4px"></span>Acima 80%</span>';
+  pt += '<span style="margin-left:8px">Linhas destacadas = dentro da regra 80/20</span>';
+  pt += '</div>';
+  document.getElementById('paretoTable').innerHTML = pt;
+
+  // Pareto stats
+  var ps = '<div class="card-title">Analise de Concentracao</div>';
+  ps += '<div class="status-row"><div class="status-label">Regra 80/20 (Pareto)</div><div class="status-value">' + conc.pareto_count + ' de ' + data.ads.length + ' ads concentram 80%</div></div>';
+  ps += '<div class="status-row"><div class="status-label">% dos ads no Pareto</div><div class="status-value">' + fmt(conc.pareto_pct, 1) + '%</div></div>';
+  ps += '<div class="status-row"><div class="status-label">Indice HHI</div><div class="status-value">' + fmtInt(Math.round(conc.hhi)) + ' <span style="font-size:10px;color:var(--text3)">' + (conc.hhi > 2500 ? '(muito concentrado)' : conc.hhi > 1500 ? '(concentrado)' : '(diversificado)') + '</span></div></div>';
+  ps += '<div class="status-row"><div class="status-label">Coef. Gini</div><div class="status-value">' + fmt(conc.gini, 3) + ' <span style="font-size:10px;color:var(--text3)">' + (conc.gini > 0.8 ? '(muito desigual)' : conc.gini > 0.6 ? '(desigual)' : '(equilibrado)') + '</span></div></div>';
+
+  ps += '<div style="margin-top:20px"><div class="card-title">Insight</div>';
+  ps += '<div style="font-size:12px;color:var(--text2);line-height:1.7">';
+  if (conc.pareto_pct < 20) {
+    ps += 'Apenas ' + fmt(conc.pareto_pct, 0) + '% dos anuncios consomem 80% do budget. Concentracao alta — poucos criativos dominam. ';
+    ps += 'Risco: se um desses criativos saturar, o impacto e grande. Diversificar testando novos criativos.';
+  } else {
+    ps += 'Budget relativamente distribuido entre os criativos. Boa diversificacao reduz risco de dependencia.';
+  }
+  ps += '</div></div>';
+
+  ps += '<div style="margin-top:20px"><div class="card-title">Top 5 por Investimento</div>';
+  top20.slice(0, 5).forEach(function(a) {
+    var ad = data.ads.find(function(ad) { return ad.name === a.name; });
+    var cpaC = ad && ad.cpa > 0 ? (ad.cpa < 15 ? 'var(--green)' : ad.cpa < 30 ? 'var(--amber)' : 'var(--red)') : 'var(--text3)';
+    ps += '<div class="status-row"><div class="status-label" title="' + a.name + '">' + short(a.name) + '</div><div style="text-align:right"><span style="font-weight:600">' + fmtBRL(ad ? ad.spend : 0) + '</span> <span style="font-size:10px;color:' + cpaC + ';margin-left:6px">CPA ' + (ad && ad.cpa > 0 ? fmtBRL(ad.cpa) : '\u2014') + '</span></div></div>';
+  });
+  ps += '</div>';
+  document.getElementById('paretoStats').innerHTML = ps;
+}
+
+// ============================================================
+// RENDER TIMELINE
+// ============================================================
+function renderTimeline(data) {
+  var daily = data.daily;
+  var labels = daily.map(function(d) { return d.date.substring(5); });
+
+  // Chart 1: Spend + Conversas
+  var ctx1 = document.createElement('canvas');
+  document.getElementById('chartTimeline1').appendChild(ctx1);
+  CHART_INSTANCES.push(new Chart(ctx1, {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [
+        { label: 'Investimento (R$)', data: daily.map(function(d) { return d.spend; }), backgroundColor: 'rgba(25,113,194,0.5)', borderRadius: 2, yAxisID: 'y' },
+        { label: 'Conversas WA', data: daily.map(function(d) { return d.conversations; }), type: 'line', borderColor: '#0CA678', backgroundColor: 'rgba(12,166,120,0.08)', fill: true, pointRadius: 2, pointBackgroundColor: '#0CA678', borderWidth: 2, tension: 0.3, yAxisID: 'y1' }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: { legend: { labels: { color: '#495057', font: { family: 'Inter', size: 10 } } } },
+      scales: {
+        x: { grid: { display: false }, ticks: { color: '#868E96', font: { family: 'Inter', size: 9 }, maxRotation: 45 } },
+        y: { grid: { color: '#E9ECEF' }, ticks: { color: '#1971C2', font: { family: 'Inter', size: 10 }, callback: function(v) { return 'R$ ' + v; } } },
+        y1: { position: 'right', grid: { display: false }, ticks: { color: '#0CA678', font: { family: 'Inter', size: 10 } } }
+      }
+    }
+  }));
+
+  // Chart 2: CPA + CTR
+  var ctx2 = document.createElement('canvas');
+  document.getElementById('chartTimeline2').appendChild(ctx2);
+  CHART_INSTANCES.push(new Chart(ctx2, {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: [
+        { label: 'CPA (R$)', data: daily.map(function(d) { return d.cpa; }), borderColor: '#E03131', backgroundColor: 'rgba(224,49,49,0.05)', fill: true, pointRadius: 2, borderWidth: 2, tension: 0.3, yAxisID: 'y' },
+        { label: 'CTR (%)', data: daily.map(function(d) { return d.ctr; }), borderColor: '#7048E8', backgroundColor: 'transparent', pointRadius: 2, borderWidth: 2, tension: 0.3, yAxisID: 'y1' }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: { legend: { labels: { color: '#495057', font: { family: 'Inter', size: 10 } } } },
+      scales: {
+        x: { grid: { display: false }, ticks: { color: '#868E96', font: { family: 'Inter', size: 9 }, maxRotation: 45 } },
+        y: { grid: { color: '#E9ECEF' }, ticks: { color: '#E03131', font: { family: 'Inter', size: 10 }, callback: function(v) { return 'R$ ' + v; } } },
+        y1: { position: 'right', grid: { display: false }, ticks: { color: '#7048E8', font: { family: 'Inter', size: 10 }, callback: function(v) { return v + '%'; } } }
+      }
+    }
+  }));
+
+  // Chart 3: CPC + CPM
+  var ctx3 = document.createElement('canvas');
+  document.getElementById('chartTimeline3').appendChild(ctx3);
+  CHART_INSTANCES.push(new Chart(ctx3, {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: [
+        { label: 'CPC (R$)', data: daily.map(function(d) { return d.cpc; }), borderColor: '#0C8599', pointRadius: 2, borderWidth: 2, tension: 0.3, yAxisID: 'y' },
+        { label: 'CPM (R$)', data: daily.map(function(d) { return d.cpm; }), borderColor: '#E8590C', pointRadius: 2, borderWidth: 2, tension: 0.3, yAxisID: 'y1' }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: { legend: { labels: { color: '#495057', font: { family: 'Inter', size: 10 } } } },
+      scales: {
+        x: { grid: { display: false }, ticks: { color: '#868E96', font: { family: 'Inter', size: 9 }, maxRotation: 45 } },
+        y: { grid: { color: '#E9ECEF' }, ticks: { color: '#0C8599', font: { family: 'Inter', size: 10 }, callback: function(v) { return 'R$ ' + v; } } },
+        y1: { position: 'right', grid: { display: false }, ticks: { color: '#E8590C', font: { family: 'Inter', size: 10 }, callback: function(v) { return 'R$ ' + v; } } }
+      }
+    }
+  }));
+
+  // ---- TREND KPIs: last 7d vs previous 7d ----
+  var n = daily.length;
+  var last7 = daily.slice(Math.max(0, n - 7));
+  var prev7 = daily.slice(Math.max(0, n - 14), Math.max(0, n - 7));
+
+  function avg(arr, key) { if (!arr.length) return 0; return arr.reduce(function(s, d) { return s + (d[key] || 0); }, 0) / arr.length; }
+  function sum(arr, key) { return arr.reduce(function(s, d) { return s + (d[key] || 0); }, 0); }
+  function trendPct(curr, prev) { return prev ? ((curr - prev) / prev * 100) : 0; }
+  function trendCls(pct, inverse) { var good = inverse ? pct < 0 : pct > 0; return good ? 'good' : pct === 0 ? 'neutral' : 'bad'; }
+  function trendArrow(pct) { return pct > 0 ? '+' + fmt(pct, 1) + '%' : pct < 0 ? fmt(pct, 1) + '%' : '0%'; }
+
+  var trends = [
+    { label: 'Spend/Dia', curr: avg(last7, 'spend'), prev: avg(prev7, 'spend'), format: 'brl', inverse: true },
+    { label: 'Conversas/Dia', curr: avg(last7, 'conversations'), prev: avg(prev7, 'conversations'), format: 'int', inverse: false },
+    { label: 'CPA Medio', curr: sum(last7, 'spend') / Math.max(sum(last7, 'results'), 1), prev: sum(prev7, 'spend') / Math.max(sum(prev7, 'results'), 1), format: 'brl', inverse: true },
+    { label: 'CTR Medio', curr: avg(last7, 'ctr'), prev: avg(prev7, 'ctr'), format: 'pct', inverse: false },
+    { label: 'CPC Medio', curr: avg(last7, 'cpc'), prev: avg(prev7, 'cpc'), format: 'brl', inverse: true },
+    { label: 'CPM Medio', curr: avg(last7, 'cpm'), prev: avg(prev7, 'cpm'), format: 'brl', inverse: true }
+  ];
+  var thtml = '';
+  trends.forEach(function(tr) {
+    var pctChange = trendPct(tr.curr, tr.prev);
+    var cls = trendCls(pctChange, tr.inverse);
+    var val = tr.format === 'brl' ? fmtBRL(tr.curr) : tr.format === 'pct' ? fmt(tr.curr) + '%' : fmtInt(Math.round(tr.curr));
+    var arrow = trendArrow(pctChange);
+    var arrowColor = cls === 'good' ? 'var(--green)' : cls === 'bad' ? 'var(--red)' : 'var(--text3)';
+    thtml += '<div class="kpi-card ' + cls + '"><div class="kpi-label">' + tr.label + '</div><div class="kpi-value sm">' + val + '</div><div class="kpi-bench"><span class="dot dot-' + (cls === 'good' ? 'green' : cls === 'bad' ? 'red' : 'amber') + '"></span> <span style="color:' + arrowColor + '">' + arrow + '</span> vs 7d anterior</div></div>';
+  });
+  document.getElementById('kpiTrend').innerHTML = thtml;
+
+  // ---- INSIGHTS por grafico ----
+  var avgSpendL7 = avg(last7, 'spend');
+  var avgConvL7 = avg(last7, 'conversations');
+  var avgSpendP7 = avg(prev7, 'spend');
+  var avgConvP7 = avg(prev7, 'conversations');
+  var spendTrend = trendPct(avgSpendL7, avgSpendP7);
+  var convTrend = trendPct(avgConvL7, avgConvP7);
+
+  var i1 = '<div class="insight' + (convTrend < -10 ? ' warn' : '') + '"><div class="insight-title">Investimento vs Conversas</div><div class="insight-text">';
+  i1 += 'Ultimos 7 dias: ' + fmtBRL(avgSpendL7) + '/dia gerando ' + fmtInt(Math.round(avgConvL7)) + ' conversas/dia. ';
+  if (Math.abs(spendTrend) > 5 || Math.abs(convTrend) > 5) {
+    i1 += 'Variacao vs semana anterior: investimento ' + trendArrow(spendTrend) + ', conversas ' + trendArrow(convTrend) + '. ';
+    if (spendTrend > 10 && convTrend < -5) i1 += 'Alerta: gastando mais e convertendo menos. Revisar criativos e audiencias.';
+    else if (spendTrend < -10 && convTrend > 5) i1 += 'Eficiencia melhorando: menos investimento, mais conversas.';
+    else if (convTrend > 10) i1 += 'Conversas em alta. Monitorar se CPA se mantem estavel.';
+    else if (convTrend < -10) i1 += 'Queda nas conversas. Verificar se houve mudanca de criativos ou saturacao de audiencia.';
+  } else { i1 += 'Tendencia estavel no periodo.'; }
+  i1 += '</div></div>';
+  document.getElementById('insightTimeline1').innerHTML = i1;
+
+  var cpaL7 = sum(last7, 'spend') / Math.max(sum(last7, 'results'), 1);
+  var cpaP7 = sum(prev7, 'spend') / Math.max(sum(prev7, 'results'), 1);
+  var cpaTrend = trendPct(cpaL7, cpaP7);
+  var ctrL7 = avg(last7, 'ctr');
+  var ctrP7 = avg(prev7, 'ctr');
+  var ctrTrend = trendPct(ctrL7, ctrP7);
+
+  var i2 = '<div class="insight' + (cpaTrend > 15 ? ' danger' : cpaTrend > 5 ? ' warn' : '') + '"><div class="insight-title">CPA e CTR</div><div class="insight-text">';
+  i2 += 'CPA ultimos 7 dias: ' + fmtBRL(cpaL7) + ' (' + trendArrow(cpaTrend) + ' vs anterior). CTR: ' + fmt(ctrL7) + '% (' + trendArrow(ctrTrend) + '). ';
+  if (cpaTrend > 15) i2 += 'CPA subindo significativamente. Possivel fadiga criativa ou aumento de concorrencia no leilao. Considerar novos criativos.';
+  else if (cpaTrend < -10) i2 += 'CPA em queda. Otimizacoes recentes estao funcionando. Aproveitar para escalar gradualmente.';
+  else i2 += 'CPA relativamente estavel.';
+  if (ctrTrend < -15) i2 += ' CTR caindo pode indicar fadiga criativa — audiencia ja viu os anuncios muitas vezes.';
+  i2 += '</div></div>';
+  document.getElementById('insightTimeline2').innerHTML = i2;
+
+  var cpcL7 = avg(last7, 'cpc');
+  var cpmL7 = avg(last7, 'cpm');
+  var cpcP7 = avg(prev7, 'cpc');
+  var cpmP7 = avg(prev7, 'cpm');
+
+  var i3 = '<div class="insight' + (trendPct(cpmL7, cpmP7) > 15 ? ' warn' : '') + '"><div class="insight-title">Custo de Midia (CPC e CPM)</div><div class="insight-text">';
+  i3 += 'CPC: ' + fmtBRL(cpcL7) + ' (' + trendArrow(trendPct(cpcL7, cpcP7)) + '). CPM: ' + fmtBRL(cpmL7) + ' (' + trendArrow(trendPct(cpmL7, cpmP7)) + '). ';
+  if (trendPct(cpmL7, cpmP7) > 15) i3 += 'CPM subindo indica maior concorrencia no leilao ou audiencia mais restrita. Testar audiencias mais amplas.';
+  else if (trendPct(cpcL7, cpcP7) > 15) i3 += 'CPC subindo com CPM estavel indica queda na relevancia dos anuncios. Testar novos criativos.';
+  else i3 += 'Custos de midia estaveis.';
+  i3 += '</div></div>';
+  document.getElementById('insightTimeline3').innerHTML = i3;
+
+  // ---- ANOMALY DETECTION ----
+  var avgSpend = avg(daily, 'spend');
+  var avgCpa = daily.filter(function(d) { return d.cpa > 0; });
+  var meanCpa = avgCpa.length ? avgCpa.reduce(function(s, d) { return s + d.cpa; }, 0) / avgCpa.length : 0;
+  var stdCpa = Math.sqrt(avgCpa.reduce(function(s, d) { return s + Math.pow(d.cpa - meanCpa, 2); }, 0) / Math.max(avgCpa.length, 1));
+  var meanConv = avg(daily, 'conversations');
+  var stdConv = Math.sqrt(daily.reduce(function(s, d) { return s + Math.pow((d.conversations || 0) - meanConv, 2); }, 0) / daily.length);
+
+  var anomalies = [];
+  daily.forEach(function(d) {
+    var issues = [];
+    if (d.cpa > 0 && d.cpa > meanCpa + 1.5 * stdCpa) issues.push('CPA muito alto: ' + fmtBRL(d.cpa) + ' (media: ' + fmtBRL(meanCpa) + ')');
+    if (d.conversations < meanConv - 1.5 * stdConv && d.spend > avgSpend * 0.5) issues.push('Conversas abaixo do normal: ' + d.conversations + ' (media: ' + fmtInt(Math.round(meanConv)) + ')');
+    if (d.spend > avgSpend * 2) issues.push('Gasto atipico: ' + fmtBRL(d.spend) + ' (media: ' + fmtBRL(avgSpend) + ')');
+    if (d.conversations > meanConv + 2 * stdConv) issues.push('Pico de conversas: ' + d.conversations + ' (media: ' + fmtInt(Math.round(meanConv)) + ')');
+    if (issues.length) anomalies.push({ date: d.date, issues: issues, spend: d.spend, conv: d.conversations, cpa: d.cpa });
+  });
+
+  var aHtml = '';
+  if (anomalies.length === 0) {
+    aHtml = '<div style="padding:16px;color:var(--text3);font-size:13px">Nenhuma anomalia significativa detectada no periodo.</div>';
+  } else {
+    aHtml = '<table><thead><tr><th>Data</th><th class="r">Spend</th><th class="r">Conv.</th><th class="r">CPA</th><th>Anomalia Detectada</th></tr></thead><tbody>';
+    anomalies.slice(0, 15).forEach(function(a) {
+      aHtml += '<tr><td style="font-weight:600;color:var(--text)">' + a.date.substring(5) + '</td>';
+      aHtml += '<td class="r">' + fmtBRL(a.spend) + '</td>';
+      aHtml += '<td class="r">' + fmtInt(a.conv) + '</td>';
+      aHtml += '<td class="r">' + (a.cpa > 0 ? fmtBRL(a.cpa) : '\u2014') + '</td>';
+      aHtml += '<td style="color:var(--amber)">' + a.issues.join(' | ') + '</td></tr>';
+    });
+    aHtml += '</tbody></table>';
+    aHtml += '<div style="margin-top:12px;font-size:11px;color:var(--text3)">Anomalias detectadas usando desvio padrao (1.5x acima/abaixo da media). ' + anomalies.length + ' dias com comportamento atipico em ' + daily.length + ' dias analisados.</div>';
+  }
+  document.getElementById('anomalyAnalysis').innerHTML = aHtml;
+
+  // ---- DAY OF WEEK ANALYSIS ----
+  var dowNames = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'];
+  var dowData = [0,1,2,3,4,5,6].map(function(dow) {
+    var days = daily.filter(function(d) { return new Date(d.date + 'T12:00:00').getDay() === dow; });
+    if (!days.length) return { dow: dow, name: dowNames[dow], count: 0, avgSpend: 0, avgConv: 0, avgCpa: 0, avgCtr: 0 };
+    var tSpend = sum(days, 'spend');
+    var tResults = sum(days, 'results');
+    return {
+      dow: dow, name: dowNames[dow], count: days.length,
+      avgSpend: tSpend / days.length,
+      avgConv: sum(days, 'conversations') / days.length,
+      avgCpa: tResults ? tSpend / tResults : 0,
+      avgCtr: avg(days, 'ctr')
+    };
+  });
+
+  var ctx4 = document.createElement('canvas');
+  document.getElementById('chartDayOfWeek').appendChild(ctx4);
+  CHART_INSTANCES.push(new Chart(ctx4, {
+    type: 'bar',
+    data: {
+      labels: dowData.map(function(d) { return d.name; }),
+      datasets: [
+        { label: 'Conversas/dia', data: dowData.map(function(d) { return +d.avgConv.toFixed(1); }), backgroundColor: '#0CA678', borderRadius: 4, yAxisID: 'y' },
+        { label: 'CPA (R$)', data: dowData.map(function(d) { return +d.avgCpa.toFixed(2); }), type: 'line', borderColor: '#E03131', pointRadius: 4, pointBackgroundColor: '#E03131', borderWidth: 2, yAxisID: 'y1' }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { labels: { color: '#495057', font: { family: 'Inter', size: 10 } } } },
+      scales: {
+        x: { grid: { display: false }, ticks: { color: '#495057', font: { family: 'Inter', size: 11, weight: 600 } } },
+        y: { grid: { color: '#E9ECEF' }, ticks: { color: '#0CA678', font: { family: 'Inter', size: 10 } }, title: { display: true, text: 'Conversas/dia', color: '#0CA678', font: { family: 'Inter', size: 9 } } },
+        y1: { position: 'right', grid: { display: false }, ticks: { color: '#E03131', font: { family: 'Inter', size: 10 }, callback: function(v) { return 'R$ ' + v; } }, title: { display: true, text: 'CPA', color: '#E03131', font: { family: 'Inter', size: 9 } } }
+      }
+    }
+  }));
+
+  // Day of week insight
+  var bestDay = dowData.slice().sort(function(a, b) { return b.avgConv - a.avgConv; })[0];
+  var worstDay = dowData.filter(function(d) { return d.count > 0; }).sort(function(a, b) { return a.avgConv - b.avgConv; })[0];
+  var cheapDay = dowData.filter(function(d) { return d.avgCpa > 0; }).sort(function(a, b) { return a.avgCpa - b.avgCpa; })[0];
+  var expDay = dowData.filter(function(d) { return d.avgCpa > 0; }).sort(function(a, b) { return b.avgCpa - a.avgCpa; })[0];
+
+  var dwHtml = '<div class="card-title">Insights por Dia da Semana</div>';
+  dwHtml += '<div class="status-row"><div class="status-label">Melhor dia (conversas)</div><div class="status-value" style="color:var(--green)">' + bestDay.name + ' (' + fmt(bestDay.avgConv, 1) + '/dia)</div></div>';
+  dwHtml += '<div class="status-row"><div class="status-label">Pior dia (conversas)</div><div class="status-value" style="color:var(--red)">' + worstDay.name + ' (' + fmt(worstDay.avgConv, 1) + '/dia)</div></div>';
+  dwHtml += '<div class="status-row"><div class="status-label">Dia mais barato (CPA)</div><div class="status-value" style="color:var(--green)">' + cheapDay.name + ' (' + fmtBRL(cheapDay.avgCpa) + ')</div></div>';
+  dwHtml += '<div class="status-row"><div class="status-label">Dia mais caro (CPA)</div><div class="status-value" style="color:var(--red)">' + expDay.name + ' (' + fmtBRL(expDay.avgCpa) + ')</div></div>';
+
+  var diffConv = ((bestDay.avgConv - worstDay.avgConv) / Math.max(worstDay.avgConv, 1) * 100);
+  var diffCpa = ((expDay.avgCpa - cheapDay.avgCpa) / Math.max(cheapDay.avgCpa, 1) * 100);
+  dwHtml += '<div style="margin-top:16px;padding:12px;background:var(--surface2);border-radius:6px;font-size:12px;color:var(--text2);line-height:1.7">';
+  dwHtml += '<strong style="color:var(--text)">Variacao semanal:</strong> Diferenca de ' + fmt(diffConv, 0) + '% em conversas entre o melhor e pior dia. ';
+  dwHtml += 'CPA varia ' + fmt(diffCpa, 0) + '% entre dias. ';
+  if (diffConv > 50) dwHtml += 'Considerar redistribuir budget concentrando mais nos dias de melhor performance.';
+  else dwHtml += 'Performance relativamente uniforme ao longo da semana.';
+  dwHtml += '</div>';
+  document.getElementById('dayOfWeekInsight').innerHTML = dwHtml;
+}
+
+// ============================================================
+// RENDER DESPERDICIO
+// ============================================================
+function renderDesperdicio(data) {
+  var zeroAds = data.ads.filter(function(a) { return a.results === 0 && a.spend > 50; }).sort(function(a, b) { return b.spend - a.spend; });
+  var zeroCamps = data.campaigns.filter(function(c) { return c.results === 0 && c.spend > 50; });
+  var highCPA = data.ads.filter(function(a) { return a.cpa > 50 && a.spend > 200; }).sort(function(a, b) { return b.cpa - a.cpa; });
+
+  var totalWaste = zeroAds.reduce(function(s, a) { return s + a.spend; }, 0);
+  var totalHighCPA = highCPA.reduce(function(s, a) { return s + a.spend; }, 0);
+
+  // Waste total
+  var wt = '<div class="card-title">Resumo de Desperdicio</div>';
+  wt += '<div style="text-align:center;padding:20px 0">';
+  wt += '<div style="font-size:42px;font-weight:800;color:var(--red)">' + fmtBRL(totalWaste) + '</div>';
+  wt += '<div style="font-size:12px;color:var(--text3);margin-top:4px">Gasto em ads com ZERO resultados</div>';
+  wt += '</div>';
+  wt += '<div class="status-row"><div class="status-label">Ads sem resultado</div><div class="status-value" style="color:var(--red)">' + zeroAds.length + ' anuncios</div></div>';
+  wt += '<div class="status-row"><div class="status-label">Campanhas sem resultado</div><div class="status-value" style="color:var(--red)">' + zeroCamps.length + ' campanhas</div></div>';
+  wt += '<div class="status-row"><div class="status-label">Ads com CPA > R$ 50</div><div class="status-value" style="color:var(--amber)">' + highCPA.length + ' (' + fmtBRL(totalHighCPA) + ')</div></div>';
+  wt += '<div class="status-row"><div class="status-label">% do budget desperdicado</div><div class="status-value" style="color:var(--red)">' + fmt(pct(totalWaste, data.totals.spend), 1) + '%</div></div>';
+  document.getElementById('wasteTotal').innerHTML = wt;
+
+  // Waste list
+  var wl = '<div class="card-title">Detalhamento — Gasto sem Resultado</div>';
+  zeroAds.forEach(function(a) {
+    wl += '<div class="waste-item">' +
+      '<div class="waste-amount">' + fmtBRL(a.spend) + '</div>' +
+      '<div><div class="waste-name">' + short(a.name) + '</div><div class="waste-reason">' + fmtInt(a.impressions) + ' impressoes | ' + fmtInt(a.clicks) + ' cliques | 0 conversoes</div></div>' +
+      '</div>';
+  });
+  document.getElementById('wasteList').innerHTML = wl;
+
+  // Pausar table
+  var pausar = data.campaigns.filter(function(c) { return c.cpa > 50 || (c.spend > 200 && c.results < 5); }).sort(function(a, b) { return b.spend - a.spend; });
+  var ptbl = '<table><thead><tr><th>Campanha</th><th class="r">Invest.</th><th class="r">Conv.</th><th class="r">CPA</th><th class="r">CTR</th><th>Motivo</th></tr></thead><tbody>';
+  pausar.forEach(function(c) {
+    var motivo = c.results === 0 ? 'Zero resultados' : 'CPA R$ ' + fmt(c.cpa) + ' (muito alto)';
+    ptbl += '<tr><td style="color:var(--text)">' + short(c.name) + '</td><td class="r">' + fmtBRL(c.spend) + '</td><td class="r">' + fmtInt(c.conversations) + '</td><td class="r" style="color:var(--red);font-weight:700">' + (c.cpa > 0 ? fmtBRL(c.cpa) : '\u2014') + '</td><td class="r">' + fmt(c.ctr) + '%</td><td style="color:var(--red)">' + motivo + '</td></tr>';
+  });
+  ptbl += '</tbody></table>';
+  document.getElementById('tblPausar').innerHTML = ptbl;
+
+  // Benchmarks
+  var b = data.benchmarks;
+  var bhtml = '<div class="card-title">Benchmarks — Parket vs Setor</div>';
+  bhtml += '<table><thead><tr><th>Metrica</th><th class="r">Parket</th><th class="r">Benchmark</th><th class="r">Diferenca</th><th>Status</th></tr></thead><tbody>';
+  var bItems = [
+    { name: 'CTR', val: fmt(b.ctr.actual) + '%', bench: fmt(b.ctr.benchmark) + '%', diff: (b.ctr.diff_pct > 0 ? '+' : '') + fmt(b.ctr.diff_pct, 1) + '%', ok: b.ctr.status === 'better' },
+    { name: 'CPC', val: fmtBRL(b.cpc.actual), bench: fmtBRL(b.cpc.benchmark), diff: (b.cpc.diff_pct > 0 ? '+' : '') + fmt(b.cpc.diff_pct, 1) + '%', ok: b.cpc.status !== 'worse' },
+    { name: 'CPM', val: fmtBRL(b.cpm.actual), bench: fmtBRL(b.cpm.benchmark), diff: '+' + fmt(b.cpm.diff_pct, 1) + '%', ok: b.cpm.status !== 'worse' },
+    { name: 'CPA', val: fmtBRL(b.cpa.actual), bench: fmtBRL(b.cpa.benchmark), diff: fmt(b.cpa.diff_pct, 1) + '%', ok: b.cpa.status === 'better' },
+    { name: 'Frequencia', val: fmt(b.frequency.actual) + 'x', bench: fmt(b.frequency.benchmark) + 'x', diff: fmt(b.frequency.diff_pct, 1) + '%', ok: b.frequency.status !== 'worse' }
+  ];
+  bItems.forEach(function(bi) {
+    bhtml += '<tr><td style="font-weight:600;color:var(--text)">' + bi.name + '</td><td class="r" style="font-weight:700">' + bi.val + '</td><td class="r" style="color:var(--text3)">' + bi.bench + '</td><td class="r" style="color:' + (bi.ok ? 'var(--green)' : 'var(--red)') + ';font-weight:600">' + bi.diff + '</td><td><span class="badge ' + (bi.ok ? 'b-green' : 'b-red') + '">' + (bi.ok ? 'BOM' : 'ATENCAO') + '</span></td></tr>';
+  });
+  bhtml += '</tbody></table>';
+  document.getElementById('benchmarkCard').innerHTML = bhtml;
+}
+
+// ============================================================
+// RENDER ACOES
+// ============================================================
+function renderAcoes(data) {
+  var actions = [
+    { p: 'P1', cls: 'p1', title: 'Aumentar budget WhatsApp Brasil + Regional SP', desc: 'CPA de R$ 5,33 e R$ 10,40. Concentram 1.109 conversas com R$ 7.896. Potencial de 2-3x mais conversas mantendo CPA < R$ 12.' },
+    { p: 'P1', cls: 'p1', title: 'Migrar verba de estaticos para Reels/Video', desc: 'Reels CPA R$ 7,52 vs Estatico R$ 26,37 (3,5x mais caro). Mesmo volume de conversas com 70% menos investimento.' },
+    { p: 'P1', cls: 'p1', title: 'Pausar imediatamente ads com zero resultado', desc: fmtBRL(data.ads.filter(function(a){return a.results===0&&a.spend>50}).reduce(function(s,a){return s+a.spend},0)) + ' desperdicados. Posts organicos promovidos e CRM Leads sem nenhuma conversao.' },
+    { p: 'P2', cls: 'p2', title: 'Escalar Remarketing Piso/Deck/Forro', desc: 'CPA R$ 13,16 com CVR 24,39%. Audiencia quente com budget minimo (R$ 131). Potencial de 30-50 conversas/mes a CPA < R$ 15.' },
+    { p: 'P2', cls: 'p2', title: 'Pausar Engajamento Deck SP FEV26', desc: 'CPA R$ 69,40 com apenas 16 conversas. Performance drasticamente pior que versao anterior da mesma campanha.' },
+    { p: 'P2', cls: 'p2', title: 'Reduzir Engajamento Deck SP principal', desc: 'Consome 40% do budget (R$ 16k) com CPA R$ 35,19. Realocar pelo menos 50% para WhatsApp e Reels.' },
+    { p: 'P3', cls: 'p3', title: 'Testar Reels para Forro e Deck', desc: 'Reels de pisos dominam conversoes. Forro e Deck tem pouca representatividade em video. Oportunidade de expansao.' },
+    { p: 'P3', cls: 'p3', title: 'Expandir BH (melhor praca)', desc: 'CPA R$ 4,99 em BH vs media R$ 18,11. Testar aumento de budget gradual nessa praca.' }
+  ];
+  var html = '';
+  actions.forEach(function(a) {
+    html += '<div class="action-item"><div class="action-priority ' + a.cls + '">' + a.p + '</div><div class="action-body"><div class="action-title">' + a.title + '</div><div class="action-desc">' + a.desc + '</div></div></div>';
+  });
+  document.getElementById('actionList').innerHTML = html;
+
+  // Executive summary
+  var t = data.totals;
+  var es = '<div class="card-title">Resumo Executivo</div>';
+  es += '<div class="insight"><div class="insight-title">O que esta funcionando</div><div class="insight-text">';
+  es += 'Campanhas WhatsApp Brasil (CPA R$ 5,33) e Regional SP (CPA R$ 10,40) sao os melhores performers. ';
+  es += 'Reels/Video converte 3,5x melhor que estaticos. BH e a melhor praca (CPA R$ 4,99). ';
+  es += 'CTR geral 55% acima do benchmark do setor. CPA 64% abaixo do benchmark.</div></div>';
+
+  es += '<div class="insight warn"><div class="insight-title">Pontos de atencao</div><div class="insight-text">';
+  es += 'CPM alto (+80% vs benchmark) indica audiencia cara ou concorrida. ';
+  es += 'Deck SP consome 40% do budget com CPA 2x a media. ';
+  es += 'Posts organicos promovidos tem CPA proibitivo (R$ 417-744). ';
+  es += 'Budget mensal subutilizado (66% do planejado).</div></div>';
+
+  es += '<div class="insight danger"><div class="insight-title">Acoes urgentes</div><div class="insight-text">';
+  es += 'Pausar ' + data.ads.filter(function(a){return a.results===0&&a.spend>50}).length + ' ads com zero resultado. ';
+  es += 'Realocar verba de Deck SP para WhatsApp + Reels. ';
+  es += 'Escalar Remarketing (CVR 24%, budget minimo). ';
+  es += 'Criar novos Reels para Forro e Deck.</div></div>';
+  document.getElementById('execSummary').innerHTML = es;
+}
+
+// ============================================================
+// DATE FILTERING
+// ============================================================
+var FULL_DATA = null;
+var CHART_INSTANCES = [];
+
+function destroyCharts() {
+  CHART_INSTANCES.forEach(function(c) { if (c) c.destroy(); });
+  CHART_INSTANCES = [];
+  // Clear chart containers
+  ['chartCpaFormato','chartVolFormato','chartQuadrant','chartTimeline1','chartTimeline2','chartTimeline3','chartDayOfWeek'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.innerHTML = '';
+  });
+}
+
+function filterData(data, startDate, endDate) {
+  var daily = (data.daily || []).filter(function(d) {
+    return d.date >= startDate && d.date <= endDate;
+  });
+  if (!daily.length) return null;
+
+  var t = { impressions:0, reach:0, clicks:0, spend:0, leads:0, conversations:0, results:0 };
+  daily.forEach(function(d) {
+    t.impressions += d.impressions || 0;
+    t.reach += d.reach || 0;
+    t.clicks += d.clicks || 0;
+    t.spend += d.spend || 0;
+    t.leads += d.leads || 0;
+    t.conversations += d.conversations || 0;
+    t.results += d.results || 0;
+  });
+  t.ctr = t.impressions ? +(t.clicks / t.impressions * 100).toFixed(2) : 0;
+  t.cpc = t.clicks ? +(t.spend / t.clicks).toFixed(2) : 0;
+  t.cpm = t.impressions ? +(t.spend / t.impressions * 1000).toFixed(2) : 0;
+  t.cpa = t.results ? +(t.spend / t.results).toFixed(2) : 0;
+  t.cpl = t.leads ? +(t.spend / t.leads).toFixed(2) : 0;
+  t.cvr = t.clicks ? +(t.results / t.clicks * 100).toFixed(2) : 0;
+  t.frequency = t.reach ? +(t.impressions / t.reach).toFixed(2) : 0;
+  t.cost_per_conversation = t.conversations ? +(t.spend / t.conversations).toFixed(2) : 0;
+  t.num_days = daily.length;
+  t.date_range = { start: startDate, end: endDate };
+  t.avg_daily_spend = +(t.spend / daily.length).toFixed(2);
+  t.avg_daily_results = +(t.results / daily.length).toFixed(2);
+
+  return {
+    meta: { generated_at: data.meta.generated_at, source: data.meta.source, rows_processed: data.meta.rows_processed, date_range: { start: startDate, end: endDate }, num_days: daily.length, currency: 'BRL' },
+    totals: t,
+    funnel: data.funnel,
+    daily: daily,
+    campaigns: data.campaigns,
+    adsets: data.adsets,
+    ads: data.ads,
+    creative_types: data.creative_types,
+    concentration: data.concentration,
+    quadrant_summary: data.quadrant_summary,
+    significance: data.significance,
+    cross_analysis: data.cross_analysis,
+    benchmarks: data.benchmarks,
+    goals: data.goals,
+    projections: data.projections,
+    insights: data.insights
+  };
+}
+
+function offsetDate(dateStr, days) {
+  var d = new Date(dateStr + 'T12:00:00');
+  d.setDate(d.getDate() + days);
+  return d.toISOString().substring(0, 10);
+}
+
+function applyDateFilter() {
+  var s = document.getElementById('dateStart').value;
+  var e = document.getElementById('dateEnd').value;
+  if (!s || !e || !FULL_DATA) return;
+  document.querySelectorAll('.date-presets button').forEach(function(b) { b.classList.remove('active'); });
+  var filtered = filterData(FULL_DATA, s, e);
+  if (filtered) renderAllTabs(filtered);
+}
+
+function setPreset(preset, btn) {
+  if (!FULL_DATA || !FULL_DATA.daily || !FULL_DATA.daily.length) return;
+  var allDates = FULL_DATA.daily.map(function(d) { return d.date; }).sort();
+  var lastDate = allDates[allDates.length - 1];
+  var endDate = lastDate;
+  var startDate = allDates[0];
+
+  if (preset === '7d') startDate = offsetDate(lastDate, -6);
+  else if (preset === '14d') startDate = offsetDate(lastDate, -13);
+  else if (preset === '30d') startDate = offsetDate(lastDate, -29);
+  else if (preset === 'mes') startDate = lastDate.substring(0, 8) + '01';
+
+  document.getElementById('dateStart').value = startDate;
+  document.getElementById('dateEnd').value = endDate;
+  document.querySelectorAll('.date-presets button').forEach(function(b) { b.classList.remove('active'); });
+  if (btn) btn.classList.add('active');
+
+  var filtered = filterData(FULL_DATA, startDate, endDate);
+  if (filtered) renderAllTabs(filtered);
+}
+
+function updateHeader(data) {
+  var dr = data.meta.date_range;
+  var months = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+  var ds = new Date(dr.start + 'T00:00:00');
+  var de = new Date(dr.end + 'T00:00:00');
+  document.getElementById('periodBadge').textContent = ds.getDate().toString().padStart(2,'0') + ' ' + months[ds.getMonth()] + ' \u2014 ' + de.getDate().toString().padStart(2,'0') + ' ' + months[de.getMonth()] + ' ' + de.getFullYear() + ' (' + data.meta.num_days + ' dias)';
+  var gen = new Date(data.meta.generated_at);
+  document.getElementById('timestamp').textContent = 'Atualizado: ' + gen.getDate().toString().padStart(2,'0') + '/' + (gen.getMonth()+1).toString().padStart(2,'0') + '/' + gen.getFullYear();
+}
+
+function renderAllTabs(data) {
+  destroyCharts();
+  CURRENT_DATA = data;
+  RENDERED_TABS = { overview: true, funnel: true };
+  updateHeader(data);
+  renderOverview(data);
+  renderFunnel(data);
+  // Render current tab if not overview/funnel
+  if (CURRENT_TAB !== 'overview' && CURRENT_TAB !== 'funnel') {
+    renderTabCharts(CURRENT_TAB, data);
+    RENDERED_TABS[CURRENT_TAB] = true;
+  }
+}
+
+// ============================================================
+// INIT
+// ============================================================
+loadData().then(function(data) {
+  if (!data) {
+    document.body.innerHTML = '<div style="padding:40px;text-align:center;color:#EF4444">Erro: data.json nao encontrado.</div>';
+    return;
+  }
+
+  FULL_DATA = data;
+
+  // Set date inputs
+  var dr = data.meta.date_range;
+  document.getElementById('dateStart').value = dr.start;
+  document.getElementById('dateEnd').value = dr.end;
+
+  renderAllTabs(data);
+});
+</script>
+
+</body>
+</html>
