@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-03-25T17:43:04",
+    "generated_at": "2026-03-25T21:01:50",
     "source": "Google Sheets (Adveronix Meta Ads Export)",
     "rows_processed": 1453,
     "date_range": {
@@ -2431,7 +2431,7 @@
       "conversations": 0,
       "results": 0,
       "ctr": 0.7,
-      "cpc": 5.01,
+      "cpc": 5.0,
       "cpm": 35.0,
       "cpa": 0,
       "cpl": 0,
