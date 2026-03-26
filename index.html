@@ -52,13 +52,11 @@ body {
   justify-content: space-between;
   box-shadow: 0 1px 3px rgba(0,0,0,0.04);
 }
-.header .logo {
-  font-size: 15px;
-  font-weight: 800;
-  letter-spacing: 5px;
-  color: var(--text);
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
-.header .logo span { color: var(--text3); font-weight: 400; letter-spacing: 2px; font-size: 11px; margin-left: 12px; }
 .header-right { display: flex; align-items: center; gap: 16px; }
 .period-badge {
   background: var(--surface);
@@ -151,6 +149,84 @@ body {
 
 /* Container */
 .container { max-width: 1400px; margin: 0 auto; padding: 24px 32px 80px; }
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  left: 0; top: 0;
+  width: 180px;
+  height: 100vh;
+  background: #FFFFFF;
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  padding: 16px 0;
+  z-index: 200;
+  box-shadow: 1px 0 4px rgba(0,0,0,0.03);
+}
+.sidebar-logo {
+  padding: 8px 20px 20px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 16px;
+}
+.sidebar-section-label {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text3);
+  padding: 0 20px;
+  margin-bottom: 8px;
+}
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: all 0.15s;
+  border-left: 3px solid transparent;
+}
+.sidebar-item:hover { background: var(--surface2); }
+.sidebar-item.active {
+  background: var(--blue-bg);
+  border-left-color: var(--blue);
+}
+.sidebar-icon {
+  width: 28px; height: 28px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 800;
+  background: var(--surface2);
+  color: var(--text2);
+}
+.sidebar-item.active .sidebar-icon { background: var(--blue); color: #fff; }
+.sidebar-text { font-size: 12px; font-weight: 600; color: var(--text2); }
+.sidebar-item.active .sidebar-text { color: var(--text); }
+.sidebar-divider { height: 1px; background: var(--border); margin: 12px 20px; }
+
+/* Main wrap */
+.main-wrap { margin-left: 180px; }
+
+/* Platform badge */
+.platform-badge {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--blue);
+  padding: 4px 12px;
+  background: var(--blue-bg);
+  border-radius: 4px;
+}
+
+@media (max-width: 768px) {
+  .sidebar { width: 60px; }
+  .sidebar-text, .sidebar-section-label, .sidebar-logo img { display: none; }
+  .sidebar-logo { padding: 8px; text-align: center; }
+  .main-wrap { margin-left: 60px; }
+}
 
 /* Section */
 .section { margin-bottom: 48px; display: none; }
@@ -439,8 +515,32 @@ tbody tr:hover { background: var(--surface2); }
 </head>
 <body>
 
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div class="sidebar-logo"><img src="logo.png" alt="PARKET" style="height:18px"></div>
+  <div class="sidebar-section-label">Plataforma</div>
+  <div class="sidebar-item active" onclick="switchPlatform('meta', this)">
+    <div class="sidebar-icon">M</div>
+    <div class="sidebar-text">Meta Ads</div>
+  </div>
+  <div class="sidebar-item" onclick="switchPlatform('google', this)">
+    <div class="sidebar-icon">G</div>
+    <div class="sidebar-text">Google Ads</div>
+  </div>
+  <div class="sidebar-divider"></div>
+  <div class="sidebar-item" onclick="switchPlatform('geral', this)">
+    <div class="sidebar-icon">T</div>
+    <div class="sidebar-text">Visao Geral</div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main-wrap">
+
 <div class="header">
-  <div class="logo"><img src="logo.png" alt="PARKET" style="height:22px;vertical-align:middle;margin-right:10px"><span>Performance Dashboard</span></div>
+  <div class="header-left">
+    <span class="platform-badge" id="platformBadge">META ADS</span>
+  </div>
   <div class="header-right">
     <div class="date-filter">
       <input type="date" id="dateStart">
@@ -460,15 +560,25 @@ tbody tr:hover { background: var(--surface2); }
   </div>
 </div>
 
-<div class="nav-tabs">
+<!-- META ADS TABS -->
+<div class="nav-tabs" id="metaTabs">
   <div class="nav-tab active" onclick="showTab('overview')">Overview</div>
   <div class="nav-tab" onclick="showTab('funnel')">Funil Completo</div>
   <div class="nav-tab" onclick="showTab('criativos')">Criativos</div>
   <div class="nav-tab" onclick="showTab('campanhas')">Campanhas</div>
   <div class="nav-tab" onclick="showTab('timeline')">Timeline</div>
-  <div class="nav-tab" onclick="showTab('google')">Google Ads</div>
   <div class="nav-tab" onclick="showTab('desperdicio')">Desperdicio</div>
   <div class="nav-tab" onclick="showTab('acoes')">Acoes</div>
+</div>
+
+<!-- GOOGLE ADS TABS -->
+<div class="nav-tabs" id="googleTabs" style="display:none">
+  <div class="nav-tab active" onclick="showTab('google')">Overview</div>
+</div>
+
+<!-- GERAL TABS -->
+<div class="nav-tabs" id="geralTabs" style="display:none">
+  <div class="nav-tab active" onclick="showTab('geral-overview')">Visao Geral</div>
 </div>
 
 <div class="container">
@@ -706,6 +816,13 @@ tbody tr:hover { background: var(--surface2); }
 
   </div>
 
+  <!-- TAB: VISAO GERAL -->
+  <div class="section" id="tab-geral-overview">
+    <div class="group-label">Visao Geral — Todas as Plataformas</div>
+    <div id="geralContent"></div>
+  </div>
+
+</div>
 </div>
 
 <script>
@@ -729,8 +846,126 @@ function short(s) {
 // TABS
 // ============================================================
 var CURRENT_TAB = 'overview';
+var CURRENT_PLATFORM = 'meta';
 var RENDERED_TABS = {};
 var CURRENT_DATA = null;
+
+var META_TABS = ['overview','funnel','criativos','campanhas','timeline','desperdicio','acoes'];
+var GOOGLE_TABS = ['google'];
+var GERAL_TABS = ['geral-overview'];
+
+function switchPlatform(platform, el) {
+  CURRENT_PLATFORM = platform;
+
+  // Update sidebar
+  document.querySelectorAll('.sidebar-item').forEach(function(s) { s.classList.remove('active'); });
+  if (el) el.classList.add('active');
+
+  // Update platform badge
+  var badge = document.getElementById('platformBadge');
+  if (platform === 'meta') { badge.textContent = 'META ADS'; badge.style.color = 'var(--blue)'; badge.style.background = 'var(--blue-bg)'; }
+  else if (platform === 'google') { badge.textContent = 'GOOGLE ADS'; badge.style.color = 'var(--green)'; badge.style.background = 'var(--green-bg)'; }
+  else { badge.textContent = 'VISAO GERAL'; badge.style.color = 'var(--purple)'; badge.style.background = 'rgba(112,72,232,0.06)'; }
+
+  // Show/hide tab bars
+  document.getElementById('metaTabs').style.display = platform === 'meta' ? 'flex' : 'none';
+  document.getElementById('googleTabs').style.display = platform === 'google' ? 'flex' : 'none';
+  document.getElementById('geralTabs').style.display = platform === 'geral' ? 'flex' : 'none';
+
+  // Hide all sections
+  document.querySelectorAll('.section').forEach(function(s) { s.classList.remove('active'); });
+
+  // Show first tab of selected platform
+  var firstTab = platform === 'meta' ? 'overview' : platform === 'google' ? 'google' : 'geral-overview';
+  document.getElementById('tab-' + firstTab).classList.add('active');
+  CURRENT_TAB = firstTab;
+
+  // Activate first nav-tab
+  var tabBar = document.getElementById(platform === 'meta' ? 'metaTabs' : platform === 'google' ? 'googleTabs' : 'geralTabs');
+  tabBar.querySelectorAll('.nav-tab').forEach(function(t, i) { t.classList.toggle('active', i === 0); });
+
+  // Render if needed
+  if (CURRENT_DATA) {
+    if (platform === 'google') renderTabCharts('google', CURRENT_DATA);
+    if (platform === 'geral') renderGeralOverview(CURRENT_DATA);
+  }
+}
+
+function renderGeralOverview(data) {
+  var t = data.totals;
+  var g = data.google_ads || {};
+  var gt = g.totals || {};
+  var hasGoogle = g.has_data;
+
+  var metaSpend = t.spend;
+  var googleSpend = gt.spend || 0;
+  var totalSpend = metaSpend + googleSpend;
+  var metaConv = t.conversations;
+  var googleConv = gt.conversions || 0;
+  var totalConv = metaConv + googleConv;
+  var totalClicks = t.clicks + (gt.clicks || 0);
+  var totalImpr = t.impressions + (gt.impressions || 0);
+
+  var html = '';
+
+  // KPIs
+  html += '<div class="kpi-row cols-5">';
+  html += '<div class="kpi-card info"><div class="kpi-label">Investimento Total</div><div class="kpi-value sm">' + fmtBRL(totalSpend) + '</div><div class="kpi-bench">Meta + Google</div></div>';
+  html += '<div class="kpi-card good"><div class="kpi-label">Conversoes Total</div><div class="kpi-value sm">' + fmtInt(totalConv) + '</div><div class="kpi-bench">Todas as plataformas</div></div>';
+  html += '<div class="kpi-card neutral"><div class="kpi-label">CPA Medio Geral</div><div class="kpi-value sm">' + (totalConv > 0 ? fmtBRL(totalSpend / totalConv) : '\u2014') + '</div><div class="kpi-bench">Ponderado</div></div>';
+  html += '<div class="kpi-card neutral"><div class="kpi-label">Cliques Total</div><div class="kpi-value sm">' + fmtInt(totalClicks) + '</div><div class="kpi-bench">CTR: ' + fmt(totalImpr > 0 ? totalClicks / totalImpr * 100 : 0) + '%</div></div>';
+  html += '<div class="kpi-card neutral"><div class="kpi-label">Impressoes Total</div><div class="kpi-value sm">' + fmtInt(totalImpr) + '</div><div class="kpi-bench">CPC: ' + (totalClicks > 0 ? fmtBRL(totalSpend / totalClicks) : '\u2014') + '</div></div>';
+  html += '</div>';
+
+  // Platform comparison
+  html += '<div class="group-label" style="margin-top:32px">Comparativo por Plataforma</div>';
+  html += '<div class="card"><table><thead><tr><th>Plataforma</th><th class="r">Investimento</th><th class="r">% Budget</th><th class="r">Conversoes</th><th class="r">CPA</th><th class="r">Cliques</th><th class="r">CTR</th><th class="r">CPC</th></tr></thead><tbody>';
+
+  // Meta row
+  html += '<tr><td style="font-weight:700;color:var(--blue)">Meta Ads</td>';
+  html += '<td class="r">' + fmtBRL(metaSpend) + '</td>';
+  html += '<td class="r">' + fmt(totalSpend > 0 ? metaSpend / totalSpend * 100 : 100, 1) + '%</td>';
+  html += '<td class="r" style="font-weight:600">' + fmtInt(metaConv) + '</td>';
+  html += '<td class="r" style="color:' + (t.cpa < 20 ? 'var(--green)' : 'var(--amber)') + ';font-weight:700">' + fmtBRL(t.cpa) + '</td>';
+  html += '<td class="r">' + fmtInt(t.clicks) + '</td>';
+  html += '<td class="r">' + fmt(t.ctr) + '%</td>';
+  html += '<td class="r">' + fmtBRL(t.cpc) + '</td></tr>';
+
+  // Google row
+  if (hasGoogle) {
+    html += '<tr><td style="font-weight:700;color:var(--green)">Google Ads</td>';
+    html += '<td class="r">' + fmtBRL(googleSpend) + '</td>';
+    html += '<td class="r">' + fmt(totalSpend > 0 ? googleSpend / totalSpend * 100 : 0, 1) + '%</td>';
+    html += '<td class="r" style="font-weight:600">' + fmtInt(googleConv) + '</td>';
+    html += '<td class="r" style="font-weight:700">' + (gt.cpa > 0 ? fmtBRL(gt.cpa) : '\u2014') + '</td>';
+    html += '<td class="r">' + fmtInt(gt.clicks || 0) + '</td>';
+    html += '<td class="r">' + fmt(gt.ctr || 0) + '%</td>';
+    html += '<td class="r">' + fmtBRL(gt.cpc || 0) + '</td></tr>';
+  } else {
+    html += '<tr><td style="font-weight:700;color:var(--green)">Google Ads</td><td colspan="7" style="color:var(--text3)">Aguardando dados na planilha</td></tr>';
+  }
+
+  // Total row
+  html += '<tr style="border-top:2px solid var(--border2);font-weight:700"><td style="color:var(--text)">TOTAL</td>';
+  html += '<td class="r">' + fmtBRL(totalSpend) + '</td>';
+  html += '<td class="r">100%</td>';
+  html += '<td class="r">' + fmtInt(totalConv) + '</td>';
+  html += '<td class="r">' + (totalConv > 0 ? fmtBRL(totalSpend / totalConv) : '\u2014') + '</td>';
+  html += '<td class="r">' + fmtInt(totalClicks) + '</td>';
+  html += '<td class="r">' + fmt(totalImpr > 0 ? totalClicks / totalImpr * 100 : 0) + '%</td>';
+  html += '<td class="r">' + (totalClicks > 0 ? fmtBRL(totalSpend / totalClicks) : '\u2014') + '</td></tr>';
+  html += '</tbody></table></div>';
+
+  // Budget distribution
+  var metaPct = totalSpend > 0 ? metaSpend / totalSpend * 100 : 100;
+  html += '<div class="group-label" style="margin-top:32px">Distribuicao de Budget</div>';
+  html += '<div class="card">';
+  html += '<div style="display:flex;align-items:center;gap:12px;margin-bottom:12px"><div style="font-size:12px;color:var(--text2);width:100px">Meta Ads</div><div style="flex:1;height:24px;background:var(--border);border-radius:6px;overflow:hidden"><div style="width:' + metaPct + '%;height:100%;background:var(--blue);border-radius:6px;display:flex;align-items:center;justify-content:center;min-width:40px"><span style="font-size:11px;font-weight:700;color:#fff">' + fmt(metaPct, 1) + '%</span></div></div><div style="width:100px;text-align:right;font-size:12px;font-weight:600">' + fmtBRL(metaSpend) + '</div></div>';
+  html += '<div style="display:flex;align-items:center;gap:12px"><div style="font-size:12px;color:var(--text2);width:100px">Google Ads</div><div style="flex:1;height:24px;background:var(--border);border-radius:6px;overflow:hidden"><div style="width:' + (100 - metaPct) + '%;height:100%;background:var(--green);border-radius:6px;display:flex;align-items:center;justify-content:center;min-width:40px"><span style="font-size:11px;font-weight:700;color:#fff">' + fmt(100 - metaPct, 1) + '%</span></div></div><div style="width:100px;text-align:right;font-size:12px;font-weight:600">' + fmtBRL(googleSpend) + '</div></div>';
+  html += '</div>';
+
+  document.getElementById('geralContent').innerHTML = html;
+}
 
 function showTab(id) {
   document.querySelectorAll('.section').forEach(function(s) { s.classList.remove('active'); });
