@@ -466,6 +466,7 @@ tbody tr:hover { background: var(--surface2); }
   <div class="nav-tab" onclick="showTab('criativos')">Criativos</div>
   <div class="nav-tab" onclick="showTab('campanhas')">Campanhas</div>
   <div class="nav-tab" onclick="showTab('timeline')">Timeline</div>
+  <div class="nav-tab" onclick="showTab('google')">Google Ads</div>
   <div class="nav-tab" onclick="showTab('desperdicio')">Desperdicio</div>
   <div class="nav-tab" onclick="showTab('acoes')">Acoes</div>
 </div>
@@ -640,7 +641,44 @@ tbody tr:hover { background: var(--surface2); }
 
   </div>
 
-  <!-- TAB 6: DESPERDICIO -->
+  <!-- TAB: GOOGLE ADS -->
+  <div class="section" id="tab-google">
+
+    <div id="googleNoData" style="display:none">
+      <div class="card" style="text-align:center;padding:60px 20px">
+        <div style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:8px">Google Ads — Aguardando Dados</div>
+        <div style="font-size:13px;color:var(--text3);max-width:500px;margin:0 auto;line-height:1.7">A planilha do Google Ads esta configurada mas ainda nao tem dados. Assim que os dados forem inseridos na aba "RAW Google Ads" da planilha, o dashboard sera atualizado automaticamente.</div>
+      </div>
+    </div>
+
+    <div id="googleWithData" style="display:none">
+      <div class="group-label">Google Ads — Metricas Gerais</div>
+      <div class="kpi-row cols-5" id="googleKpis"></div>
+
+      <div class="group-label" style="margin-top:32px">Evolucao Diaria — Investimento e Conversoes</div>
+      <div class="card">
+        <div class="chart-box tall" id="chartGoogleTimeline"></div>
+      </div>
+
+      <div class="group-label" style="margin-top:32px">Campanhas Google Ads</div>
+      <div class="card" style="overflow-x:auto" id="googleCampanhas"></div>
+
+      <div class="group-label" style="margin-top:32px">Grupos de Anuncios</div>
+      <div class="card" style="overflow-x:auto" id="googleAdgroups"></div>
+
+      <div class="group-label" style="margin-top:32px">Keywords — Performance e Quality Score</div>
+      <div class="card" style="overflow-x:auto;max-height:500px;overflow-y:auto" id="googleKeywords"></div>
+
+      <div class="group-label" style="margin-top:32px">Analise de Keywords</div>
+      <div class="grid-2">
+        <div class="card" id="googleKwInsight"></div>
+        <div class="card" id="googleQsAnalysis"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- TAB: DESPERDICIO -->
   <div class="section" id="tab-desperdicio">
 
     <div class="group-label">Investimento sem Retorno</div>
@@ -723,6 +761,7 @@ function clearTabCharts(id) {
   var chartIds = {
     criativos: ['chartCpaFormato','chartVolFormato','chartQuadrant'],
     campanhas: [],
+    google: ['chartGoogleTimeline'],
     timeline: ['chartTimeline1','chartTimeline2','chartTimeline3','chartDayOfWeek'],
     desperdicio: [],
     acoes: []
@@ -738,6 +777,7 @@ function renderTabCharts(id, data) {
   if (id === 'criativos') renderCriativos(data);
   if (id === 'campanhas') renderCampanhas(data);
   if (id === 'timeline') renderTimeline(data);
+  if (id === 'google') renderGoogleAds(data);
   if (id === 'desperdicio') renderDesperdicio(data);
   if (id === 'acoes') renderAcoes(data);
 }
@@ -1770,6 +1810,152 @@ function renderAcoes(data) {
   es += 'Escalar Remarketing (CVR 24%, budget minimo). ';
   es += 'Criar novos Reels para Forro e Deck.</div></div>';
   document.getElementById('execSummary').innerHTML = es;
+}
+
+// ============================================================
+// RENDER GOOGLE ADS
+// ============================================================
+function renderGoogleAds(data) {
+  var g = data.google_ads;
+  if (!g || !g.has_data) {
+    document.getElementById('googleNoData').style.display = 'block';
+    document.getElementById('googleWithData').style.display = 'none';
+    return;
+  }
+  document.getElementById('googleNoData').style.display = 'none';
+  document.getElementById('googleWithData').style.display = 'block';
+
+  var t = g.totals;
+
+  // KPIs
+  var kpis = [
+    { label: 'Investimento', value: fmtBRL(t.spend), bench: t.num_days + ' dias', cls: 'info' },
+    { label: 'Cliques', value: fmtInt(t.clicks), bench: 'CTR: ' + fmt(t.ctr) + '%', cls: 'neutral' },
+    { label: 'Conversoes', value: fmtInt(t.conversions), bench: fmtInt(Math.round(t.conversions / Math.max(t.num_days, 1))) + '/dia', cls: 'good' },
+    { label: 'CPA', value: t.cpa > 0 ? fmtBRL(t.cpa) : '\u2014', bench: 'Custo por conversao', cls: t.cpa > 0 && t.cpa < 50 ? 'good' : 'warn' },
+    { label: 'CPC', value: fmtBRL(t.cpc), bench: 'CVR: ' + fmt(t.cvr) + '%', cls: 'neutral' }
+  ];
+  var khtml = '';
+  kpis.forEach(function(k) {
+    khtml += '<div class="kpi-card ' + k.cls + '"><div class="kpi-label">' + k.label + '</div><div class="kpi-value sm">' + k.value + '</div><div class="kpi-bench">' + k.bench + '</div></div>';
+  });
+  document.getElementById('googleKpis').innerHTML = khtml;
+
+  // Timeline
+  if (g.daily.length > 0) {
+    var labels = g.daily.map(function(d) { return d.date.substring(5); });
+    var ctx = document.createElement('canvas');
+    document.getElementById('chartGoogleTimeline').appendChild(ctx);
+    CHART_INSTANCES.push(new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [
+          { label: 'Investimento (R$)', data: g.daily.map(function(d) { return d.spend; }), backgroundColor: 'rgba(25,113,194,0.5)', borderRadius: 2, yAxisID: 'y' },
+          { label: 'Conversoes', data: g.daily.map(function(d) { return d.conversions; }), type: 'line', borderColor: '#0CA678', pointRadius: 2, pointBackgroundColor: '#0CA678', borderWidth: 2, tension: 0.3, yAxisID: 'y1' }
+        ]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        plugins: { legend: { labels: { color: '#495057', font: { family: 'Inter', size: 10 } } } },
+        scales: {
+          x: { grid: { display: false }, ticks: { color: '#868E96', font: { family: 'Inter', size: 9 }, maxRotation: 45 } },
+          y: { grid: { color: '#E9ECEF' }, ticks: { color: '#1971C2', font: { family: 'Inter', size: 10 }, callback: function(v) { return 'R$ ' + v; } } },
+          y1: { position: 'right', grid: { display: false }, ticks: { color: '#0CA678', font: { family: 'Inter', size: 10 } } }
+        }
+      }
+    }));
+  }
+
+  // Campaigns table
+  var ctbl = '<table><thead><tr><th>Campanha</th><th class="r">Invest.</th><th class="r">Impr.</th><th class="r">Cliques</th><th class="r">CTR</th><th class="r">CPC</th><th class="r">Conv.</th><th class="r">CPA</th><th class="r">CVR</th><th class="r">Dias</th></tr></thead><tbody>';
+  g.campaigns.forEach(function(c) {
+    var cpaC = c.cpa === 0 ? 'var(--text3)' : c.cpa < 30 ? 'var(--green)' : c.cpa < 80 ? 'var(--amber)' : 'var(--red)';
+    ctbl += '<tr><td style="color:var(--text);font-weight:500">' + c.name + '</td>';
+    ctbl += '<td class="r">' + fmtBRL(c.spend) + '</td>';
+    ctbl += '<td class="r">' + fmtInt(c.impressions) + '</td>';
+    ctbl += '<td class="r">' + fmtInt(c.clicks) + '</td>';
+    ctbl += '<td class="r">' + fmt(c.ctr) + '%</td>';
+    ctbl += '<td class="r">' + fmtBRL(c.cpc) + '</td>';
+    ctbl += '<td class="r" style="font-weight:600">' + fmtInt(c.conversions) + '</td>';
+    ctbl += '<td class="r" style="color:' + cpaC + ';font-weight:700">' + (c.cpa > 0 ? fmtBRL(c.cpa) : '\u2014') + '</td>';
+    ctbl += '<td class="r">' + fmt(c.cvr) + '%</td>';
+    ctbl += '<td class="r">' + c.days_active + '</td></tr>';
+  });
+  ctbl += '</tbody></table>';
+  document.getElementById('googleCampanhas').innerHTML = ctbl;
+
+  // Ad Groups table
+  var atbl = '<table><thead><tr><th>Grupo de Anuncios</th><th class="r">Invest.</th><th class="r">Cliques</th><th class="r">CTR</th><th class="r">CPC</th><th class="r">Conv.</th><th class="r">CPA</th><th class="r">CVR</th></tr></thead><tbody>';
+  g.adgroups.forEach(function(a) {
+    var cpaC = a.cpa === 0 ? 'var(--text3)' : a.cpa < 30 ? 'var(--green)' : a.cpa < 80 ? 'var(--amber)' : 'var(--red)';
+    atbl += '<tr><td style="color:var(--text)">' + a.name + '</td>';
+    atbl += '<td class="r">' + fmtBRL(a.spend) + '</td>';
+    atbl += '<td class="r">' + fmtInt(a.clicks) + '</td>';
+    atbl += '<td class="r">' + fmt(a.ctr) + '%</td>';
+    atbl += '<td class="r">' + fmtBRL(a.cpc) + '</td>';
+    atbl += '<td class="r" style="font-weight:600">' + fmtInt(a.conversions) + '</td>';
+    atbl += '<td class="r" style="color:' + cpaC + ';font-weight:700">' + (a.cpa > 0 ? fmtBRL(a.cpa) : '\u2014') + '</td>';
+    atbl += '<td class="r">' + fmt(a.cvr) + '%</td></tr>';
+  });
+  atbl += '</tbody></table>';
+  document.getElementById('googleAdgroups').innerHTML = atbl;
+
+  // Keywords table
+  var ktbl = '<table><thead><tr><th>Keyword</th><th>Tipo</th><th class="r">Impr.</th><th class="r">Cliques</th><th class="r">CTR</th><th class="r">CPC</th><th class="r">Invest.</th><th class="r">Conv.</th><th class="r">CPA</th><th class="r">CVR</th><th class="r">QS</th></tr></thead><tbody>';
+  g.keywords.forEach(function(k) {
+    var cpaC = k.cpa === 0 ? 'var(--text3)' : k.cpa < 30 ? 'var(--green)' : k.cpa < 80 ? 'var(--amber)' : 'var(--red)';
+    var qsC = k.quality_score >= 7 ? 'var(--green)' : k.quality_score >= 5 ? 'var(--amber)' : k.quality_score > 0 ? 'var(--red)' : 'var(--text3)';
+    ktbl += '<tr><td style="color:var(--text);font-weight:500">' + k.keyword + '</td>';
+    ktbl += '<td><span class="badge b-gray">' + k.match_type + '</span></td>';
+    ktbl += '<td class="r">' + fmtInt(k.impressions) + '</td>';
+    ktbl += '<td class="r">' + fmtInt(k.clicks) + '</td>';
+    ktbl += '<td class="r">' + fmt(k.ctr) + '%</td>';
+    ktbl += '<td class="r">' + fmtBRL(k.cpc) + '</td>';
+    ktbl += '<td class="r">' + fmtBRL(k.spend) + '</td>';
+    ktbl += '<td class="r" style="font-weight:600">' + fmtInt(k.conversions) + '</td>';
+    ktbl += '<td class="r" style="color:' + cpaC + ';font-weight:700">' + (k.cpa > 0 ? fmtBRL(k.cpa) : '\u2014') + '</td>';
+    ktbl += '<td class="r">' + fmt(k.cvr) + '%</td>';
+    ktbl += '<td class="r" style="color:' + qsC + ';font-weight:700">' + (k.quality_score > 0 ? k.quality_score : '\u2014') + '</td></tr>';
+  });
+  ktbl += '</tbody></table>';
+  document.getElementById('googleKeywords').innerHTML = ktbl;
+
+  // Keyword insights
+  var kwWithConv = g.keywords.filter(function(k) { return k.conversions > 0; });
+  var kwNoConv = g.keywords.filter(function(k) { return k.conversions === 0 && k.spend > 10; });
+  var kwInsight = '<div class="card-title">Insights de Keywords</div>';
+  kwInsight += '<div class="status-row"><div class="status-label">Total de keywords</div><div class="status-value">' + g.keywords.length + '</div></div>';
+  kwInsight += '<div class="status-row"><div class="status-label">Com conversao</div><div class="status-value" style="color:var(--green)">' + kwWithConv.length + '</div></div>';
+  kwInsight += '<div class="status-row"><div class="status-label">Sem conversao (com gasto)</div><div class="status-value" style="color:var(--red)">' + kwNoConv.length + '</div></div>';
+  var wasteKw = kwNoConv.reduce(function(s, k) { return s + k.spend; }, 0);
+  kwInsight += '<div class="status-row"><div class="status-label">Gasto em KW sem conversao</div><div class="status-value" style="color:var(--red)">' + fmtBRL(wasteKw) + '</div></div>';
+  if (kwWithConv.length > 0) {
+    var bestKw = kwWithConv.sort(function(a, b) { return a.cpa - b.cpa; })[0];
+    kwInsight += '<div class="status-row"><div class="status-label">Melhor keyword (CPA)</div><div class="status-value" style="color:var(--green)">' + bestKw.keyword + ' (' + fmtBRL(bestKw.cpa) + ')</div></div>';
+  }
+  document.getElementById('googleKwInsight').innerHTML = kwInsight;
+
+  // Quality Score analysis
+  var kwWithQS = g.keywords.filter(function(k) { return k.quality_score > 0; });
+  var qsHtml = '<div class="card-title">Quality Score</div>';
+  if (kwWithQS.length === 0) {
+    qsHtml += '<div style="padding:16px;color:var(--text3);font-size:13px">Sem dados de Quality Score disponiveis.</div>';
+  } else {
+    var avgQS = kwWithQS.reduce(function(s, k) { return s + k.quality_score; }, 0) / kwWithQS.length;
+    var highQS = kwWithQS.filter(function(k) { return k.quality_score >= 7; }).length;
+    var lowQS = kwWithQS.filter(function(k) { return k.quality_score < 5; }).length;
+    qsHtml += '<div class="status-row"><div class="status-label">QS Medio</div><div class="status-value">' + fmt(avgQS, 1) + '/10</div></div>';
+    qsHtml += '<div class="status-row"><div class="status-label">Keywords QS >= 7</div><div class="status-value" style="color:var(--green)">' + highQS + '</div></div>';
+    qsHtml += '<div class="status-row"><div class="status-label">Keywords QS < 5</div><div class="status-value" style="color:var(--red)">' + lowQS + '</div></div>';
+    qsHtml += '<div style="margin-top:12px;padding:10px;background:var(--surface2);border-radius:6px;font-size:11px;color:var(--text2);line-height:1.6">';
+    if (avgQS >= 7) qsHtml += 'Quality Score medio bom. Keywords relevantes para a busca.';
+    else if (avgQS >= 5) qsHtml += 'Quality Score medio. Revisar anuncios e landing pages das keywords com QS baixo para melhorar relevancia.';
+    else qsHtml += 'Quality Score abaixo do ideal. Melhorar relevancia dos anuncios, extensoes e landing pages.';
+    qsHtml += '</div>';
+  }
+  document.getElementById('googleQsAnalysis').innerHTML = qsHtml;
 }
 
 // ============================================================

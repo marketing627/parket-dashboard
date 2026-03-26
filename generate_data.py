@@ -14,20 +14,22 @@ import sys
 from collections import defaultdict
 from datetime import datetime, timedelta
 
-# Google Sheets public export URL
+# Google Sheets public export URLs
 SHEET_ID = "1cyX5e8UP3Hqm9GqxYu1GVrhu-TG2JdSEGJydQIiX8yc"
-SHEET_NAME = "RAW Meta"
-SHEETS_URL = f"https://docs.google.com/spreadsheets/d/{SHEET_ID}/gviz/tq?tqx=out:csv&sheet={SHEET_NAME}"
+META_SHEET = "RAW Meta"
+GOOGLE_GID = "31847001"
+META_URL = f"https://docs.google.com/spreadsheets/d/{SHEET_ID}/gviz/tq?tqx=out:csv&sheet={META_SHEET}"
+GOOGLE_URL = f"https://docs.google.com/spreadsheets/d/{SHEET_ID}/gviz/tq?tqx=out:csv&gid={GOOGLE_GID}"
 
 OUTPUT_PATH = os.environ.get("OUTPUT_PATH", "data.json")
 
 
-def fetch_csv_from_sheets():
+def fetch_csv(url, label=""):
     """Fetch CSV directly from Google Sheets."""
     import urllib.request
-    print(f"Fetching data from Google Sheets...")
-    url = SHEETS_URL.replace(" ", "%20")
-    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+    print(f"Fetching {label}...")
+    clean_url = url.replace(" ", "%20")
+    req = urllib.request.Request(clean_url, headers={"User-Agent": "Mozilla/5.0"})
     with urllib.request.urlopen(req, timeout=30) as resp:
         content = resp.read().decode("utf-8")
     print(f"  Downloaded {len(content)} bytes")
@@ -329,20 +331,178 @@ def compute_benchmarks(totals):
     return result
 
 
+def parse_google_ads_rows(csv_content):
+    """Parse Google Ads CSV from Sheets."""
+    reader = csv.reader(io.StringIO(csv_content))
+    header1 = next(reader, None)  # Title row
+    header2 = next(reader, None)  # Column headers
+
+    rows = []
+    for row in reader:
+        if len(row) < 10:
+            continue
+        day = row[0].strip().replace('"', '')
+        if not day or not re.match(r"\d{4}-\d{2}-\d{2}", day):
+            continue
+        record = {
+            "date": day,
+            "campaign": row[1].strip(),
+            "adgroup": row[2].strip(),
+            "keyword": row[3].strip(),
+            "match_type": row[4].strip(),
+            "impressions": parse_number(row[5]),
+            "clicks": parse_number(row[6]),
+            "ctr": parse_number(row[7]),
+            "cpc": parse_number(row[8]),
+            "spend": parse_number(row[9]),
+            "conversions": parse_number(row[10]) if len(row) > 10 else 0,
+            "cost_per_conversion": parse_number(row[11]) if len(row) > 11 else 0,
+            "conv_rate": parse_number(row[12]) if len(row) > 12 else 0,
+            "quality_score": parse_number(row[13]) if len(row) > 13 else 0,
+        }
+        record["results"] = record["conversions"]
+        rows.append(record)
+    return rows
+
+
+def build_google_ads_data(rows):
+    """Build Google Ads section of data.json."""
+    if not rows:
+        return {"has_data": False, "totals": {}, "daily": [], "campaigns": [], "adgroups": [], "keywords": []}
+
+    # Totals
+    impressions = sum(r["impressions"] for r in rows)
+    clicks = sum(r["clicks"] for r in rows)
+    spend = sum(r["spend"] for r in rows)
+    conversions = sum(r["conversions"] for r in rows)
+    dates = sorted(set(r["date"] for r in rows))
+
+    totals = {
+        "impressions": round(impressions),
+        "clicks": round(clicks),
+        "spend": round(spend, 2),
+        "conversions": round(conversions),
+        "ctr": round(safe_div(clicks, impressions) * 100, 2),
+        "cpc": round(safe_div(spend, clicks), 2),
+        "cpm": round(safe_div(spend, impressions) * 1000, 2),
+        "cpa": round(safe_div(spend, conversions), 2) if conversions > 0 else 0,
+        "cvr": round(safe_div(conversions, clicks) * 100, 2),
+        "num_days": len(dates),
+        "date_range": {"start": dates[0], "end": dates[-1]} if dates else {},
+        "avg_daily_spend": round(safe_div(spend, len(dates)), 2),
+    }
+
+    # Daily
+    day_groups = defaultdict(list)
+    for r in rows:
+        day_groups[r["date"]].append(r)
+    daily = []
+    for date in sorted(day_groups.keys()):
+        g = day_groups[date]
+        d_impr = sum(r["impressions"] for r in g)
+        d_clicks = sum(r["clicks"] for r in g)
+        d_spend = sum(r["spend"] for r in g)
+        d_conv = sum(r["conversions"] for r in g)
+        daily.append({
+            "date": date, "impressions": round(d_impr), "clicks": round(d_clicks),
+            "spend": round(d_spend, 2), "conversions": round(d_conv),
+            "ctr": round(safe_div(d_clicks, d_impr) * 100, 2),
+            "cpc": round(safe_div(d_spend, d_clicks), 2),
+            "cpa": round(safe_div(d_spend, d_conv), 2) if d_conv > 0 else 0,
+        })
+
+    # Campaigns
+    camp_groups = defaultdict(list)
+    for r in rows:
+        camp_groups[r["campaign"]].append(r)
+    campaigns = []
+    for name, g in sorted(camp_groups.items(), key=lambda x: -sum(r["spend"] for r in x[1])):
+        c_impr = sum(r["impressions"] for r in g)
+        c_clicks = sum(r["clicks"] for r in g)
+        c_spend = sum(r["spend"] for r in g)
+        c_conv = sum(r["conversions"] for r in g)
+        campaigns.append({
+            "name": name, "impressions": round(c_impr), "clicks": round(c_clicks),
+            "spend": round(c_spend, 2), "conversions": round(c_conv),
+            "ctr": round(safe_div(c_clicks, c_impr) * 100, 2),
+            "cpc": round(safe_div(c_spend, c_clicks), 2),
+            "cpa": round(safe_div(c_spend, c_conv), 2) if c_conv > 0 else 0,
+            "cvr": round(safe_div(c_conv, c_clicks) * 100, 2),
+            "days_active": len(set(r["date"] for r in g)),
+        })
+
+    # Ad Groups
+    ag_groups = defaultdict(list)
+    for r in rows:
+        ag_groups[r["adgroup"]].append(r)
+    adgroups = []
+    for name, g in sorted(ag_groups.items(), key=lambda x: -sum(r["spend"] for r in x[1])):
+        a_impr = sum(r["impressions"] for r in g)
+        a_clicks = sum(r["clicks"] for r in g)
+        a_spend = sum(r["spend"] for r in g)
+        a_conv = sum(r["conversions"] for r in g)
+        adgroups.append({
+            "name": name, "impressions": round(a_impr), "clicks": round(a_clicks),
+            "spend": round(a_spend, 2), "conversions": round(a_conv),
+            "ctr": round(safe_div(a_clicks, a_impr) * 100, 2),
+            "cpc": round(safe_div(a_spend, a_clicks), 2),
+            "cpa": round(safe_div(a_spend, a_conv), 2) if a_conv > 0 else 0,
+            "cvr": round(safe_div(a_conv, a_clicks) * 100, 2),
+        })
+
+    # Keywords
+    kw_groups = defaultdict(list)
+    for r in rows:
+        if r["keyword"]:
+            kw_groups[(r["keyword"], r["match_type"])].append(r)
+    keywords = []
+    for (kw, mt), g in sorted(kw_groups.items(), key=lambda x: -sum(r["spend"] for r in x[1])):
+        k_impr = sum(r["impressions"] for r in g)
+        k_clicks = sum(r["clicks"] for r in g)
+        k_spend = sum(r["spend"] for r in g)
+        k_conv = sum(r["conversions"] for r in g)
+        qs_vals = [r["quality_score"] for r in g if r["quality_score"] > 0]
+        keywords.append({
+            "keyword": kw, "match_type": mt,
+            "impressions": round(k_impr), "clicks": round(k_clicks),
+            "spend": round(k_spend, 2), "conversions": round(k_conv),
+            "ctr": round(safe_div(k_clicks, k_impr) * 100, 2),
+            "cpc": round(safe_div(k_spend, k_clicks), 2),
+            "cpa": round(safe_div(k_spend, k_conv), 2) if k_conv > 0 else 0,
+            "cvr": round(safe_div(k_conv, k_clicks) * 100, 2),
+            "quality_score": round(sum(qs_vals) / len(qs_vals), 1) if qs_vals else 0,
+        })
+
+    return {
+        "has_data": True,
+        "totals": totals,
+        "daily": daily,
+        "campaigns": campaigns,
+        "adgroups": adgroups,
+        "keywords": keywords,
+        "concentration": compute_concentration(campaigns) if campaigns else {},
+    }
+
+
 def main():
-    # Config defaults (hardcoded since we don't have config sheet in CI)
     config = {
-        "budget_meta_monthly": 40000, "budget_total_monthly": 50000,
+        "budget_meta_monthly": 40000, "budget_google_monthly": 10000,
+        "budget_total_monthly": 50000,
         "meta_vendas_mes": 20, "ticket_medio": 500000,
         "meta_faturamento_mes": 10000000, "lead_to_venda": 0.05,
         "contato_to_mql": 0.40, "mql_to_vendedor": 0.90,
         "vendedor_to_sql": 0.55, "sql_to_venda": 0.50,
     }
 
-    # Fetch data
-    csv_content = fetch_csv_from_sheets()
-    rows = parse_csv_rows(csv_content)
-    print(f"  {len(rows)} rows parsed")
+    # Fetch Meta Ads
+    meta_csv = fetch_csv(META_URL, "Meta Ads")
+    rows = parse_csv_rows(meta_csv)
+    print(f"  Meta: {len(rows)} rows parsed")
+
+    # Fetch Google Ads
+    google_csv = fetch_csv(GOOGLE_URL, "Google Ads")
+    google_rows = parse_google_ads_rows(google_csv)
+    print(f"  Google: {len(google_rows)} rows parsed")
 
     if not rows:
         print("ERROR: No data rows found!")
@@ -426,12 +586,16 @@ def main():
                 "title": f"{metric.upper()} vs Benchmark",
                 "text": f"{metric.upper()}: {comp['actual']}{comp['unit']} vs benchmark {comp['benchmark']}{comp['unit']} ({comp['diff_pct']:+.1f}%)."})
 
+    # Build Google Ads data
+    google_ads = build_google_ads_data(google_rows)
+
     # Build output
     output = {
         "meta": {
             "generated_at": datetime.now().strftime("%Y-%m-%dT%H:%M:%S"),
-            "source": "Google Sheets (Adveronix Meta Ads Export)",
+            "source": "Google Sheets (Adveronix Export)",
             "rows_processed": len(rows),
+            "google_rows_processed": len(google_rows),
             "date_range": totals["date_range"],
             "num_days": totals["num_days"],
             "currency": "BRL",
@@ -464,6 +628,7 @@ def main():
         },
         "projections": projections,
         "insights": insights,
+        "google_ads": google_ads,
     }
 
     print(f"Writing {OUTPUT_PATH}...")
@@ -473,10 +638,9 @@ def main():
     print(f"\n{'='*60}")
     print(f"DATA UPDATED SUCCESSFULLY")
     print(f"{'='*60}")
-    print(f"  Days: {totals['num_days']} ({totals['date_range']['start']} to {totals['date_range']['end']})")
-    print(f"  Spend: R$ {totals['spend']:,.2f}")
-    print(f"  Results: {totals['results']:,} | CPA: R$ {totals['cpa']:.2f}")
-    print(f"  Campaigns: {len(campaigns)} | Ads: {len(ads)}")
+    print(f"  Meta: {totals['num_days']} dias | R$ {totals['spend']:,.2f} | {totals['results']:,} resultados | CPA R$ {totals['cpa']:.2f}")
+    print(f"  Google: {len(google_rows)} rows | {'Com dados' if google_ads['has_data'] else 'Sem dados ainda'}")
+    print(f"  Campanhas Meta: {len(campaigns)} | Ads: {len(ads)}")
 
 
 if __name__ == "__main__":
