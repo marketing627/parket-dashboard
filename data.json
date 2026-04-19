@@ -1,60 +1,60 @@
 {
   "meta": {
-    "generated_at": "2026-04-18T12:02:40",
+    "generated_at": "2026-04-19T12:02:27",
     "source": "Google Sheets (Adveronix Export)",
-    "rows_processed": 2562,
+    "rows_processed": 2608,
     "google_rows_processed": 0,
     "date_range": {
       "start": "2026-01-01",
-      "end": "2026-04-18"
+      "end": "2026-04-19"
     },
-    "num_days": 71,
+    "num_days": 72,
     "currency": "BRL"
   },
   "totals": {
-    "impressions": 2041227,
-    "reach": 1727237,
-    "clicks": 30942,
-    "spend": 57011.34,
-    "leads": 708,
-    "conversations": 3070,
-    "results": 3778,
-    "ctr": 1.52,
-    "cpc": 1.84,
-    "cpm": 27.93,
-    "cpa": 15.09,
-    "cpl": 80.52,
-    "cost_per_conversation": 18.57,
-    "cvr": 12.21,
+    "impressions": 2059669,
+    "reach": 1744152,
+    "clicks": 31174,
+    "spend": 57581.09,
+    "leads": 773,
+    "conversations": 3130,
+    "results": 3903,
+    "ctr": 1.51,
+    "cpc": 1.85,
+    "cpm": 27.96,
+    "cpa": 14.75,
+    "cpl": 74.49,
+    "cost_per_conversation": 18.4,
+    "cvr": 12.52,
     "frequency": 1.18,
-    "num_days": 71,
+    "num_days": 72,
     "date_range": {
       "start": "2026-01-01",
-      "end": "2026-04-18"
+      "end": "2026-04-19"
     },
-    "avg_daily_spend": 802.98,
-    "avg_daily_results": 53.21
+    "avg_daily_spend": 799.74,
+    "avg_daily_results": 54.21
   },
   "funnel": [
     {
       "stage": "Impressoes",
-      "value": 2041227
+      "value": 2059669
     },
     {
       "stage": "Alcance",
-      "value": 1727237
+      "value": 1744152
     },
     {
       "stage": "Cliques",
-      "value": 30942
+      "value": 31174
     },
     {
       "stage": "Resultados",
-      "value": 3778
+      "value": 3903
     },
     {
       "stage": "Conversas WA",
-      "value": 3070
+      "value": 3130
     }
   ],
   "daily": [
@@ -1095,33 +1095,48 @@
     },
     {
       "date": "2026-04-17",
-      "spend": 785.17,
-      "impressions": 21731,
-      "reach": 18991,
-      "clicks": 223,
+      "spend": 787.05,
+      "impressions": 21815,
+      "reach": 19055,
+      "clicks": 224,
       "leads": 67,
       "conversations": 51,
       "results": 118,
       "ctr": 1.03,
-      "cpc": 3.52,
-      "cpm": 36.13,
-      "cpa": 6.65,
+      "cpc": 3.51,
+      "cpm": 36.08,
+      "cpa": 6.67,
       "frequency": 1.14
     },
     {
       "date": "2026-04-18",
-      "spend": 103.51,
-      "impressions": 2572,
-      "reach": 2205,
-      "clicks": 34,
-      "leads": 9,
-      "conversations": 7,
-      "results": 16,
-      "ctr": 1.32,
-      "cpc": 3.04,
-      "cpm": 40.24,
-      "cpa": 6.47,
-      "frequency": 1.17
+      "spend": 552.9,
+      "impressions": 17623,
+      "reach": 16155,
+      "clicks": 209,
+      "leads": 58,
+      "conversations": 52,
+      "results": 110,
+      "ctr": 1.19,
+      "cpc": 2.65,
+      "cpm": 31.37,
+      "cpa": 5.03,
+      "frequency": 1.09
+    },
+    {
+      "date": "2026-04-19",
+      "spend": 118.48,
+      "impressions": 3307,
+      "reach": 2901,
+      "clicks": 56,
+      "leads": 16,
+      "conversations": 15,
+      "results": 31,
+      "ctr": 1.69,
+      "cpc": 2.12,
+      "cpm": 35.83,
+      "cpa": 3.82,
+      "frequency": 1.14
     }
   ],
   "campaigns": [
@@ -1146,10 +1161,10 @@
     },
     {
       "name": "01 - Parket - Whats - Regional SP - Todos os Criativos",
-      "impressions": 261303,
-      "reach": 188368,
+      "impressions": 261310,
+      "reach": 188371,
       "clicks": 1781,
-      "spend": 9087.66,
+      "spend": 9087.77,
       "leads": 57,
       "conversations": 554,
       "results": 611,
@@ -1203,22 +1218,22 @@
     },
     {
       "name": "05 - Parket [Primeira escala milhão] LEAD NATIVO",
-      "impressions": 107826,
-      "reach": 88080,
-      "clicks": 1288,
-      "spend": 5102.39,
-      "leads": 202,
+      "impressions": 113752,
+      "reach": 93191,
+      "clicks": 1398,
+      "spend": 5354.43,
+      "leads": 210,
       "conversations": 10,
-      "results": 212,
-      "ctr": 1.19,
-      "cpc": 3.96,
-      "cpm": 47.32,
-      "cpa": 24.07,
-      "cpl": 25.26,
-      "cost_per_conversation": 510.24,
-      "cvr": 16.46,
+      "results": 220,
+      "ctr": 1.23,
+      "cpc": 3.83,
+      "cpm": 47.07,
+      "cpa": 24.34,
+      "cpl": 25.5,
+      "cost_per_conversation": 535.44,
+      "cvr": 15.74,
       "frequency": 1.22,
-      "days_active": 20
+      "days_active": 21
     },
     {
       "name": "[Engajamento] [Piso] [SP] [Campanha][FEV26]",
@@ -1240,6 +1255,25 @@
       "days_active": 11
     },
     {
+      "name": "04 - Campanha WhatsApp volume + MQL RIO /SP /BH Geral",
+      "impressions": 70054,
+      "reach": 63227,
+      "clicks": 707,
+      "spend": 1833.33,
+      "leads": 328,
+      "conversations": 328,
+      "results": 656,
+      "ctr": 1.01,
+      "cpc": 2.59,
+      "cpm": 26.17,
+      "cpa": 2.79,
+      "cpl": 5.59,
+      "cost_per_conversation": 5.59,
+      "cvr": 92.79,
+      "frequency": 1.11,
+      "days_active": 13
+    },
+    {
       "name": "[Engajamento] [Forro] [SP] [Campanha]",
       "impressions": 32463,
       "reach": 27626,
@@ -1257,25 +1291,6 @@
       "cvr": 33.54,
       "frequency": 1.18,
       "days_active": 16
-    },
-    {
-      "name": "04 - Campanha WhatsApp volume + MQL RIO /SP /BH Geral",
-      "impressions": 62655,
-      "reach": 56256,
-      "clicks": 628,
-      "spend": 1674.56,
-      "leads": 287,
-      "conversations": 286,
-      "results": 573,
-      "ctr": 1.0,
-      "cpc": 2.67,
-      "cpm": 26.73,
-      "cpa": 2.92,
-      "cpl": 5.83,
-      "cost_per_conversation": 5.86,
-      "cvr": 91.24,
-      "frequency": 1.11,
-      "days_active": 12
     },
     {
       "name": "[Engajamento] [Deck] [SP] [Campanha][FEV26]",
@@ -1298,22 +1313,22 @@
     },
     {
       "name": "02 - Campanha WhatsApp volume + MQL RIO /SP /BH Geral Granulada",
-      "impressions": 34093,
-      "reach": 31838,
-      "clicks": 309,
-      "spend": 993.53,
-      "leads": 141,
-      "conversations": 142,
-      "results": 283,
+      "impressions": 37656,
+      "reach": 35265,
+      "clicks": 343,
+      "spend": 1097.15,
+      "leads": 155,
+      "conversations": 158,
+      "results": 313,
       "ctr": 0.91,
-      "cpc": 3.22,
+      "cpc": 3.2,
       "cpm": 29.14,
       "cpa": 3.51,
-      "cpl": 7.05,
-      "cost_per_conversation": 7.0,
-      "cvr": 91.59,
+      "cpl": 7.08,
+      "cost_per_conversation": 6.94,
+      "cvr": 91.25,
       "frequency": 1.07,
-      "days_active": 12
+      "days_active": 13
     },
     {
       "name": "[Engajamento] [Forro] [SP] [Campanha][FEV26]",
@@ -1488,22 +1503,22 @@
     },
     {
       "name": "03 - Campanha Whatsapp (Melhores criativos ) BH/SP",
-      "impressions": 7276,
-      "reach": 6464,
-      "clicks": 46,
-      "spend": 279.68,
-      "leads": 8,
-      "conversations": 11,
-      "results": 19,
-      "ctr": 0.63,
-      "cpc": 6.08,
-      "cpm": 38.44,
-      "cpa": 14.72,
-      "cpl": 34.96,
-      "cost_per_conversation": 25.43,
-      "cvr": 41.3,
-      "frequency": 1.13,
-      "days_active": 6
+      "impressions": 8823,
+      "reach": 7867,
+      "clicks": 55,
+      "spend": 334.89,
+      "leads": 10,
+      "conversations": 13,
+      "results": 23,
+      "ctr": 0.62,
+      "cpc": 6.09,
+      "cpm": 37.96,
+      "cpa": 14.56,
+      "cpl": 33.49,
+      "cost_per_conversation": 25.76,
+      "cvr": 41.82,
+      "frequency": 1.12,
+      "days_active": 7
     },
     {
       "name": "Publicação do Instagram: Carvalho Europeu...",
@@ -1680,22 +1695,22 @@
     },
     {
       "name": "00- aberto",
-      "impressions": 93129,
-      "reach": 75041,
-      "clicks": 1102,
-      "spend": 4438.36,
-      "leads": 175,
+      "impressions": 98965,
+      "reach": 80075,
+      "clicks": 1211,
+      "spend": 4685.92,
+      "leads": 183,
       "conversations": 9,
-      "results": 184,
-      "ctr": 1.18,
-      "cpc": 4.03,
-      "cpm": 47.66,
-      "cpa": 24.12,
-      "cpl": 25.36,
-      "cost_per_conversation": 493.15,
-      "cvr": 16.7,
+      "results": 192,
+      "ctr": 1.22,
+      "cpc": 3.87,
+      "cpm": 47.35,
+      "cpa": 24.41,
+      "cpl": 25.61,
+      "cost_per_conversation": 520.66,
+      "cvr": 15.85,
       "frequency": 1.24,
-      "days_active": 20
+      "days_active": 21
     },
     {
       "name": "02 - PB - Condôminios",
@@ -1832,16 +1847,16 @@
     },
     {
       "name": "02 - PB - Condôminios segmentato",
-      "impressions": 26977,
-      "reach": 21760,
+      "impressions": 26984,
+      "reach": 21763,
       "clicks": 182,
-      "spend": 1374.89,
+      "spend": 1375.0,
       "leads": 30,
       "conversations": 26,
       "results": 56,
       "ctr": 0.67,
       "cpc": 7.55,
-      "cpm": 50.97,
+      "cpm": 50.96,
       "cpa": 24.55,
       "cpl": 45.83,
       "cost_per_conversation": 52.88,
@@ -1889,41 +1904,41 @@
     },
     {
       "name": "00-Público frio",
-      "impressions": 23082,
-      "reach": 20734,
-      "clicks": 269,
-      "spend": 621.95,
-      "leads": 116,
-      "conversations": 120,
-      "results": 236,
-      "ctr": 1.17,
-      "cpc": 2.31,
-      "cpm": 26.95,
-      "cpa": 2.64,
-      "cpl": 5.36,
-      "cost_per_conversation": 5.18,
-      "cvr": 87.73,
-      "frequency": 1.11,
-      "days_active": 12
+      "impressions": 28829,
+      "reach": 26163,
+      "clicks": 327,
+      "spend": 734.62,
+      "leads": 146,
+      "conversations": 151,
+      "results": 297,
+      "ctr": 1.13,
+      "cpc": 2.25,
+      "cpm": 25.48,
+      "cpa": 2.47,
+      "cpl": 5.03,
+      "cost_per_conversation": 4.87,
+      "cvr": 90.83,
+      "frequency": 1.1,
+      "days_active": 13
     },
     {
       "name": "02-Público persona",
-      "impressions": 23174,
-      "reach": 21042,
-      "clicks": 199,
-      "spend": 596.28,
-      "leads": 93,
-      "conversations": 89,
-      "results": 182,
-      "ctr": 0.86,
-      "cpc": 3.0,
-      "cpm": 25.73,
-      "cpa": 3.28,
-      "cpl": 6.41,
-      "cost_per_conversation": 6.7,
-      "cvr": 91.46,
+      "impressions": 24548,
+      "reach": 22322,
+      "clicks": 217,
+      "spend": 635.84,
+      "leads": 103,
+      "conversations": 98,
+      "results": 201,
+      "ctr": 0.88,
+      "cpc": 2.93,
+      "cpm": 25.9,
+      "cpa": 3.16,
+      "cpl": 6.17,
+      "cost_per_conversation": 6.49,
+      "cvr": 92.63,
       "frequency": 1.1,
-      "days_active": 12
+      "days_active": 13
     },
     {
       "name": "04 - PB - BC",
@@ -1984,22 +1999,22 @@
     },
     {
       "name": "03 teste persona",
-      "impressions": 11404,
-      "reach": 10027,
+      "impressions": 11405,
+      "reach": 10028,
       "clicks": 137,
-      "spend": 514.29,
+      "spend": 514.3,
       "leads": 19,
       "conversations": 1,
       "results": 20,
       "ctr": 1.2,
       "cpc": 3.75,
-      "cpm": 45.1,
+      "cpm": 45.09,
       "cpa": 25.71,
       "cpl": 27.07,
-      "cost_per_conversation": 514.29,
+      "cost_per_conversation": 514.3,
       "cvr": 14.6,
       "frequency": 1.14,
-      "days_active": 17
+      "days_active": 18
     },
     {
       "name": "[Engajamento] [Piso] [Feed e Story] [SP] [Campanha] [Forro] [Lista Lookalike ABR 25]",
@@ -2022,22 +2037,60 @@
     },
     {
       "name": "01-Público growth",
-      "impressions": 16399,
-      "reach": 14480,
-      "clicks": 160,
-      "spend": 456.33,
-      "leads": 78,
-      "conversations": 77,
-      "results": 155,
+      "impressions": 16677,
+      "reach": 14742,
+      "clicks": 163,
+      "spend": 462.87,
+      "leads": 79,
+      "conversations": 79,
+      "results": 158,
       "ctr": 0.98,
-      "cpc": 2.85,
-      "cpm": 27.83,
-      "cpa": 2.94,
-      "cpl": 5.85,
-      "cost_per_conversation": 5.93,
-      "cvr": 96.88,
+      "cpc": 2.84,
+      "cpm": 27.75,
+      "cpa": 2.93,
+      "cpl": 5.86,
+      "cost_per_conversation": 5.86,
+      "cvr": 96.93,
       "frequency": 1.13,
-      "days_active": 12
+      "days_active": 13
+    },
+    {
+      "name": "02-Público persona São paulo",
+      "impressions": 16272,
+      "reach": 15399,
+      "clicks": 141,
+      "spend": 435.76,
+      "leads": 62,
+      "conversations": 65,
+      "results": 127,
+      "ctr": 0.87,
+      "cpc": 3.09,
+      "cpm": 26.78,
+      "cpa": 3.43,
+      "cpl": 7.03,
+      "cost_per_conversation": 6.7,
+      "cvr": 90.07,
+      "frequency": 1.06,
+      "days_active": 13
+    },
+    {
+      "name": "00-Público frio Rio de Janeiro",
+      "impressions": 12682,
+      "reach": 11609,
+      "clicks": 124,
+      "spend": 413.16,
+      "leads": 55,
+      "conversations": 55,
+      "results": 110,
+      "ctr": 0.98,
+      "cpc": 3.33,
+      "cpm": 32.58,
+      "cpa": 3.76,
+      "cpl": 7.51,
+      "cost_per_conversation": 7.51,
+      "cvr": 88.71,
+      "frequency": 1.09,
+      "days_active": 13
     },
     {
       "name": "Post do Instagram",
@@ -2057,25 +2110,6 @@
       "cvr": 0.16,
       "frequency": 1.07,
       "days_active": 11
-    },
-    {
-      "name": "02-Público persona São paulo",
-      "impressions": 14503,
-      "reach": 13679,
-      "clicks": 123,
-      "spend": 394.82,
-      "leads": 55,
-      "conversations": 58,
-      "results": 113,
-      "ctr": 0.85,
-      "cpc": 3.21,
-      "cpm": 27.22,
-      "cpa": 3.49,
-      "cpl": 7.18,
-      "cost_per_conversation": 6.81,
-      "cvr": 91.87,
-      "frequency": 1.06,
-      "days_active": 12
     },
     {
       "name": "01 - PB - Brasilia",
@@ -2116,25 +2150,6 @@
       "days_active": 4
     },
     {
-      "name": "00-Público frio Rio de Janeiro",
-      "impressions": 11702,
-      "reach": 10686,
-      "clicks": 119,
-      "spend": 369.7,
-      "leads": 53,
-      "conversations": 53,
-      "results": 106,
-      "ctr": 1.02,
-      "cpc": 3.11,
-      "cpm": 31.59,
-      "cpa": 3.49,
-      "cpl": 6.98,
-      "cost_per_conversation": 6.98,
-      "cvr": 89.08,
-      "frequency": 1.1,
-      "days_active": 12
-    },
-    {
       "name": "Post do Instagram: Cumaru 🤎\nA...",
       "impressions": 16042,
       "reach": 12382,
@@ -2152,6 +2167,25 @@
       "cvr": 11.7,
       "frequency": 1.3,
       "days_active": 6
+    },
+    {
+      "name": "01-Público growth Minas Gerais",
+      "impressions": 8702,
+      "reach": 8257,
+      "clicks": 78,
+      "spend": 248.23,
+      "leads": 38,
+      "conversations": 38,
+      "results": 76,
+      "ctr": 0.9,
+      "cpc": 3.18,
+      "cpm": 28.53,
+      "cpa": 3.27,
+      "cpl": 6.53,
+      "cost_per_conversation": 6.53,
+      "cvr": 97.44,
+      "frequency": 1.05,
+      "days_active": 13
     },
     {
       "name": "05 - PB - growth",
@@ -2173,25 +2207,6 @@
       "days_active": 5
     },
     {
-      "name": "01-Público growth Minas Gerais",
-      "impressions": 7888,
-      "reach": 7473,
-      "clicks": 67,
-      "spend": 229.01,
-      "leads": 33,
-      "conversations": 31,
-      "results": 64,
-      "ctr": 0.85,
-      "cpc": 3.42,
-      "cpm": 29.03,
-      "cpa": 3.58,
-      "cpl": 6.94,
-      "cost_per_conversation": 7.39,
-      "cvr": 95.52,
-      "frequency": 1.06,
-      "days_active": 12
-    },
-    {
       "name": "03 - PB - Aberto",
       "impressions": 3136,
       "reach": 2713,
@@ -2209,6 +2224,25 @@
       "cvr": 35.71,
       "frequency": 1.16,
       "days_active": 5
+    },
+    {
+      "name": "00- Público frio BH",
+      "impressions": 4657,
+      "reach": 4449,
+      "clicks": 39,
+      "spend": 137.73,
+      "leads": 9,
+      "conversations": 11,
+      "results": 20,
+      "ctr": 0.84,
+      "cpc": 3.53,
+      "cpm": 29.57,
+      "cpa": 6.89,
+      "cpl": 15.3,
+      "cost_per_conversation": 12.52,
+      "cvr": 51.28,
+      "frequency": 1.05,
+      "days_active": 7
     },
     {
       "name": "02- Conjunto interesse",
@@ -2230,23 +2264,42 @@
       "days_active": 4
     },
     {
-      "name": "00- Público frio BH",
-      "impressions": 3794,
-      "reach": 3611,
-      "clicks": 34,
-      "spend": 115.62,
-      "leads": 7,
-      "conversations": 9,
-      "results": 16,
-      "ctr": 0.9,
-      "cpc": 3.4,
-      "cpm": 30.47,
-      "cpa": 7.23,
-      "cpl": 16.52,
-      "cost_per_conversation": 12.85,
-      "cvr": 47.06,
-      "frequency": 1.05,
-      "days_active": 6
+      "name": "01- Público frio SP/granulado",
+      "impressions": 2025,
+      "reach": 1640,
+      "clicks": 7,
+      "spend": 100.73,
+      "leads": 1,
+      "conversations": 1,
+      "results": 2,
+      "ctr": 0.35,
+      "cpc": 14.39,
+      "cpm": 49.74,
+      "cpa": 50.37,
+      "cpl": 100.73,
+      "cost_per_conversation": 100.73,
+      "cvr": 28.57,
+      "frequency": 1.23,
+      "days_active": 7
+    },
+    {
+      "name": "01- Público frio SP/granulado — Cópia",
+      "impressions": 2141,
+      "reach": 1778,
+      "clicks": 9,
+      "spend": 96.43,
+      "leads": 0,
+      "conversations": 1,
+      "results": 1,
+      "ctr": 0.42,
+      "cpc": 10.71,
+      "cpm": 45.04,
+      "cpa": 96.43,
+      "cpl": 0,
+      "cost_per_conversation": 96.43,
+      "cvr": 11.11,
+      "frequency": 1.2,
+      "days_active": 7
     },
     {
       "name": "03- RMK",
@@ -2287,61 +2340,23 @@
       "days_active": 4
     },
     {
-      "name": "01- Público frio SP/granulado",
-      "impressions": 1688,
-      "reach": 1369,
-      "clicks": 4,
-      "spend": 83.99,
-      "leads": 1,
-      "conversations": 1,
-      "results": 2,
-      "ctr": 0.24,
-      "cpc": 21.0,
-      "cpm": 49.76,
-      "cpa": 42.0,
-      "cpl": 83.99,
-      "cost_per_conversation": 83.99,
-      "cvr": 50.0,
-      "frequency": 1.23,
-      "days_active": 6
-    },
-    {
-      "name": "01- Público frio SP/granulado — Cópia",
-      "impressions": 1794,
-      "reach": 1484,
-      "clicks": 8,
-      "spend": 80.07,
-      "leads": 0,
-      "conversations": 1,
-      "results": 1,
-      "ctr": 0.45,
-      "cpc": 10.01,
-      "cpm": 44.63,
-      "cpa": 80.07,
-      "cpl": 0,
-      "cost_per_conversation": 80.07,
-      "cvr": 12.5,
-      "frequency": 1.21,
-      "days_active": 6
-    },
-    {
       "name": "04- GROWTH",
-      "impressions": 1826,
-      "reach": 1686,
+      "impressions": 1830,
+      "reach": 1690,
       "clicks": 30,
-      "spend": 76.11,
+      "spend": 76.29,
       "leads": 4,
       "conversations": 0,
       "results": 4,
       "ctr": 1.64,
       "cpc": 2.54,
-      "cpm": 41.68,
-      "cpa": 19.03,
-      "cpl": 19.03,
+      "cpm": 41.69,
+      "cpa": 19.07,
+      "cpl": 19.07,
       "cost_per_conversation": 0,
       "cvr": 13.33,
       "frequency": 1.08,
-      "days_active": 18
+      "days_active": 19
     },
     {
       "name": "[Engajamento] [Story] [Forro] [SP] [Campanha] [Forro] [Listas Lookalike]",
@@ -2458,6 +2473,25 @@
       "days_active": 2
     },
     {
+      "name": "02- Fora da caixa",
+      "impressions": 857,
+      "reach": 802,
+      "clicks": 14,
+      "spend": 37.21,
+      "leads": 4,
+      "conversations": 0,
+      "results": 4,
+      "ctr": 1.63,
+      "cpc": 2.66,
+      "cpm": 43.42,
+      "cpa": 9.3,
+      "cpl": 9.3,
+      "cost_per_conversation": 0,
+      "cvr": 28.57,
+      "frequency": 1.07,
+      "days_active": 20
+    },
+    {
       "name": "00- público frio M (31/65 geral bairros Vila Nova Conceição",
       "impressions": 832,
       "reach": 607,
@@ -2475,25 +2509,6 @@
       "cvr": 0.0,
       "frequency": 1.37,
       "days_active": 2
-    },
-    {
-      "name": "02- Fora da caixa",
-      "impressions": 772,
-      "reach": 730,
-      "clicks": 13,
-      "spend": 32.92,
-      "leads": 4,
-      "conversations": 0,
-      "results": 4,
-      "ctr": 1.68,
-      "cpc": 2.53,
-      "cpm": 42.64,
-      "cpa": 8.23,
-      "cpl": 8.23,
-      "cost_per_conversation": 0,
-      "cvr": 30.77,
-      "frequency": 1.06,
-      "days_active": 19
     },
     {
       "name": "00- público frio M (31/65 geral bairros",
@@ -2594,41 +2609,41 @@
     },
     {
       "name": "ad02",
-      "impressions": 109685,
-      "reach": 89772,
-      "clicks": 1295,
-      "spend": 5171.22,
-      "leads": 203,
+      "impressions": 115706,
+      "reach": 94969,
+      "clicks": 1406,
+      "spend": 5427.37,
+      "leads": 211,
       "conversations": 11,
-      "results": 214,
-      "ctr": 1.18,
-      "cpc": 3.99,
-      "cpm": 47.15,
-      "cpa": 24.16,
-      "cpl": 25.47,
-      "cost_per_conversation": 470.11,
-      "cvr": 16.53,
+      "results": 222,
+      "ctr": 1.22,
+      "cpc": 3.86,
+      "cpm": 46.91,
+      "cpa": 24.45,
+      "cpl": 25.72,
+      "cost_per_conversation": 493.4,
+      "cvr": 15.79,
       "frequency": 1.22,
-      "days_active": 20
+      "days_active": 21
     },
     {
       "name": "22 - Reels - Produtos Fábrica",
-      "impressions": 163711,
-      "reach": 141038,
-      "clicks": 1621,
-      "spend": 4787.36,
-      "leads": 9,
-      "conversations": 659,
-      "results": 668,
+      "impressions": 164805,
+      "reach": 142037,
+      "clicks": 1629,
+      "spend": 4824.0,
+      "leads": 11,
+      "conversations": 661,
+      "results": 672,
       "ctr": 0.99,
-      "cpc": 2.95,
-      "cpm": 29.24,
-      "cpa": 7.17,
-      "cpl": 531.93,
-      "cost_per_conversation": 7.26,
-      "cvr": 41.21,
+      "cpc": 2.96,
+      "cpm": 29.27,
+      "cpa": 7.18,
+      "cpl": 438.55,
+      "cost_per_conversation": 7.3,
+      "cvr": 41.25,
       "frequency": 1.16,
-      "days_active": 29
+      "days_active": 30
     },
     {
       "name": "[Ads] [Estático] [Pin 21]  [Engajamento] [Sudeste, Sul e Centro-Oeste] [Campanha] [Deck] [Listas Lookalike]",
@@ -2670,10 +2685,10 @@
     },
     {
       "name": "18 - Reels  - Pisos Tropicais (demonstrações)",
-      "impressions": 83722,
-      "reach": 70358,
+      "impressions": 83742,
+      "reach": 70375,
       "clicks": 798,
-      "spend": 2530.54,
+      "spend": 2531.25,
       "leads": 5,
       "conversations": 411,
       "results": 416,
@@ -2681,7 +2696,7 @@
       "cpc": 3.17,
       "cpm": 30.23,
       "cpa": 6.08,
-      "cpl": 506.11,
+      "cpl": 506.25,
       "cost_per_conversation": 6.16,
       "cvr": 52.13,
       "frequency": 1.19,
@@ -2745,42 +2760,61 @@
       "days_active": 34
     },
     {
+      "name": "17 - Reels - Pisos Tropicais Douglas",
+      "impressions": 25336,
+      "reach": 21016,
+      "clicks": 242,
+      "spend": 820.84,
+      "leads": 6,
+      "conversations": 112,
+      "results": 118,
+      "ctr": 0.96,
+      "cpc": 3.39,
+      "cpm": 32.4,
+      "cpa": 6.96,
+      "cpl": 136.81,
+      "cost_per_conversation": 7.33,
+      "cvr": 48.76,
+      "frequency": 1.21,
+      "days_active": 30
+    },
+    {
       "name": "10 - Reels - Vídeo Bernardes — Cópia — Cópia",
-      "impressions": 17409,
-      "reach": 14077,
+      "impressions": 17415,
+      "reach": 14079,
       "clicks": 100,
-      "spend": 808.76,
+      "spend": 808.86,
       "leads": 20,
       "conversations": 17,
       "results": 37,
       "ctr": 0.57,
       "cpc": 8.09,
-      "cpm": 46.46,
+      "cpm": 46.45,
       "cpa": 21.86,
       "cpl": 40.44,
-      "cost_per_conversation": 47.57,
+      "cost_per_conversation": 47.58,
       "cvr": 37.0,
       "frequency": 1.24,
       "days_active": 16
     },
     {
-      "name": "17 - Reels - Pisos Tropicais Douglas",
-      "impressions": 24903,
-      "reach": 20629,
-      "clicks": 241,
-      "spend": 802.98,
-      "leads": 6,
-      "conversations": 112,
-      "results": 118,
-      "ctr": 0.97,
-      "cpc": 3.33,
-      "cpm": 32.24,
-      "cpa": 6.8,
-      "cpl": 133.83,
-      "cost_per_conversation": 7.17,
-      "cvr": 48.96,
-      "frequency": 1.21,
-      "days_active": 29
+      "name": "ad05",
+      "impressions": 32231,
+      "reach": 29020,
+      "clicks": 374,
+      "spend": 790.21,
+      "leads": 179,
+      "conversations": 185,
+      "results": 364,
+      "ctr": 1.16,
+      "cpc": 2.11,
+      "cpm": 24.52,
+      "cpa": 2.17,
+      "cpl": 4.41,
+      "cost_per_conversation": 4.27,
+      "cvr": 97.33,
+      "frequency": 1.11,
+      "days_active": 13
     },
     {
       "name": "10 - Reels - Vídeo Bernardes — Cópia — Cópia — Cópia — Cópia — Cópia",
@@ -2819,25 +2853,6 @@
       "cvr": 0.0,
       "frequency": 1.06,
       "days_active": 11
-    },
-    {
-      "name": "ad05",
-      "impressions": 26335,
-      "reach": 23452,
-      "clicks": 316,
-      "spend": 675.11,
-      "leads": 150,
-      "conversations": 154,
-      "results": 304,
-      "ctr": 1.2,
-      "cpc": 2.14,
-      "cpm": 25.64,
-      "cpa": 2.22,
-      "cpl": 4.5,
-      "cost_per_conversation": 4.38,
-      "cvr": 96.2,
-      "frequency": 1.12,
-      "days_active": 12
     },
     {
       "name": "[Ads] [Estático] [Pin 2] [Engajamento] [Sudeste, Sul e Centro-Oeste] [Campanha] [Piso] [Listas Lookalike]",
@@ -2935,6 +2950,25 @@
       "days_active": 15
     },
     {
+      "name": "ad01",
+      "impressions": 20752,
+      "reach": 18941,
+      "clicks": 207,
+      "spend": 511.56,
+      "leads": 101,
+      "conversations": 102,
+      "results": 203,
+      "ctr": 1.0,
+      "cpc": 2.47,
+      "cpm": 24.65,
+      "cpa": 2.52,
+      "cpl": 5.06,
+      "cost_per_conversation": 5.02,
+      "cvr": 98.07,
+      "frequency": 1.1,
+      "days_active": 13
+    },
+    {
       "name": "10 - Reels - Vídeo Bernardes — Cópia — Cópia — Cópia",
       "impressions": 10085,
       "reach": 8567,
@@ -2952,6 +2986,25 @@
       "cvr": 17.05,
       "frequency": 1.18,
       "days_active": 16
+    },
+    {
+      "name": "ad08",
+      "impressions": 17066,
+      "reach": 15821,
+      "clicks": 164,
+      "spend": 493.07,
+      "leads": 74,
+      "conversations": 70,
+      "results": 144,
+      "ctr": 0.96,
+      "cpc": 3.01,
+      "cpm": 28.89,
+      "cpa": 3.42,
+      "cpl": 6.66,
+      "cost_per_conversation": 7.04,
+      "cvr": 87.8,
+      "frequency": 1.08,
+      "days_active": 13
     },
     {
       "name": "10 - Reels - Vídeo Bernardes — Cópia",
@@ -2974,10 +3027,10 @@
     },
     {
       "name": "10 - Reels - Vídeo Bernardes",
-      "impressions": 11041,
-      "reach": 9305,
+      "impressions": 11042,
+      "reach": 9306,
       "clicks": 145,
-      "spend": 478.95,
+      "spend": 478.96,
       "leads": 5,
       "conversations": 13,
       "results": 18,
@@ -3011,42 +3064,23 @@
       "days_active": 21
     },
     {
-      "name": "ad01",
-      "impressions": 19115,
-      "reach": 17381,
-      "clicks": 186,
-      "spend": 464.05,
-      "leads": 89,
-      "conversations": 88,
-      "results": 177,
-      "ctr": 0.97,
-      "cpc": 2.49,
-      "cpm": 24.28,
-      "cpa": 2.62,
-      "cpl": 5.21,
-      "cost_per_conversation": 5.27,
-      "cvr": 95.16,
-      "frequency": 1.1,
-      "days_active": 12
-    },
-    {
-      "name": "ad08",
-      "impressions": 15736,
-      "reach": 14548,
-      "clicks": 150,
-      "spend": 459.12,
-      "leads": 70,
-      "conversations": 65,
-      "results": 135,
-      "ctr": 0.95,
-      "cpc": 3.06,
-      "cpm": 29.18,
-      "cpa": 3.4,
-      "cpl": 6.56,
-      "cost_per_conversation": 7.06,
-      "cvr": 90.0,
+      "name": "ad09",
+      "impressions": 14889,
+      "reach": 13735,
+      "clicks": 117,
+      "spend": 460.68,
+      "leads": 53,
+      "conversations": 53,
+      "results": 106,
+      "ctr": 0.79,
+      "cpc": 3.94,
+      "cpm": 30.94,
+      "cpa": 4.35,
+      "cpl": 8.69,
+      "cost_per_conversation": 8.69,
+      "cvr": 90.6,
       "frequency": 1.08,
-      "days_active": 11
+      "days_active": 13
     },
     {
       "name": "Publicação do Instagram: Piso de carvalho europeu...",
@@ -3066,25 +3100,6 @@
       "cvr": 0.04,
       "frequency": 1.05,
       "days_active": 11
-    },
-    {
-      "name": "ad09",
-      "impressions": 14223,
-      "reach": 13100,
-      "clicks": 112,
-      "spend": 439.66,
-      "leads": 49,
-      "conversations": 51,
-      "results": 100,
-      "ctr": 0.79,
-      "cpc": 3.93,
-      "cpm": 30.91,
-      "cpa": 4.4,
-      "cpl": 8.97,
-      "cost_per_conversation": 8.62,
-      "cvr": 89.29,
-      "frequency": 1.09,
-      "days_active": 12
     },
     {
       "name": "15 - Reels - Fazenda Boa Vista (V1)",
@@ -3297,22 +3312,22 @@
     },
     {
       "name": "ad04",
-      "impressions": 7876,
-      "reach": 7213,
-      "clicks": 74,
-      "spend": 221.57,
-      "leads": 36,
-      "conversations": 36,
-      "results": 72,
-      "ctr": 0.94,
-      "cpc": 2.99,
-      "cpm": 28.13,
-      "cpa": 3.08,
-      "cpl": 6.15,
-      "cost_per_conversation": 6.15,
-      "cvr": 97.3,
+      "impressions": 8406,
+      "reach": 7731,
+      "clicks": 77,
+      "spend": 236.17,
+      "leads": 38,
+      "conversations": 38,
+      "results": 76,
+      "ctr": 0.92,
+      "cpc": 3.07,
+      "cpm": 28.1,
+      "cpa": 3.11,
+      "cpl": 6.21,
+      "cost_per_conversation": 6.21,
+      "cvr": 98.7,
       "frequency": 1.09,
-      "days_active": 12
+      "days_active": 13
     },
     {
       "name": "[Ads] [Escadas em madeira] [Engajamento] [Sudeste, Sul e Centro-Oeste] [Campanha] [Piso] [Listas Lookalike]",
@@ -3411,22 +3426,22 @@
     },
     {
       "name": "ad03",
-      "impressions": 6052,
-      "reach": 5524,
-      "clicks": 59,
-      "spend": 142.77,
-      "leads": 23,
-      "conversations": 21,
-      "results": 44,
-      "ctr": 0.97,
-      "cpc": 2.42,
-      "cpm": 23.59,
-      "cpa": 3.24,
-      "cpl": 6.21,
-      "cost_per_conversation": 6.8,
-      "cvr": 74.58,
-      "frequency": 1.1,
-      "days_active": 12
+      "impressions": 6599,
+      "reach": 6039,
+      "clicks": 65,
+      "spend": 154.91,
+      "leads": 25,
+      "conversations": 23,
+      "results": 48,
+      "ctr": 0.98,
+      "cpc": 2.38,
+      "cpm": 23.47,
+      "cpa": 3.23,
+      "cpl": 6.2,
+      "cost_per_conversation": 6.74,
+      "cvr": 73.85,
+      "frequency": 1.09,
+      "days_active": 13
     },
     {
       "name": "[Ads] [Estático] [Pin 18] [Sudeste, Sul e Centro-Oeste]  [Campanha] [Forro] [Listas Lookalike]",
@@ -3446,6 +3461,25 @@
       "cvr": 17.39,
       "frequency": 1.11,
       "days_active": 17
+    },
+    {
+      "name": "ad06",
+      "impressions": 2411,
+      "reach": 2233,
+      "clicks": 13,
+      "spend": 91.1,
+      "leads": 8,
+      "conversations": 8,
+      "results": 16,
+      "ctr": 0.54,
+      "cpc": 7.01,
+      "cpm": 37.79,
+      "cpa": 5.69,
+      "cpl": 11.39,
+      "cost_per_conversation": 11.39,
+      "cvr": 123.08,
+      "frequency": 1.08,
+      "days_active": 11
     },
     {
       "name": "27 - Reels - Últimos Detalhes",
@@ -3486,25 +3520,6 @@
       "days_active": 4
     },
     {
-      "name": "ad06",
-      "impressions": 2316,
-      "reach": 2149,
-      "clicks": 11,
-      "spend": 85.86,
-      "leads": 6,
-      "conversations": 6,
-      "results": 12,
-      "ctr": 0.47,
-      "cpc": 7.81,
-      "cpm": 37.07,
-      "cpa": 7.16,
-      "cpl": 14.31,
-      "cost_per_conversation": 14.31,
-      "cvr": 109.09,
-      "frequency": 1.08,
-      "days_active": 9
-    },
-    {
       "name": "33 - Reels - Ripado Tauari",
       "impressions": 1958,
       "reach": 1718,
@@ -3543,6 +3558,25 @@
       "days_active": 3
     },
     {
+      "name": "ad10",
+      "impressions": 1926,
+      "reach": 1803,
+      "clicks": 11,
+      "spend": 74.7,
+      "leads": 0,
+      "conversations": 2,
+      "results": 2,
+      "ctr": 0.57,
+      "cpc": 6.79,
+      "cpm": 38.79,
+      "cpa": 37.35,
+      "cpl": 0,
+      "cost_per_conversation": 37.35,
+      "cvr": 18.18,
+      "frequency": 1.07,
+      "days_active": 9
+    },
+    {
       "name": "AD01",
       "impressions": 2989,
       "reach": 2516,
@@ -3560,25 +3594,6 @@
       "cvr": 0.0,
       "frequency": 1.19,
       "days_active": 6
-    },
-    {
-      "name": "ad10",
-      "impressions": 1807,
-      "reach": 1690,
-      "clicks": 10,
-      "spend": 67.06,
-      "leads": 0,
-      "conversations": 2,
-      "results": 2,
-      "ctr": 0.55,
-      "cpc": 6.71,
-      "cpm": 37.11,
-      "cpa": 33.53,
-      "cpl": 0,
-      "cost_per_conversation": 33.53,
-      "cvr": 20.0,
-      "frequency": 1.07,
-      "days_active": 8
     },
     {
       "name": "[Engajamento][Estático] [Pin 20] [Story] [Forro] [Sudeste, Sul e Centro-Oeste] [Campanha] [Forro] [Listas Lookalike]",
@@ -3695,6 +3710,25 @@
       "days_active": 20
     },
     {
+      "name": "ad07",
+      "impressions": 1476,
+      "reach": 1391,
+      "clicks": 14,
+      "spend": 45.14,
+      "leads": 4,
+      "conversations": 4,
+      "results": 8,
+      "ctr": 0.95,
+      "cpc": 3.22,
+      "cpm": 30.58,
+      "cpa": 5.64,
+      "cpl": 11.29,
+      "cost_per_conversation": 11.29,
+      "cvr": 57.14,
+      "frequency": 1.06,
+      "days_active": 13
+    },
+    {
       "name": "6-AD06",
       "impressions": 1948,
       "reach": 1754,
@@ -3712,25 +3746,6 @@
       "cvr": 16.67,
       "frequency": 1.11,
       "days_active": 3
-    },
-    {
-      "name": "ad07",
-      "impressions": 1429,
-      "reach": 1345,
-      "clicks": 12,
-      "spend": 44.06,
-      "leads": 4,
-      "conversations": 4,
-      "results": 8,
-      "ctr": 0.84,
-      "cpc": 3.67,
-      "cpm": 30.83,
-      "cpa": 5.51,
-      "cpl": 11.02,
-      "cost_per_conversation": 11.02,
-      "cvr": 66.67,
-      "frequency": 1.06,
-      "days_active": 11
     },
     {
       "name": "[Deck 7] [Remarketing] [Deck] [Sudeste, Sul e Centro-Oeste] [Pessoas que viram 50% do video] [Página de Produto] [Passaram mais tempo no site]",
@@ -4439,41 +4454,41 @@
     },
     {
       "name": "Reels/Video",
-      "impressions": 506060,
-      "reach": 366886,
-      "clicks": 3938,
-      "spend": 15486.78,
-      "leads": 75,
-      "conversations": 1476,
-      "results": 1551,
+      "impressions": 507614,
+      "reach": 368292,
+      "clicks": 3947,
+      "spend": 15542.1,
+      "leads": 77,
+      "conversations": 1478,
+      "results": 1555,
       "ctr": 0.78,
-      "cpc": 3.93,
-      "cpm": 30.6,
+      "cpc": 3.94,
+      "cpm": 30.62,
       "cpa": 9.99,
-      "cpl": 206.49,
-      "cost_per_conversation": 10.49,
-      "cvr": 39.39,
+      "cpl": 201.85,
+      "cost_per_conversation": 10.52,
+      "cvr": 39.4,
       "frequency": 1.38,
-      "days_active": 59
+      "days_active": 60
     },
     {
       "name": "Outro",
-      "impressions": 227324,
-      "reach": 195924,
-      "clicks": 2531,
-      "spend": 8486.88,
-      "leads": 632,
-      "conversations": 439,
-      "results": 1071,
-      "ctr": 1.11,
-      "cpc": 3.35,
-      "cpm": 37.33,
-      "cpa": 7.92,
-      "cpl": 13.43,
-      "cost_per_conversation": 19.33,
-      "cvr": 42.32,
+      "impressions": 244212,
+      "reach": 211433,
+      "clicks": 2754,
+      "spend": 9001.31,
+      "leads": 695,
+      "conversations": 497,
+      "results": 1192,
+      "ctr": 1.13,
+      "cpc": 3.27,
+      "cpm": 36.86,
+      "cpa": 7.55,
+      "cpl": 12.95,
+      "cost_per_conversation": 18.11,
+      "cvr": 43.28,
       "frequency": 1.16,
-      "days_active": 26
+      "days_active": 27
     },
     {
       "name": "Post Organico",
@@ -4559,147 +4574,147 @@
           "rank": 1,
           "name": "[Engajamento] [Deck] [SP] [Campanha]",
           "spend": 16185.86,
-          "share_pct": 28.39,
-          "cumulative_pct": 28.39
+          "share_pct": 28.11,
+          "cumulative_pct": 28.11
         },
         {
           "rank": 2,
           "name": "01 - Parket - Whats - Regional SP - Todos os Criativos",
-          "spend": 9087.66,
-          "share_pct": 15.94,
-          "cumulative_pct": 44.33
+          "spend": 9087.77,
+          "share_pct": 15.78,
+          "cumulative_pct": 43.89
         },
         {
           "rank": 3,
           "name": "02 - Parket - Whats - BRASIL - Todos os Criativos",
           "spend": 5608.06,
-          "share_pct": 9.84,
-          "cumulative_pct": 54.17
+          "share_pct": 9.74,
+          "cumulative_pct": 53.63
         },
         {
           "rank": 4,
           "name": "[Engajamento] [Piso] [SP] [Campanha]",
           "spend": 5553.45,
-          "share_pct": 9.74,
-          "cumulative_pct": 63.91
+          "share_pct": 9.64,
+          "cumulative_pct": 63.28
         },
         {
           "rank": 5,
           "name": "05 - Parket [Primeira escala milhão] LEAD NATIVO",
-          "spend": 5102.39,
-          "share_pct": 8.95,
-          "cumulative_pct": 72.86
+          "spend": 5354.43,
+          "share_pct": 9.3,
+          "cumulative_pct": 72.58
         },
         {
           "rank": 6,
           "name": "[Engajamento] [Piso] [SP] [Campanha][FEV26]",
           "spend": 3812.9,
-          "share_pct": 6.69,
-          "cumulative_pct": 79.55
+          "share_pct": 6.62,
+          "cumulative_pct": 79.2
         },
         {
           "rank": 7,
-          "name": "[Engajamento] [Forro] [SP] [Campanha]",
-          "spend": 1680.06,
-          "share_pct": 2.95,
-          "cumulative_pct": 82.49
+          "name": "04 - Campanha WhatsApp volume + MQL RIO /SP /BH Geral",
+          "spend": 1833.33,
+          "share_pct": 3.18,
+          "cumulative_pct": 82.38
         },
         {
           "rank": 8,
-          "name": "04 - Campanha WhatsApp volume + MQL RIO /SP /BH Geral",
-          "spend": 1674.56,
-          "share_pct": 2.94,
-          "cumulative_pct": 85.43
+          "name": "[Engajamento] [Forro] [SP] [Campanha]",
+          "spend": 1680.06,
+          "share_pct": 2.92,
+          "cumulative_pct": 85.3
         },
         {
           "rank": 9,
           "name": "[Engajamento] [Deck] [SP] [Campanha][FEV26]",
           "spend": 1110.47,
-          "share_pct": 1.95,
-          "cumulative_pct": 87.38
+          "share_pct": 1.93,
+          "cumulative_pct": 87.23
         },
         {
           "rank": 10,
           "name": "02 - Campanha WhatsApp volume + MQL RIO /SP /BH Geral Granulada",
-          "spend": 993.53,
-          "share_pct": 1.74,
-          "cumulative_pct": 89.12
+          "spend": 1097.15,
+          "share_pct": 1.91,
+          "cumulative_pct": 89.13
         },
         {
           "rank": 11,
           "name": "[Engajamento] [Forro] [SP] [Campanha][FEV26]",
           "spend": 939.15,
-          "share_pct": 1.65,
-          "cumulative_pct": 90.77
+          "share_pct": 1.63,
+          "cumulative_pct": 90.76
         },
         {
           "rank": 12,
           "name": "(SEGUIDORES) Post do Instagram: Quando o design encontra a...",
           "spend": 703.02,
-          "share_pct": 1.23,
-          "cumulative_pct": 92.0
+          "share_pct": 1.22,
+          "cumulative_pct": 91.98
         },
         {
           "rank": 13,
           "name": "Post do Instagram: @antoniofagundes...",
           "spend": 539.48,
-          "share_pct": 0.95,
-          "cumulative_pct": 92.95
+          "share_pct": 0.94,
+          "cumulative_pct": 92.92
         },
         {
           "rank": 14,
           "name": "Publicação do Instagram: Piso de madeira carvalho...",
           "spend": 539.2,
-          "share_pct": 0.95,
-          "cumulative_pct": 93.89
+          "share_pct": 0.94,
+          "cumulative_pct": 93.86
         },
         {
           "rank": 15,
           "name": "Post do Instagram: Com vista para a Lagoa Rodrigo...",
           "spend": 528.31,
-          "share_pct": 0.93,
-          "cumulative_pct": 94.82
+          "share_pct": 0.92,
+          "cumulative_pct": 94.78
         },
         {
           "rank": 16,
           "name": "(SEGUIDORES)Publicação do Instagram: Piso de carvalho europeu...",
           "spend": 447.86,
-          "share_pct": 0.79,
-          "cumulative_pct": 95.61
+          "share_pct": 0.78,
+          "cumulative_pct": 95.55
         },
         {
           "rank": 17,
           "name": "Post do Instagram",
           "spend": 401.05,
           "share_pct": 0.7,
-          "cumulative_pct": 96.31
+          "cumulative_pct": 96.25
         },
         {
           "rank": 18,
           "name": "CRM - LEADS (PISOS)",
           "spend": 361.9,
           "share_pct": 0.63,
-          "cumulative_pct": 96.94
+          "cumulative_pct": 96.88
         },
         {
           "rank": 19,
           "name": "Post do Instagram: Cumaru 🤎\nA...",
           "spend": 347.08,
-          "share_pct": 0.61,
-          "cumulative_pct": 97.55
+          "share_pct": 0.6,
+          "cumulative_pct": 97.48
         },
         {
           "rank": 20,
           "name": "03 - Campanha Whatsapp (Melhores criativos ) BH/SP",
-          "spend": 279.68,
-          "share_pct": 0.49,
-          "cumulative_pct": 98.04
+          "spend": 334.89,
+          "share_pct": 0.58,
+          "cumulative_pct": 98.06
         }
       ],
       "pareto_count": 7,
       "pareto_pct": 25.9,
-      "hhi": 1410.5,
-      "gini": 0.691
+      "hhi": 1393.1,
+      "gini": 0.689
     },
     "ads": {
       "top_items": [
@@ -4707,154 +4722,154 @@
           "rank": 1,
           "name": "[Ads] [Estático] [Pin 10]  [Engajamento] [Sudeste, Sul e Centro-Oeste] [Campanha] [Deck] [Listas Lookalike]",
           "spend": 9897.9,
-          "share_pct": 17.36,
-          "cumulative_pct": 17.36
+          "share_pct": 17.19,
+          "cumulative_pct": 17.19
         },
         {
           "rank": 2,
           "name": "[Ads] [Estático] [Pin 1] [Engajamento] [Sudeste, Sul e Centro-Oeste] [Campanha] [Piso] [Listas Lookalike]",
           "spend": 6109.02,
-          "share_pct": 10.72,
-          "cumulative_pct": 28.08
+          "share_pct": 10.61,
+          "cumulative_pct": 27.8
         },
         {
           "rank": 3,
           "name": "ad02",
-          "spend": 5171.22,
-          "share_pct": 9.07,
-          "cumulative_pct": 37.15
+          "spend": 5427.37,
+          "share_pct": 9.43,
+          "cumulative_pct": 37.22
         },
         {
           "rank": 4,
           "name": "22 - Reels - Produtos Fábrica",
-          "spend": 4787.36,
-          "share_pct": 8.4,
-          "cumulative_pct": 45.54
+          "spend": 4824.0,
+          "share_pct": 8.38,
+          "cumulative_pct": 45.6
         },
         {
           "rank": 5,
           "name": "[Ads] [Estático] [Pin 21]  [Engajamento] [Sudeste, Sul e Centro-Oeste] [Campanha] [Deck] [Listas Lookalike]",
           "spend": 3901.61,
-          "share_pct": 6.84,
-          "cumulative_pct": 52.39
+          "share_pct": 6.78,
+          "cumulative_pct": 52.38
         },
         {
           "rank": 6,
           "name": "[Ads] [Estático] [Pin 9] [Engajamento] [Sudeste, Sul e Centro-Oeste] [Campanha] [Deck] [Listas Lookalike]",
           "spend": 3496.82,
-          "share_pct": 6.13,
-          "cumulative_pct": 58.52
+          "share_pct": 6.07,
+          "cumulative_pct": 58.45
         },
         {
           "rank": 7,
           "name": "18 - Reels  - Pisos Tropicais (demonstrações)",
-          "spend": 2530.54,
-          "share_pct": 4.44,
-          "cumulative_pct": 62.96
+          "spend": 2531.25,
+          "share_pct": 4.4,
+          "cumulative_pct": 62.85
         },
         {
           "rank": 8,
           "name": "[Ads] [Pin 19] [Sudeste, Sul e Centro-Oeste]  [Campanha] [Forro] [Listas Lookalike]",
           "spend": 1711.0,
-          "share_pct": 3.0,
-          "cumulative_pct": 65.96
+          "share_pct": 2.97,
+          "cumulative_pct": 65.82
         },
         {
           "rank": 9,
           "name": "[Ads] [Estático] [Piso 22] [Engajamento] [Sudeste, Sul e Centro-Oeste] [Campanha] [Piso] [Listas Lookalike]",
           "spend": 1431.46,
-          "share_pct": 2.51,
-          "cumulative_pct": 68.47
+          "share_pct": 2.49,
+          "cumulative_pct": 68.3
         },
         {
           "rank": 10,
           "name": "13 - Reels - Carvalho Europeu",
           "spend": 918.81,
-          "share_pct": 1.61,
-          "cumulative_pct": 70.08
+          "share_pct": 1.6,
+          "cumulative_pct": 69.9
         },
         {
           "rank": 11,
-          "name": "10 - Reels - Vídeo Bernardes — Cópia — Cópia",
-          "spend": 808.76,
-          "share_pct": 1.42,
-          "cumulative_pct": 71.5
+          "name": "17 - Reels - Pisos Tropicais Douglas",
+          "spend": 820.84,
+          "share_pct": 1.43,
+          "cumulative_pct": 71.33
         },
         {
           "rank": 12,
-          "name": "17 - Reels - Pisos Tropicais Douglas",
-          "spend": 802.98,
-          "share_pct": 1.41,
-          "cumulative_pct": 72.91
+          "name": "10 - Reels - Vídeo Bernardes — Cópia — Cópia",
+          "spend": 808.86,
+          "share_pct": 1.4,
+          "cumulative_pct": 72.73
         },
         {
           "rank": 13,
-          "name": "10 - Reels - Vídeo Bernardes — Cópia — Cópia — Cópia — Cópia — Cópia",
-          "spend": 741.22,
-          "share_pct": 1.3,
-          "cumulative_pct": 74.21
+          "name": "ad05",
+          "spend": 790.21,
+          "share_pct": 1.37,
+          "cumulative_pct": 74.1
         },
         {
           "rank": 14,
-          "name": "Post do Instagram: Quando o design encontra a...",
-          "spend": 703.02,
-          "share_pct": 1.23,
-          "cumulative_pct": 75.44
+          "name": "10 - Reels - Vídeo Bernardes — Cópia — Cópia — Cópia — Cópia — Cópia",
+          "spend": 741.22,
+          "share_pct": 1.29,
+          "cumulative_pct": 75.39
         },
         {
           "rank": 15,
-          "name": "ad05",
-          "spend": 675.11,
-          "share_pct": 1.18,
-          "cumulative_pct": 76.63
+          "name": "Post do Instagram: Quando o design encontra a...",
+          "spend": 703.02,
+          "share_pct": 1.22,
+          "cumulative_pct": 76.61
         },
         {
           "rank": 16,
           "name": "[Ads] [Estático] [Pin 2] [Engajamento] [Sudeste, Sul e Centro-Oeste] [Campanha] [Piso] [Listas Lookalike]",
           "spend": 673.76,
-          "share_pct": 1.18,
-          "cumulative_pct": 77.81
+          "share_pct": 1.17,
+          "cumulative_pct": 77.78
         },
         {
           "rank": 17,
           "name": "[Ads] [Vídeo] [Carvalho europeu] [Engajamento] [Sudeste, Sul e Centro-Oeste]  [Campanha] [Forro] [Listas Lookalike]",
           "spend": 584.15,
-          "share_pct": 1.02,
-          "cumulative_pct": 78.83
+          "share_pct": 1.01,
+          "cumulative_pct": 78.8
         },
         {
           "rank": 18,
           "name": "Post do Instagram: @antoniofagundes...",
           "spend": 539.48,
-          "share_pct": 0.95,
-          "cumulative_pct": 79.78
+          "share_pct": 0.94,
+          "cumulative_pct": 79.73
         },
         {
           "rank": 19,
           "name": "Publicação do Instagram: Piso de madeira carvalho...",
           "spend": 539.2,
-          "share_pct": 0.95,
-          "cumulative_pct": 80.73
+          "share_pct": 0.94,
+          "cumulative_pct": 80.67
         },
         {
           "rank": 20,
           "name": "Post do Instagram: Com vista para a Lagoa Rodrigo...",
           "spend": 528.31,
-          "share_pct": 0.93,
-          "cumulative_pct": 81.65
+          "share_pct": 0.92,
+          "cumulative_pct": 81.59
         }
       ],
       "pareto_count": 19,
       "pareto_pct": 19.4,
-      "hhi": 715.4,
-      "gini": 0.789
+      "hhi": 711.5,
+      "gini": 0.788
     }
   },
   "quadrant_summary": {
     "campaigns": {},
     "ads": {
       "medians": {
-        "ctr": 0.97,
+        "ctr": 0.98,
         "cvr": 17.86
       },
       "quadrants": {
@@ -4862,10 +4877,10 @@
           {
             "name": "22 - Reels - Produtos Fábrica",
             "ctr": 0.99,
-            "cvr": 41.21,
-            "spend": 4787.36,
-            "results": 668,
-            "cpa": 7.17
+            "cvr": 41.25,
+            "spend": 4824.0,
+            "results": 672,
+            "cpa": 7.18
           },
           {
             "name": "[Ads] [Pin 19] [Sudeste, Sul e Centro-Oeste]  [Campanha] [Forro] [Listas Lookalike]",
@@ -4884,28 +4899,20 @@
             "cpa": 15.73
           },
           {
-            "name": "17 - Reels - Pisos Tropicais Douglas",
-            "ctr": 0.97,
-            "cvr": 48.96,
-            "spend": 802.98,
-            "results": 118,
-            "cpa": 6.8
-          },
-          {
             "name": "ad05",
-            "ctr": 1.2,
-            "cvr": 96.2,
-            "spend": 675.11,
-            "results": 304,
-            "cpa": 2.22
+            "ctr": 1.16,
+            "cvr": 97.33,
+            "spend": 790.21,
+            "results": 364,
+            "cpa": 2.17
           },
           {
             "name": "ad01",
-            "ctr": 0.97,
-            "cvr": 95.16,
-            "spend": 464.05,
-            "results": 177,
-            "cpa": 2.62
+            "ctr": 1.0,
+            "cvr": 98.07,
+            "spend": 511.56,
+            "results": 203,
+            "cpa": 2.52
           },
           {
             "name": "[Ads] [Estático] [Pin 4] [Engajamento] [Sudeste, Sul e Centro-Oeste] [Campanha] [Piso] [Listas Lookalike]",
@@ -4917,11 +4924,11 @@
           },
           {
             "name": "ad03",
-            "ctr": 0.97,
-            "cvr": 74.58,
-            "spend": 142.77,
-            "results": 44,
-            "cpa": 3.24
+            "ctr": 0.98,
+            "cvr": 73.85,
+            "spend": 154.91,
+            "results": 48,
+            "cpa": 3.23
           },
           {
             "name": "[Forro 4 [Remarketing] [Forro] [Sudeste, Sul e Centro-Oeste] [Pessoas que viram 50% do video] [Página de Produto] [Passaram mais tempo no site]",
@@ -4953,7 +4960,7 @@
             "name": "18 - Reels  - Pisos Tropicais (demonstrações)",
             "ctr": 0.95,
             "cvr": 52.13,
-            "spend": 2530.54,
+            "spend": 2531.25,
             "results": 416,
             "cpa": 6.08
           },
@@ -4966,10 +4973,18 @@
             "cpa": 22.41
           },
           {
+            "name": "17 - Reels - Pisos Tropicais Douglas",
+            "ctr": 0.96,
+            "cvr": 48.76,
+            "spend": 820.84,
+            "results": 118,
+            "cpa": 6.96
+          },
+          {
             "name": "10 - Reels - Vídeo Bernardes — Cópia — Cópia",
             "ctr": 0.57,
             "cvr": 37.0,
-            "spend": 808.76,
+            "spend": 808.86,
             "results": 37,
             "cpa": 21.86
           },
@@ -4990,6 +5005,14 @@
             "cpa": 26.55
           },
           {
+            "name": "ad08",
+            "ctr": 0.96,
+            "cvr": 87.8,
+            "spend": 493.07,
+            "results": 144,
+            "cpa": 3.42
+          },
+          {
             "name": "12 - Reels  - Autenticidade",
             "ctr": 0.22,
             "cvr": 45.0,
@@ -4998,20 +5021,12 @@
             "cpa": 13.14
           },
           {
-            "name": "ad08",
-            "ctr": 0.95,
-            "cvr": 90.0,
-            "spend": 459.12,
-            "results": 135,
-            "cpa": 3.4
-          },
-          {
             "name": "ad09",
             "ctr": 0.79,
-            "cvr": 89.29,
-            "spend": 439.66,
-            "results": 100,
-            "cpa": 4.4
+            "cvr": 90.6,
+            "spend": 460.68,
+            "results": 106,
+            "cpa": 4.35
           },
           {
             "name": "15 - Reels - Fazenda Boa Vista (V1)",
@@ -5047,11 +5062,11 @@
           },
           {
             "name": "ad04",
-            "ctr": 0.94,
-            "cvr": 97.3,
-            "spend": 221.57,
-            "results": 72,
-            "cpa": 3.08
+            "ctr": 0.92,
+            "cvr": 98.7,
+            "spend": 236.17,
+            "results": 76,
+            "cpa": 3.11
           },
           {
             "name": "[Ads] [Escadas em madeira] [Engajamento] [Sudeste, Sul e Centro-Oeste] [Campanha] [Piso] [Listas Lookalike]",
@@ -5079,11 +5094,11 @@
           },
           {
             "name": "ad06",
-            "ctr": 0.47,
-            "cvr": 109.09,
-            "spend": 85.86,
-            "results": 12,
-            "cpa": 7.16
+            "ctr": 0.54,
+            "cvr": 123.08,
+            "spend": 91.1,
+            "results": 16,
+            "cpa": 5.69
           },
           {
             "name": "33 - Reels - Ripado Tauari",
@@ -5092,6 +5107,14 @@
             "spend": 81.91,
             "results": 13,
             "cpa": 6.3
+          },
+          {
+            "name": "ad10",
+            "ctr": 0.57,
+            "cvr": 18.18,
+            "spend": 74.7,
+            "results": 2,
+            "cpa": 37.35
           },
           {
             "name": "31 - Motion - Demolição",
@@ -5103,11 +5126,11 @@
           },
           {
             "name": "ad07",
-            "ctr": 0.84,
-            "cvr": 66.67,
-            "spend": 44.06,
+            "ctr": 0.95,
+            "cvr": 57.14,
+            "spend": 45.14,
             "results": 8,
-            "cpa": 5.51
+            "cpa": 5.64
           },
           {
             "name": "01 - Carrossel - Fotos Matadoras",
@@ -5129,11 +5152,11 @@
           },
           {
             "name": "ad02",
-            "ctr": 1.18,
-            "cvr": 16.53,
-            "spend": 5171.22,
-            "results": 214,
-            "cpa": 24.16
+            "ctr": 1.22,
+            "cvr": 15.79,
+            "spend": 5427.37,
+            "results": 222,
+            "cpa": 24.45
           },
           {
             "name": "[Ads] [Estático] [Pin 9] [Engajamento] [Sudeste, Sul e Centro-Oeste] [Campanha] [Deck] [Listas Lookalike]",
@@ -5171,7 +5194,7 @@
             "name": "10 - Reels - Vídeo Bernardes",
             "ctr": 1.31,
             "cvr": 12.41,
-            "spend": 478.95,
+            "spend": 478.96,
             "results": 18,
             "cpa": 26.61
           },
@@ -5388,33 +5411,33 @@
   "cross_analysis": {},
   "benchmarks": {
     "ctr": {
-      "actual": 1.52,
+      "actual": 1.51,
       "benchmark": 0.9,
-      "diff_pct": 68.9,
+      "diff_pct": 67.8,
       "status": "better",
       "unit": "%",
       "source": "Meta Ads Benchmark (RE/Construction)"
     },
     "cpc": {
-      "actual": 1.84,
+      "actual": 1.85,
       "benchmark": 1.81,
-      "diff_pct": 1.7,
+      "diff_pct": 2.2,
       "status": "ok",
       "unit": "R$",
       "source": "Meta Ads Benchmark (RE/Construction)"
     },
     "cpm": {
-      "actual": 27.93,
+      "actual": 27.96,
       "benchmark": 15.0,
-      "diff_pct": 86.2,
+      "diff_pct": 86.4,
       "status": "worse",
       "unit": "R$",
       "source": "Meta Ads Benchmark (general)"
     },
     "cpa": {
-      "actual": 15.09,
+      "actual": 14.75,
       "benchmark": 50.0,
-      "diff_pct": -69.8,
+      "diff_pct": -70.5,
       "status": "better",
       "unit": "R$",
       "source": "Meta Ads Benchmark (messaging)"
@@ -5451,16 +5474,16 @@
       "faturamento_meta": 10000000
     },
     "monthly_projection": {
-      "spend": 24089.4,
-      "results": 1596,
-      "budget_utilization_pct": 60.2
+      "spend": 23992.2,
+      "results": 1626,
+      "budget_utilization_pct": 60.0
     },
     "pace": {
       "current_month": "2026-04",
-      "days_elapsed": 18,
+      "days_elapsed": 19,
       "days_total": 30,
-      "month_spend_so_far": 11765.19,
-      "month_results_so_far": 1174
+      "month_spend_so_far": 12334.94,
+      "month_results_so_far": 1299
     }
   },
   "insights": [
@@ -5468,13 +5491,13 @@
       "type": "summary",
       "priority": "high",
       "title": "Resumo do Periodo",
-      "text": "Em 71 dias, investimos R$ 57,011.34 gerando 3778 resultados a CPA medio de R$ 15.09."
+      "text": "Em 72 dias, investimos R$ 57,581.09 gerando 3903 resultados a CPA medio de R$ 14.75."
     },
     {
       "type": "campaign",
       "priority": "high",
       "title": "Melhor Campanha (CPA)",
-      "text": "'04 - Campanha WhatsApp volume + MQL RIO /SP /BH Geral' tem CPA R$ 2.92 com 573 resultados."
+      "text": "'04 - Campanha WhatsApp volume + MQL RIO /SP /BH Geral' tem CPA R$ 2.79 com 656 resultados."
     },
     {
       "type": "creative",
@@ -5486,19 +5509,19 @@
       "type": "benchmark",
       "priority": "positive",
       "title": "CTR vs Benchmark",
-      "text": "CTR: 1.52% vs benchmark 0.9% (+68.9%)."
+      "text": "CTR: 1.51% vs benchmark 0.9% (+67.8%)."
     },
     {
       "type": "benchmark",
       "priority": "warning",
       "title": "CPM vs Benchmark",
-      "text": "CPM: 27.93R$ vs benchmark 15.0R$ (+86.2%)."
+      "text": "CPM: 27.96R$ vs benchmark 15.0R$ (+86.4%)."
     },
     {
       "type": "benchmark",
       "priority": "positive",
       "title": "CPA vs Benchmark",
-      "text": "CPA: 15.09R$ vs benchmark 50.0R$ (-69.8%)."
+      "text": "CPA: 14.75R$ vs benchmark 50.0R$ (-70.5%)."
     }
   ],
   "google_ads": {
